@@ -8,50 +8,68 @@
 \definecolor{plantucolor0002}{RGB}{173,209,178}
 \definecolor{plantucolor0003}{RGB}{0,0,0}
 \definecolor{plantucolor0004}{RGB}{179,141,34}
-\definecolor{plantucolor0005}{RGB}{255,255,255}
+\definecolor{plantucolor0005}{RGB}{132,190,132}
+\definecolor{plantucolor0006}{RGB}{3,128,72}
+\definecolor{plantucolor0007}{RGB}{255,255,255}
 \begin{tikzpicture}[yscale=-1
 ,pstyle0/.style={color=plantucolor0001,fill=plantucolor0000,line width=1.5pt}
 ,pstyle1/.style={color=plantucolor0001,fill=plantucolor0002,line width=1.0pt}
 ,pstyle2/.style={color=plantucolor0001,line width=1.5pt}
 ,pstyle3/.style={color=plantucolor0004,line width=1.0pt}
-,pstyle4/.style={color=plantucolor0001,line width=1.0pt}
+,pstyle5/.style={color=plantucolor0001,line width=1.0pt}
+,pstyle6/.style={color=plantucolor0001,fill=white,line width=1.0pt}
 ]
-\draw[pstyle0] (166.5pt,8pt) rectangle (264.1696pt,68.8047pt);
-\draw[pstyle1] (191.2173pt,24pt) ellipse (11pt and 11pt);
-\node at (191.2173pt,24pt)[]{\textbf{\Large C}};
-\node at (207.3766pt,17.0156pt)[below right,color=black]{Trajet};
-\draw[pstyle2] (167.5pt,40pt) -- (263.1696pt,40pt);
-\draw[pstyle3] (177.5pt,46pt) -- (181.5pt,50pt) -- (177.5pt,54pt) -- (173.5pt,50pt) -- cycle;
-\node at (186.5pt,44pt)[below right,color=black]{nom : char*};
-\draw[pstyle2] (167.5pt,60.8047pt) -- (263.1696pt,60.8047pt);
-\draw[pstyle0] (6pt,146pt) rectangle (168.8409pt,232.4141pt);
-\draw[pstyle1] (38.2437pt,162pt) ellipse (11pt and 11pt);
-\node at (38.2437pt,162pt)[]{\textbf{\Large C}};
-\node at (56.0757pt,155.0156pt)[below right,color=black]{TrajetSimple};
-\draw[pstyle2] (7pt,178pt) -- (167.8409pt,178pt);
-\draw[pstyle3] (17pt,184pt) -- (21pt,188pt) -- (17pt,192pt) -- (13pt,188pt) -- cycle;
-\node at (26pt,182pt)[below right,color=black]{villeDepart : char*};
-\draw[pstyle3] (17pt,196.8047pt) -- (21pt,200.8047pt) -- (17pt,204.8047pt) -- (13pt,200.8047pt) -- cycle;
-\node at (26pt,194.8047pt)[below right,color=black]{villeArrivee : char*};
-\draw[pstyle3] (17pt,209.6094pt) -- (21pt,213.6094pt) -- (17pt,217.6094pt) -- (13pt,213.6094pt) -- cycle;
-\node at (26pt,207.6094pt)[below right,color=black]{typeTransport : char*};
-\draw[pstyle2] (7pt,224.4141pt) -- (167.8409pt,224.4141pt);
-\draw[pstyle0] (204.5pt,158.5pt) rectangle (342.6806pt,219.3047pt);
-\draw[pstyle1] (219.5pt,174.5pt) ellipse (11pt and 11pt);
-\node at (219.5pt,174.5pt)[]{\textbf{\Large C}};
-\node at (233.5pt,167.5156pt)[below right,color=black]{TrajetCompose};
-\draw[pstyle2] (205.5pt,190.5pt) -- (341.6806pt,190.5pt);
-\draw[pstyle3] (215.5pt,196.5pt) -- (219.5pt,200.5pt) -- (215.5pt,204.5pt) -- (211.5pt,200.5pt) -- cycle;
-\node at (224.5pt,194.5pt)[below right,color=black]{trajets : Trajet*};
-\draw[pstyle2] (205.5pt,211.3047pt) -- (341.6806pt,211.3047pt);
-\draw[pstyle4] (176.1009pt,84.8248pt) ..controls (159.531pt,104.3073pt) and (140.3661pt,126.841pt) .. (124.108pt,145.957pt);
-\draw[pstyle4] (170.9987pt,80.0191pt) -- (189.2884pt,69.3191pt) -- (181.6633pt,89.0892pt) -- (170.9987pt,80.0191pt) -- cycle;
-\draw[pstyle4] (228.2567pt,88.5267pt) ..controls (231.0176pt,97.7603pt) and (234.1311pt,107.2462pt) .. (237.5pt,116pt) ..controls (242.9814pt,130.2431pt) and (250.2451pt,145.461pt) .. (256.8117pt,158.2962pt);
-\draw[pstyle4] (221.4686pt,90.2447pt) -- (222.8141pt,69.0978pt) -- (234.9496pt,86.4682pt) -- (221.4686pt,90.2447pt) -- cycle;
-\draw[pstyle4] (257.0245pt,146.249pt) ..controls (247.5746pt,121.7282pt) and (235.9285pt,91.5085pt) .. (227.3771pt,69.3191pt);
-\draw[color=plantucolor0001,fill=white,line width=1.0pt] (261.738pt,158.4796pt) -- (263.3127pt,151.4425pt) -- (257.4226pt,147.2824pt) -- (255.8479pt,154.3195pt) -- (261.738pt,158.4796pt) -- cycle;
-\node at (245.5pt,100pt)[below right,color=black]{composé de};
-\node at (228.1703pt,135.1985pt)[below right,color=black]{0..1};
-\node at (200.1149pt,76.8955pt)[below right,color=black]{1..*};
+\draw[pstyle0] (113.5pt,8pt) rectangle (317.5683pt,81.6094pt);
+\draw[pstyle1] (175.5358pt,24pt) ellipse (11pt and 11pt);
+\node at (175.5358pt,24pt)[]{\textbf{\Large C}};
+\node at (196.0358pt,17.0156pt)[below right,color=black]{Catalogue};
+\draw[pstyle2] (114.5pt,40pt) -- (316.5683pt,40pt);
+\draw[pstyle3] (124.5pt,46pt) -- (128.5pt,50pt) -- (124.5pt,54pt) -- (120.5pt,50pt) -- cycle;
+\node at (133.5pt,44pt)[below right,color=black]{trajets : Trajet**};
+\draw[pstyle2] (114.5pt,60.8047pt) -- (316.5683pt,60.8047pt);
+\draw[color=plantucolor0006,fill=plantucolor0005,line width=1.0pt] (124.5pt,71.8047pt) ellipse (3pt and 3pt);
+\node at (133.5pt,64.8047pt)[below right,color=black]{ajouterTrajet(Trajet* trajet)};
+\draw[pstyle0] (166.5pt,159pt) rectangle (264.1696pt,219.8047pt);
+\draw[pstyle1] (191.2173pt,175pt) ellipse (11pt and 11pt);
+\node at (191.2173pt,175pt)[]{\textbf{\Large C}};
+\node at (207.3766pt,168.0156pt)[below right,color=black]{Trajet};
+\draw[pstyle2] (167.5pt,191pt) -- (263.1696pt,191pt);
+\draw[pstyle3] (177.5pt,197pt) -- (181.5pt,201pt) -- (177.5pt,205pt) -- (173.5pt,201pt) -- cycle;
+\node at (186.5pt,195pt)[below right,color=black]{nom : char*};
+\draw[pstyle2] (167.5pt,211.8047pt) -- (263.1696pt,211.8047pt);
+\draw[pstyle0] (6pt,297pt) rectangle (168.8409pt,383.4141pt);
+\draw[pstyle1] (38.2437pt,313pt) ellipse (11pt and 11pt);
+\node at (38.2437pt,313pt)[]{\textbf{\Large C}};
+\node at (56.0757pt,306.0156pt)[below right,color=black]{TrajetSimple};
+\draw[pstyle2] (7pt,329pt) -- (167.8409pt,329pt);
+\draw[pstyle3] (17pt,335pt) -- (21pt,339pt) -- (17pt,343pt) -- (13pt,339pt) -- cycle;
+\node at (26pt,333pt)[below right,color=black]{villeDepart : char*};
+\draw[pstyle3] (17pt,347.8047pt) -- (21pt,351.8047pt) -- (17pt,355.8047pt) -- (13pt,351.8047pt) -- cycle;
+\node at (26pt,345.8047pt)[below right,color=black]{villeArrivee : char*};
+\draw[pstyle3] (17pt,360.6094pt) -- (21pt,364.6094pt) -- (17pt,368.6094pt) -- (13pt,364.6094pt) -- cycle;
+\node at (26pt,358.6094pt)[below right,color=black]{typeTransport : char*};
+\draw[pstyle2] (7pt,375.4141pt) -- (167.8409pt,375.4141pt);
+\draw[pstyle0] (204.5pt,309.5pt) rectangle (342.6806pt,370.3047pt);
+\draw[pstyle1] (219.5pt,325.5pt) ellipse (11pt and 11pt);
+\node at (219.5pt,325.5pt)[]{\textbf{\Large C}};
+\node at (233.5pt,318.5156pt)[below right,color=black]{TrajetCompose};
+\draw[pstyle2] (205.5pt,341.5pt) -- (341.6806pt,341.5pt);
+\draw[pstyle3] (215.5pt,347.5pt) -- (219.5pt,351.5pt) -- (215.5pt,355.5pt) -- (211.5pt,351.5pt) -- cycle;
+\node at (224.5pt,345.5pt)[below right,color=black]{trajets : Trajet**};
+\draw[pstyle2] (205.5pt,362.3047pt) -- (341.6806pt,362.3047pt);
+\draw[pstyle5] (176.1009pt,235.8248pt) ..controls (159.531pt,255.3073pt) and (140.3661pt,277.841pt) .. (124.108pt,296.957pt);
+\draw[pstyle5] (170.9987pt,231.0191pt) -- (189.2884pt,220.3191pt) -- (181.6633pt,240.0892pt) -- (170.9987pt,231.0191pt) -- cycle;
+\draw[pstyle5] (228.2567pt,239.5267pt) ..controls (231.0176pt,248.7603pt) and (234.1311pt,258.2462pt) .. (237.5pt,267pt) ..controls (242.9814pt,281.2431pt) and (250.2451pt,296.461pt) .. (256.8117pt,309.2962pt);
+\draw[pstyle5] (221.4686pt,241.2447pt) -- (222.8141pt,220.0978pt) -- (234.9496pt,237.4682pt) -- (221.4686pt,241.2447pt) -- cycle;
+\draw[pstyle5] (257.0245pt,297.249pt) ..controls (247.5746pt,272.7282pt) and (235.9285pt,242.5085pt) .. (227.3771pt,220.3191pt);
+\draw[pstyle6] (261.738pt,309.4796pt) -- (263.3127pt,302.4425pt) -- (257.4226pt,298.2824pt) -- (255.8479pt,305.3195pt) -- (261.738pt,309.4796pt) -- cycle;
+\node at (245.5pt,251pt)[below right,color=black]{composé de};
+\node at (228.1703pt,286.1985pt)[below right,color=black]{0..1};
+\node at (200.1149pt,227.8955pt)[below right,color=black]{1..*};
+\draw[pstyle5] (215.5pt,95.2739pt) ..controls (215.5pt,116.4045pt) and (215.5pt,140.3069pt) .. (215.5pt,158.7503pt);
+\draw[pstyle6] (215.5pt,82.2123pt) -- (211.5pt,88.2123pt) -- (215.5pt,94.2123pt) -- (219.5pt,88.2123pt) -- (215.5pt,82.2123pt) -- cycle;
+\node at (216.5pt,113pt)[below right,color=black]{composé de};
+\node at (186.2793pt,89.6611pt)[below right,color=black]{0..*};
+\node at (205.6678pt,135.8951pt)[below right,color=black]{1};
 \end{tikzpicture}
 \end{document}

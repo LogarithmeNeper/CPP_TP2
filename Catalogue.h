@@ -32,7 +32,7 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
   void ajouterTrajet(Trajet* unTrajet);
-  // Mode d'emploi : 
+  // Mode d'emploi : Appeler 
   //
   // Contrat :
   //

@@ -1,5 +1,10 @@
 @startuml
 
+class Catalogue {
+  #trajets : Trajet**
+  +ajouterTrajet(Trajet* trajet)
+}
+
 class Trajet {
   #nom : char*
 }
@@ -11,8 +16,10 @@ class TrajetSimple extends Trajet {
 }
 
 class TrajetCompose extends Trajet  {
-  #trajets : Trajet*
+  #trajets : Trajet**
 }
+
+Catalogue "0..*" o-- "1" Trajet : "composé de"
 
 TrajetCompose "0..1" o-- "1..*" Trajet : "composé de"
 
