@@ -28,7 +28,7 @@ class Trajet
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  // type Méthode ( liste des paramètres );
+  virtual void afficher();
   // Mode d'emploi :
   //
   // Contrat :

@@ -23,7 +23,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void ajouterTrajet(Trajet* unTrajet)
+void Catalogue::ajouterTrajet(Trajet* unTrajet)
 // Algorithme : Ajoute un trajet à la liste de trajets.
 // Si la liste n'est pas assez grande, multiplie sa capacité par 2.
 //
