@@ -28,25 +28,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-TrajetCompose & TrajetCompose::operator = ( const TrajetCompose & unTrajetCompose )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-TrajetCompose::TrajetCompose ( const TrajetCompose & unTrajetCompose )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de TrajetCompose" << endl;
-#endif
-} //----- Fin de TrajetCompose (constructeur de copie)
-
 
 TrajetCompose::TrajetCompose ( )
 // Algorithme :

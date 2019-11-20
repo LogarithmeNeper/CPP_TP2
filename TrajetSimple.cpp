@@ -29,24 +29,7 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
-//------------------------------------------------- Surcharge d'opérateurs
-TrajetSimple & TrajetSimple::operator = ( const TrajetSimple & unTrajetSimple )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-TrajetSimple::TrajetSimple ( const TrajetSimple & unTrajetSimple )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de TrajetSimple" << endl;
-#endif
-} //----- Fin de TrajetSimple (constructeur de copie)
-
 
 TrajetSimple::TrajetSimple ( )
 // Algorithme :

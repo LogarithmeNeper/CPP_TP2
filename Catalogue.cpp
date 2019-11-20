@@ -1,9 +1,9 @@
 /*************************************************************************
-                           Catalogue  -  description
-                             -------------------
-    début                : 20/11/2019
-    copyright            : (C) 2019 par Charles Javerliat
-    e-mail               : charles.javerliat@insa-lyon.fr
+Catalogue  -  description
+-------------------
+début                : 20/11/2019
+copyright            : (C) 2019 par Charles Javerliat
+e-mail               : charles.javerliat@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe Catalogue (fichier Catalogue.cpp) ------------
@@ -22,51 +22,40 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Catalogue::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-Catalogue & Catalogue::operator = ( const Catalogue & unCatalogue )
+void ajouterTrajet(Trajet* unTrajet)
 // Algorithme :
 //
 {
-} //----- Fin de operator =
 
-
-//-------------------------------------------- Constructeurs - destructeur
-Catalogue::Catalogue ( const Catalogue & unCatalogue )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de Catalogue" << endl;
-#endif
-} //----- Fin de Catalogue (constructeur de copie)
-
+} //----- Fin de Méthode
 
 Catalogue::Catalogue ( )
-// Algorithme :
+// Algorithme : Crée le tableau de trajets sur le tas
 //
 {
-#ifdef MAP
-    cout << "Appel au constructeur de Catalogue" << endl;
-#endif
+  #ifdef MAP
+  cout << "Appel au constructeur de Catalogue" << endl;
+  #endif
+
+  nbTrajets = 0;
+  capaciteTrajets = 10;
+  trajets = new Trajet[capaciteTrajets];
+
 } //----- Fin de Catalogue
 
 
 Catalogue::~Catalogue ( )
-// Algorithme :
+// Algorithme : Détruit le tableau de trajets
 //
 {
-#ifdef MAP
-    cout << "Appel au destructeur de Catalogue" << endl;
-#endif
-} //----- Fin de ~Catalogue
+  #ifdef MAP
+  cout << "Appel au destructeur de Catalogue" << endl;
+  #endif
 
+  delete [] trajets;
+
+} //----- Fin de ~Catalogue
 
 //------------------------------------------------------------------ PRIVE
 

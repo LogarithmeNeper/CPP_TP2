@@ -37,20 +37,7 @@ public:
   //
 
 
-  //------------------------------------------------- Surcharge d'opérateurs
-  TrajetSimple & operator = ( const TrajetSimple & unTrajetSimple );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
-
-
   //-------------------------------------------- Constructeurs - destructeur
-  TrajetSimple ( const TrajetSimple & unTrajetSimple );
-  // Mode d'emploi (constructeur de copie) :
-  //
-  // Contrat :
-  //
 
   TrajetSimple ( );
   // Mode d'emploi :

@@ -35,22 +35,8 @@ public:
   //
   // Contrat :
   //
-
-
-  //------------------------------------------------- Surcharge d'opérateurs
-  TrajetCompose & operator = ( const TrajetCompose & unTrajetCompose );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
-
-
+  
   //-------------------------------------------- Constructeurs - destructeur
-  TrajetCompose ( const TrajetCompose & unTrajetCompose );
-  // Mode d'emploi (constructeur de copie) :
-  //
-  // Contrat :
-  //
 
   TrajetCompose ( );
   // Mode d'emploi :
@@ -74,7 +60,7 @@ protected:
   /**
   * Liste ordonnée de trajets simples
   */
-  Trajet** trajets;
+  Trajet* trajets;
 
 };
 

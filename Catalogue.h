@@ -30,28 +30,15 @@ class Catalogue
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  // type Méthode ( liste des paramètres );
+
+  void ajouterTrajet(Trajet* unTrajet);
   // Mode d'emploi :
   //
   // Contrat :
   //
-
-
-  //------------------------------------------------- Surcharge d'opérateurs
-  Catalogue & operator = ( const Catalogue & unCatalogue );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
-
 
   //-------------------------------------------- Constructeurs - destructeur
-  Catalogue ( const Catalogue & unCatalogue );
-  // Mode d'emploi (constructeur de copie) :
-  //
-  // Contrat :
-  //
-
+  
   Catalogue ( );
   // Mode d'emploi :
   //
@@ -70,6 +57,16 @@ protected:
   //----------------------------------------------------- Méthodes protégées
 
   //----------------------------------------------------- Attributs protégés
+  /**
+  * Nombre de trajets dans le catalogue
+  */
+  unsigned int nbTrajets;
+
+  /**
+  * Capacité de la liste de trajets
+  */
+  unsigned int capaciteTrajets;
+
   /**
   * Liste des trajets du catalogue
   */
