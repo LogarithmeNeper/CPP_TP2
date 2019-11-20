@@ -32,13 +32,13 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
   void ajouterTrajet(Trajet* unTrajet);
-  // Mode d'emploi :
+  // Mode d'emploi : 
   //
   // Contrat :
   //
 
   //-------------------------------------------- Constructeurs - destructeur
-  
+
   Catalogue ( );
   // Mode d'emploi :
   //

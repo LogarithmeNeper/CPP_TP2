@@ -24,9 +24,26 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 void ajouterTrajet(Trajet* unTrajet)
-// Algorithme :
+// Algorithme : Ajoute un trajet à la liste de trajets.
+// Si la liste n'est pas assez grande, multiplie sa capacité par 2.
 //
 {
+
+  if(nbTrajets == capaciteTrajets) {
+    //On élargit la liste
+    Trajet** newTrajets = new Trajet*[capaciteTrajets * 2];
+
+    //Copie l'ancienne liste des trajets dans la nouvelle
+    for(int i = 0; i < nbTrajets; i++) {
+      newTrajets[i] = trajets[i];
+    }
+
+    delete [] trajets;
+    trajets = newTrajets;
+  }
+
+  //On rajoute l'élément dans la liste
+  trajets[nbTrajets++] = unTrajet;
 
 } //----- Fin de Méthode
 
