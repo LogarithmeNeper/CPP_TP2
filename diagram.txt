@@ -1,0 +1,19 @@
+@startuml
+
+class Trajet {
+  #nom : char*
+}
+
+class TrajetSimple extends Trajet {
+  #villeDepart : char*
+  #villeArrivee : char*
+  #typeTransport : char*
+}
+
+class TrajetCompose extends Trajet  {
+  #trajetsSimples : TrajetSimple*
+}
+
+TrajetCompose "0..1" o-- "1..*" Trajet : "composé de"
+
+@enduml
