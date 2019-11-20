@@ -30,12 +30,19 @@ class TrajetCompose : public Trajet
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  // type Méthode ( liste des paramètres );
+
+  void afficher() const override;
   // Mode d'emploi :
   //
   // Contrat :
   //
-  
+
+  bool estValide() const override;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
   //-------------------------------------------- Constructeurs - destructeur
 
   TrajetCompose ( );

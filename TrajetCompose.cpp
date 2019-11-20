@@ -22,11 +22,21 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type TrajetCompose::Méthode ( liste des paramètres )
+
+void TrajetCompose::afficher() const
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+
+} //----- Fin de afficher
+
+bool TrajetCompose::estValide() const
+// Algorithme :
+//
+{
+
+  return true;
+} //----- Fin de estValide
 
 //-------------------------------------------- Constructeurs - destructeur
 

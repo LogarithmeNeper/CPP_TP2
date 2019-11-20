@@ -28,24 +28,36 @@ void Catalogue::ajouterTrajet(Trajet* unTrajet)
 // Si la liste n'est pas assez grande, multiplie sa capacité par 2.
 //
 {
+  if(unTrajet == NULL)
+  {
+    cout << "Impossible de rajouter un trajet NULL au catalogue.\r\n" << endl;
+  }
+  else if(contient(unTrajet))
+  {
+    cout << "Le catalogue contient déjà ce trajet.\r\n" << endl;
+  }
+  else
+  {
+    if(nbTrajets == capaciteTrajets)
+    {
+      //On élargit la liste
+      Trajet** newTrajets = new Trajet*[capaciteTrajets * 2];
 
-  if(nbTrajets == capaciteTrajets) {
-    //On élargit la liste
-    Trajet** newTrajets = new Trajet*[capaciteTrajets * 2];
+      //Copie l'ancienne liste des trajets dans la nouvelle
+      for(unsigned int i = 0; i < nbTrajets; i++)
+      {
+        newTrajets[i] = trajets[i];
+      }
 
-    //Copie l'ancienne liste des trajets dans la nouvelle
-    for(int i = 0; i < nbTrajets; i++) {
-      newTrajets[i] = trajets[i];
+      delete [] trajets;
+      trajets = newTrajets;
     }
 
-    delete [] trajets;
-    trajets = newTrajets;
+    //On rajoute l'élément dans la liste
+    trajets[nbTrajets++] = unTrajet;
   }
 
-  //On rajoute l'élément dans la liste
-  trajets[nbTrajets++] = unTrajet;
-
-} //----- Fin de Méthode
+} //----- Fin de ajouterTrajet
 
 Catalogue::Catalogue ( )
 // Algorithme : Crée le tableau de trajets sur le tas
@@ -57,7 +69,7 @@ Catalogue::Catalogue ( )
 
   nbTrajets = 0;
   capaciteTrajets = 10;
-  trajets = new Trajet[capaciteTrajets];
+  trajets = new Trajet*[capaciteTrajets];
 
 } //----- Fin de Catalogue
 
@@ -77,3 +89,17 @@ Catalogue::~Catalogue ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+bool Catalogue::contient(const Trajet* unTrajet) const
+{
+
+  for(unsigned int i = 0; i < nbTrajets; i++)
+  {
+    if(trajets[i] == unTrajet)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}

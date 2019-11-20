@@ -30,12 +30,18 @@ class TrajetSimple : public Trajet
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  // type Méthode ( liste des paramètres );
+
+  void afficher() const override;
   // Mode d'emploi :
   //
   // Contrat :
   //
 
+  bool estValide() const override;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
 
   //-------------------------------------------- Constructeurs - destructeur
 
@@ -70,6 +76,14 @@ protected:
   * Type de transport pour aller d'une ville à l'autre
   */
   char* typeTransport;
+
+private:
+
+  static bool strempty(const char* str);
+  // Mode d'emploi : Retourne vrai si la chaîne de caractères est vide
+  //
+  // Contrat : Si la chaîne de caractère ne contient aucun caractères ou que des espaces, retourne vrai
+  //
 
 };
 

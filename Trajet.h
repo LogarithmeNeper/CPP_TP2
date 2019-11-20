@@ -28,7 +28,13 @@ class Trajet
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  virtual void afficher();
+  virtual void afficher() const = 0;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  virtual bool estValide() const = 0;
   // Mode d'emploi :
   //
   // Contrat :

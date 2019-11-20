@@ -23,11 +23,6 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 //-------------------------------------------- Constructeurs - destructeur
 
 Trajet::Trajet ( )

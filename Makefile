@@ -2,10 +2,8 @@ COMP=g++
 FLAGS=-g -ansi -pedantic -Wall -std=c++11 -DMAP
 EXEC=catalogue
 
-catalogue: main.o
+catalogue: main.o Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o
 	$(COMP) -o $@ $^
-
-main.o: Catalogue.o Trajet.o TrajetSimple.o TrajetCompose.o
 
 #Crée un fichier binaire à partir d'un fichier source .cpp
 %.o: %.cpp %.h

@@ -32,9 +32,10 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
   void ajouterTrajet(Trajet* unTrajet);
-  // Mode d'emploi : Appeler 
+  // Mode d'emploi : Ajoute le trajet au catalogue si ce dernier est valide
   //
-  // Contrat :
+  // Contrat : Déclenche une erreur si le trajet est NULL, déjà présent, ou non valide (cf Trajet#estValide)
+  // Rajoute le trajet dans tous les autres cas.
   //
 
   //-------------------------------------------- Constructeurs - destructeur
@@ -55,6 +56,12 @@ public:
 
 protected:
   //----------------------------------------------------- Méthodes protégées
+
+  bool contient(const Trajet* unTrajet) const;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
 
   //----------------------------------------------------- Attributs protégés
   /**
