@@ -10,6 +10,8 @@ e-mail               : charles.javerliat@insa-lyon.fr
 #if ! defined ( CATALOGUE_H )
 #define CATALOGUE_H
 
+#include "Trajet.h"
+
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes

@@ -74,7 +74,7 @@ protected:
   /**
   * Liste ordonnée de trajets simples
   */
-  TrajetSimple** trajetsSimples;
+  Trajet** trajets;
 
 };
 

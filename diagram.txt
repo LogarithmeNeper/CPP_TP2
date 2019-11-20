@@ -11,7 +11,7 @@ class TrajetSimple extends Trajet {
 }
 
 class TrajetCompose extends Trajet  {
-  #trajetsSimples : TrajetSimple*
+  #trajets : Trajet*
 }
 
 TrajetCompose "0..1" o-- "1..*" Trajet : "composé de"

@@ -10,6 +10,8 @@ e-mail               : charles.javerliat@insa-lyon.fr
 #if ! defined ( TRAJET_SIMPLE_H )
 #define TRAJET_SIMPLE_H
 
+#include "Trajet.h"
+
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
