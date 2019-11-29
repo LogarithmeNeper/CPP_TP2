@@ -1,50 +1,51 @@
 /*************************************************************************
-Trajet  -  description
+MaillonListeChaineeTrajets  -  description
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
 e-mail               : charles.javerliat@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe Trajet (fichier Trajet.h) ----------------
-#if ! defined ( TRAJET_H )
-#define TRAJET_H
+//---------- Interface de la classe MaillonListeChaineeTrajets (fichier MaillonListeChaineeTrajets.h) ----------------
+#if ! defined ( MAILLON_LISTE_CHAINEE_TRAJETS_H )
+#define MAILLON_LISTE_CHAINEE_TRAJETS_H
 
 //--------------------------------------------------- Interfaces utilisées
 
-using namespace std;
-#include <iostream>
+#include "Trajet.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe Trajet
+// Rôle de la classe MaillonListeChaineeTrajets
 //
 //
 //------------------------------------------------------------------------
 
-class Trajet
+class MaillonListeChaineeTrajets
 {
   //----------------------------------------------------------------- PUBLIC
 
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  friend ostream & operator<< (ostream & out, const Trajet & unTrajet);
+  friend ostream & operator<<(ostream & out, const MaillonListeChaineeTrajets & maillon);
+
+  MaillonListeChaineeTrajets* getMaillonSuivant() const;
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual bool estValide() const;
+  void setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon);
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  const char* getNom() const;
+  Trajet* getTrajet() const;
   // Mode d'emploi :
   //
   // Contrat :
@@ -52,13 +53,13 @@ public:
 
   //-------------------------------------------- Constructeurs - destructeur
 
-  Trajet ( const char* unNom );
+  MaillonListeChaineeTrajets ( Trajet* unTrajet );
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual ~Trajet ( );
+  virtual ~MaillonListeChaineeTrajets ( );
   // Mode d'emploi :
   //
   // Contrat :
@@ -69,21 +70,14 @@ public:
 protected:
   //----------------------------------------------------- Méthodes protégées
 
-  virtual void print(ostream & out) const = 0;
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
-
   //----------------------------------------------------- Attributs protégés
 
-  /**
-  * Le nom du trajet
-  */
-  const char* nom;
+  Trajet* trajet;
+
+  MaillonListeChaineeTrajets* maillonSuivant;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de Trajet
+//-------------------------------- Autres définitions dépendantes de MaillonListeChaineeTrajets
 
-#endif // TRAJET_H
+#endif // MAILLON_LISTE_CHAINEE_TRAJETS_H

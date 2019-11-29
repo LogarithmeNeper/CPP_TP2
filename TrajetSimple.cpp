@@ -24,86 +24,72 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void TrajetSimple::afficher() const
-// Algorithme :
-//
-{
-
-} //----- Fin de afficher
-
 bool TrajetSimple::estValide() const
 // Algorithme : Vérifie toutes les conditions de validité de manière séquentielle
 //
 {
-  //Si au moins un des deux noms est NULL
-  if(villeDepart == NULL || villeArrivee == NULL) {
+
+  if(villeDepart == NULL) {
+    std::cerr << "La ville de départ est invalide : NULL non autorisé." << std::endl;
     return false;
   }
 
-  //Si au moins un des deux noms est vide
-  if(strempty(villeDepart) || strempty(villeArrivee)) {
+  if(villeArrivee == NULL) {
+    std::cerr << "La ville d'arrivée est invalide : NULL non autorisé." << std::endl;
     return false;
   }
 
-  //Si la ville d'arrivée est égale à la vide de départ
-  if(strcmp(villeDepart, villeArrivee) == 0) {
+  if(!villeDepart->estValide()) {
+    std::cerr << "La ville de départ est invalide." << std::endl;
     return false;
   }
 
-  //Si le type de transport est NULL
+  if(!villeArrivee->estValide()) {
+    std::cerr << "La ville d'arrivée est invalide." << std::endl;
+    return false;
+  }
+
+  if(villeDepart == villeArrivee) {
+    std::cerr << "La ville d'arrivée ne peut pas être identique à la ville de départ." << std::endl;
+    return false;
+  }
+
   if(typeTransport == NULL) {
+    std::cerr << "Le type de transport est invalide : NULL non autorisé." << std::endl;
     return false;
   }
 
-  //Si le type de transport est vide
-  if(strempty(typeTransport)) {
+  if(!typeTransport->estValide()) {
+    std::cerr << "Le type de transport est invalide." << std::endl;
     return false;
   }
 
-  return true;
+  return Trajet::estValide();
 } //----- Fin de estValide
 
 
 //-------------------------------------------- Constructeurs - destructeur
 
-TrajetSimple::TrajetSimple ( )
-// Algorithme :
-//
+TrajetSimple::TrajetSimple ( const char* unNom, Ville* uneVilleDepart, Ville* uneVilleArrivee, TypeTransport* unTypeTransport )
+  : Trajet(unNom), villeDepart(uneVilleDepart), villeArrivee(uneVilleArrivee), typeTransport(unTypeTransport)
 {
   #ifdef MAP
   cout << "Appel au constructeur de TrajetSimple" << endl;
   #endif
 } //----- Fin de TrajetSimple
 
-
-TrajetSimple::~TrajetSimple ( )
-// Algorithme :
-//
+TrajetSimple::~TrajetSimple (  )
 {
   #ifdef MAP
   cout << "Appel au destructeur de TrajetSimple" << endl;
   #endif
 } //----- Fin de ~TrajetSimple
 
-
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
 
-//----------------------------------------------------- Méthodes privées
-
-bool TrajetSimple::strempty(const char* str)
-// Algorithme : Parcourt tous les caractères de la chaîne de caractère
-// Dès qu'un caractère différent d'une espace est rencontré, retourne faux
-// Si la chaîne de caractères ne contient aucun caractère ou que des espaces, retourne vrai
+void TrajetSimple::print(ostream & out) const
 {
-
-  for(unsigned int i = 0; i < strlen(str); i++)
-  {
-    if(str[i] != ' ')
-    {
-      return false;
-    }
-  }
-  return true;
+  out << nom << " = de " << *villeDepart << " à " << *villeArrivee << " en " << *typeTransport;
 }

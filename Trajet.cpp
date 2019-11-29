@@ -16,6 +16,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Trajet.h"
+#include "StringHelper.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -23,11 +24,43 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-//-------------------------------------------- Constructeurs - destructeur
-
-Trajet::Trajet ( )
+ostream & operator<< (ostream & out, const Trajet & unTrajet)
 // Algorithme :
 //
+{
+  unTrajet.print(out);
+  return out;
+}
+
+bool Trajet::estValide() const
+// Algorithme :
+//
+{
+
+  if(nom == NULL) {
+    std::cerr << "Le nom du trajet est invalide : NULL non autorisé." << std::endl;
+    return false;
+  }
+
+  if(strempty(nom)) {
+    std::cerr << "Le nom du trajet est invalide : nom vide non autorisé." << std::endl;
+    return false;
+  }
+
+  return true;
+
+} //----- Fin de estValide
+
+const char* Trajet::getNom() const
+// Algorithme :
+//
+{
+  return nom;
+} //----- Fin de getNom
+
+//-------------------------------------------- Constructeurs - destructeur
+
+Trajet::Trajet ( const char* unNom ) : nom(unNom)
 {
 #ifdef MAP
     cout << "Appel au constructeur de Trajet" << endl;

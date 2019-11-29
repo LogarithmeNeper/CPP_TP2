@@ -11,8 +11,13 @@ e-mail               : charles.javerliat@insa-lyon.fr
 #define TRAJET_COMPOSE_H
 
 #include "Trajet.h"
+#include "TrajetSimple.h"
+#include "ListeChaineeTrajets.h"
 
 //--------------------------------------------------- Interfaces utilisées
+
+using namespace std;
+#include <iostream>
 
 //------------------------------------------------------------- Constantes
 
@@ -31,13 +36,16 @@ class TrajetCompose : public Trajet
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  void afficher() const override;
-  // Mode d'emploi :
+  bool estValide() const override;
+  // Mode d'emploi : Renvoie vrai ou faux selon si le trajet est valide ou non
   //
-  // Contrat :
+  // Contrat : Renvoie faux dans les cas suivants:
+  //  - Le nom du trajet est vide ou NULL
+  //  - L'un des trajets simples n'est pas valide
+  //  - Le trajet composé est vide
   //
 
-  bool estValide() const override;
+  void ajouter(TrajetSimple* unTrajetSimple);
   // Mode d'emploi :
   //
   // Contrat :
@@ -45,7 +53,7 @@ public:
 
   //-------------------------------------------- Constructeurs - destructeur
 
-  TrajetCompose ( );
+  TrajetCompose ( const char* unNom );
   // Mode d'emploi :
   //
   // Contrat :
@@ -62,12 +70,18 @@ public:
 protected:
   //----------------------------------------------------- Méthodes protégées
 
+  void print(ostream & out) const override;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
   //----------------------------------------------------- Attributs protégés
 
   /**
-  * Liste ordonnée de trajets simples
+  * Liste chainée de trajets simples
   */
-  Trajet* trajets;
+  ListeChaineeTrajets* listeTrajetsSimples;
 
 };
 

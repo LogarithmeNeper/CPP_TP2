@@ -1,48 +1,42 @@
 /*************************************************************************
-Catalogue  -  description
+ListeChaineeTrajets  -  description
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
 e-mail               : charles.javerliat@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe Catalogue (fichier Catalogue.h) ----------------
-#if ! defined ( CATALOGUE_H )
-#define CATALOGUE_H
+//---------- Interface de la classe ListeChaineeTrajets (fichier ListeChaineeTrajets.h) ----------------
+#if ! defined ( LISTE_CHAINEE_TRAJETS_H )
+#define LISTE_CHAINEE_TRAJETS_H
 
 //--------------------------------------------------- Interfaces utilisées
 
-#include <iostream>
-using namespace std;
-
-#include "Ville.h"
-#include "Trajet.h"
-#include "ListeChaineeTrajets.h"
+#include "MaillonListeChaineeTrajets.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe Catalogue
+// Rôle de la classe ListeChaineeTrajets
 //
 //
 //------------------------------------------------------------------------
 
-class Catalogue
+class ListeChaineeTrajets
 {
   //----------------------------------------------------------------- PUBLIC
 
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  friend ostream & operator<<(ostream & out, const Catalogue & catalogue);
+  friend ostream & operator<<(ostream & out, const ListeChaineeTrajets & listeChaineeTrajets);
 
   void ajouter(Trajet* unTrajet);
-  // Mode d'emploi : Ajoute le trajet au catalogue si ce dernier est valide
+  // Mode d'emploi :
   //
-  // Contrat : Déclenche une erreur si le trajet est NULL, déjà présent, ou non valide (cf Trajet#estValide)
-  // Rajoute le trajet dans tous les autres cas.
+  // Contrat :
   //
 
   void supprimer(Trajet* unTrajet);
@@ -51,7 +45,25 @@ public:
   // Contrat :
   //
 
-  void rechercheParcours(const Ville & villeDepart, const Ville & villeArrivee) const;
+  bool estVide() const;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  bool contient(const Trajet* unTrajet) const;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  MaillonListeChaineeTrajets* getPremierMaillon();
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  MaillonListeChaineeTrajets* getDernierMaillon();
   // Mode d'emploi :
   //
   // Contrat :
@@ -59,16 +71,16 @@ public:
 
   //-------------------------------------------- Constructeurs - destructeur
 
-  Catalogue ( );
+  ListeChaineeTrajets ( );
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual ~Catalogue ( );
+  virtual ~ListeChaineeTrajets ( );
   // Mode d'emploi :
   //
-  // Contrat :
+  // Contrat : Supprime l'ensemble des maillons de la liste chainée en mémoire
   //
 
   //------------------------------------------------------------------ PRIVE
@@ -78,13 +90,12 @@ protected:
 
   //----------------------------------------------------- Attributs protégés
 
-  /**
-  * Liste des trajets du catalogue
-  */
-  ListeChaineeTrajets* trajets;
+  MaillonListeChaineeTrajets* premierMaillon;
+
+  MaillonListeChaineeTrajets* dernierMaillon;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de Catalogue
+//-------------------------------- Autres définitions dépendantes de ListeChaineeTrajets
 
-#endif // CATALOGUE_H
+#endif // LISTE_CHAINEE_TRAJETS_H
