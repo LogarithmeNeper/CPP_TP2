@@ -1,0 +1,62 @@
+@startuml
+
+class Catalogue {
+  #trajets : ListeChaineeTrajets*
+  +Catalogue()
+  +~Catalogue() virtual
+  +ajouter(Trajet* trajet) : void
+  +supprimer(Trajet* trajet) : void
+  +rechercheParcours() const : void
+  +operator<<(ostream& out, const Catalogue& catalogue) friend : ostream&
+}
+
+class Trajet {
+  #nom : char*
+  +Trajet(const char* nom)
+  +~Trajet() virtual
+  +estValide() const virtual : bool
+  +getNom() const : const char*
+  +operator<< (ostream & out, const Trajet& trajet) friend : ostream&
+  #print(ostream& out) const virtual : void
+}
+
+class TrajetSimple extends Trajet {
+  #villeDepart : Ville*
+  #villeArrivee : Ville*
+  #typeTransport : TypeTransport*
+  +TrajetSimple(const char* nom, Ville* villeDepart, Ville* villeArrivee, TypeTransport* typeTransport)
+  +~TrajetSimple() virtual
+  +estValide() const override : bool
+  #print(ostream& out) const override : void
+}
+
+class TrajetCompose extends Trajet  {
+  #listeTrajetsSimples : ListeChaineeTrajets*
+  +TrajetCompose(const char* unNom)
+  +~TrajetCompose() virtual
+  +estValide() const override : bool
+  +ajouter(TrajetSimple* trajetSimple) : void
+  #print(ostream & out) const override : void;
+}
+
+class Ville {
+  #nom : const char*
+  +Ville(const char* nom)
+  +~Ville() virtual
+  +estValide() const : bool
+  +operator<<(ostream& out, const Ville& ville) friend : ostream&
+}
+
+class TypeTransport {
+  #nom : const char*
+  +TypeTransport(const char* nom)
+  +~TypeTransport() virtual
+  +estValide() const : bool
+  +operator<<(ostream& out, const TypeTransport& typeTransport) friend : ostream&
+}
+
+Catalogue "0..*" o-- "1" Trajet : "composé de"
+
+TrajetCompose "0..1" o-- "1..*" Trajet : "composé de"
+
+@enduml

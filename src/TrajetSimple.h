@@ -11,8 +11,6 @@ e-mail               : charles.javerliat@insa-lyon.fr
 #define TRAJET_SIMPLE_H
 
 #include "Trajet.h"
-#include "Ville.h"
-#include "TypeTransport.h"
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -37,19 +35,31 @@ public:
   // Mode d'emploi : Renvoie vrai ou faux selon si le trajet est valide ou non
   //
   // Contrat : Renvoie faux dans les cas suivants:
-  //  - Le nom du trajet est vide ou NULL
-  //  - La ville de départ est NULL
-  //  - La ville d'arrivée est NULL
-  //  - La ville d'arrivée est invalide (Cf. Ville#estValide)
-  //  - La ville de départ est invalide (Cf. Ville#estValide)
-  //  - La ville de départ est égale à la ville d'arrivée
-  //  - Le type de transport est NULL
-  //  - Le type de transport est invalide (Cf. Transport#estValide)
+  //  - Le nom de la ville de départ est NULL
+  //  - Le nom de la ville de départ est vide
+  //  - Le nom de la ville d'arrivée est NULL
+  //  - Le nom de la ville d'arrivée est vide
+  //  - Le nom de la ville de départ est égale à la ville d'arrivée (sensible à la casse)
+  //  - Le nom du type de transport est NULL
+  //  - Le nom du type de transport est vide
+  // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
   //
+
+  void afficher(ostream & out) const override;
+  // Mode d'emploi : Affiche la définition du trajet sur le flux de sortie
+  //
+  // Contrat : Affiche la description du trajet sur le flux de sortie au format:
+  // "Trajet simple de {villeDepart} à {villeArrivee} en {typeTransport}"
+  // Sans retour à la ligne
+  //
+
+  const char* getVilleDepart() const override;
+
+  const char* getVilleArrivee() const override;
 
   //-------------------------------------------- Constructeurs - destructeur
 
-  TrajetSimple ( const char* unNom, Ville* uneVilleDepart, Ville* uneVilleArrivee, TypeTransport* unTypeTransport );
+  TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport );
   // Mode d'emploi :
   //
   // Contrat :
@@ -66,26 +76,20 @@ public:
 protected:
   //----------------------------------------------------- Méthodes protégées
 
-  void print(ostream & out) const override;
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
-
   //----------------------------------------------------- Attributs protégés
 
   /**
-  * Ville de départ du trajet
+  * Nom de la ville de départ du trajet
   */
-  Ville* villeDepart;
+  const char* villeDepart;
   /**
-  * Ville d'arrivée du trajet
+  * Nom de la ville d'arrivée du trajet
   */
-  Ville* villeArrivee;
+  const char* villeArrivee;
   /**
-  * Type de transport pour aller d'une ville à l'autre
+  * Nom du type de transport pour aller d'une ville à l'autre
   */
-  TypeTransport* typeTransport;
+  const char* typeTransport;
 
 };
 

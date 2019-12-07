@@ -1,56 +1,63 @@
 /*************************************************************************
-Ville  -  description
+MaillonListeChaineeTrajets  -  description
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
 e-mail               : charles.javerliat@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe Ville (fichier Ville.h) ----------------
-#if ! defined ( VILLE_H )
-#define VILLE_H
+//---------- Interface de la classe MaillonListeChaineeTrajets (fichier MaillonListeChaineeTrajets.h) ----------------
+#if ! defined ( MAILLON_LISTE_CHAINEE_TRAJETS_H )
+#define MAILLON_LISTE_CHAINEE_TRAJETS_H
 
 //--------------------------------------------------- Interfaces utilisées
 
-using namespace std;
-#include <iostream>
+#include "Trajet.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe Ville
+// Rôle de la classe MaillonListeChaineeTrajets
 //
 //
 //------------------------------------------------------------------------
 
-class Ville
+class MaillonListeChaineeTrajets
 {
   //----------------------------------------------------------------- PUBLIC
 
 public:
   //----------------------------------------------------- Méthodes publiques
-
-  friend ostream & operator<<(ostream & out, const Ville & ville);
-
-  bool estValide() const;
-  // Mode d'emploi : Renvoie vrai ou faux selon si la ville est valide ou non
-  //
-  // Contrat : Renvoie faux dans les cas suivants:
-  //  - Le nom de la ville est NULL
-  //  - Le nom de la ville est vide (aucun caractère ou enchaînement d'espaces)
-  //
-
-  //-------------------------------------------- Constructeurs - destructeur
-
-  Ville ( const char* nom );
+  
+  MaillonListeChaineeTrajets* getMaillonSuivant() const;
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual ~Ville ( );
+  void setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon);
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  Trajet* getTrajet() const;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  //-------------------------------------------- Constructeurs - destructeur
+
+  MaillonListeChaineeTrajets ( Trajet* unTrajet );
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  virtual ~MaillonListeChaineeTrajets ( );
   // Mode d'emploi :
   //
   // Contrat :
@@ -63,13 +70,12 @@ protected:
 
   //----------------------------------------------------- Attributs protégés
 
-  /**
-  * Nom de la ville
-  */
-  const char* nom;
+  Trajet* trajet;
+
+  MaillonListeChaineeTrajets* maillonSuivant;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de TrajetSimple
+//-------------------------------- Autres définitions dépendantes de MaillonListeChaineeTrajets
 
-#endif // VILLE_H
+#endif // MAILLON_LISTE_CHAINEE_TRAJETS_H

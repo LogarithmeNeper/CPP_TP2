@@ -23,37 +23,33 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-ostream & operator<<(ostream & out, const ListeChaineeTrajets & listeChaineeTrajets)
-{
-  MaillonListeChaineeTrajets* maillonAct = listeChaineeTrajets.premierMaillon;
-
-  while(maillonAct != nullptr)
-  {
-    out << *maillonAct;
-
-    if(maillonAct->getMaillonSuivant() != nullptr)
-    {
-      out << endl;
-    }
-
-    maillonAct = maillonAct->getMaillonSuivant();
-  }
-
-  return out;
-}
-
 void ListeChaineeTrajets::ajouter(Trajet* unTrajet)
 // Algorithme :
 //
 {
-  MaillonListeChaineeTrajets* nouvMaillon = new MaillonListeChaineeTrajets(unTrajet);
+  #ifdef MAP
+  cout << "Appel de ListeChaineeTrajets::ajouter" << endl;
+  #endif
 
-  if(estVide()) {
-    premierMaillon = nouvMaillon;
-    dernierMaillon = nouvMaillon;
-  } else {
-    dernierMaillon->setMaillonSuivant(nouvMaillon);
-    dernierMaillon = nouvMaillon;
+  if(unTrajet == NULL)
+  {
+    cerr << "Impossible d'ajouter un trajet NULL." << endl;
+  }
+  else if(contient(unTrajet))
+  {
+    cerr << "La liste contient déjà ce trajet." << endl;
+  }
+  else
+  {
+    MaillonListeChaineeTrajets* nouvMaillon = new MaillonListeChaineeTrajets(unTrajet);
+
+    if(estVide()) {
+      premierMaillon = nouvMaillon;
+      dernierMaillon = nouvMaillon;
+    } else {
+      dernierMaillon->setMaillonSuivant(nouvMaillon);
+      dernierMaillon = nouvMaillon;
+    }
   }
 
 } //----- Fin de ajouter
@@ -62,45 +58,56 @@ void ListeChaineeTrajets::supprimer(Trajet* unTrajet)
 // Algorithme :
 //
 {
-  MaillonListeChaineeTrajets* maillonPrec = nullptr;
-  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+  #ifdef MAP
+  cout << "Appel de ListeChaineeTrajets::supprimer" << endl;
+  #endif
 
-  while(maillonAct != nullptr) {
+  if(unTrajet == NULL)
+  {
+    cerr << "Impossible de supprimer un trajet NULL." << endl;
+  }
+  else if(!contient(unTrajet))
+  {
+    cerr << "La liste ne contient pas ce trajet." << endl;
+  }
+  else
+  {
+    MaillonListeChaineeTrajets* maillonPrec = nullptr;
+    MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
-    if(maillonAct->getTrajet() == unTrajet) {
+    while(maillonAct != nullptr) {
 
-      if(maillonAct == premierMaillon) {
-        premierMaillon = maillonAct->getMaillonSuivant();
+      if(maillonAct->getTrajet() == unTrajet) {
+
+        if(maillonAct == premierMaillon) {
+          premierMaillon = maillonAct->getMaillonSuivant();
+        }
+
+        if(maillonAct == dernierMaillon) {
+          dernierMaillon = maillonPrec;
+        }
+
+        if(maillonPrec != nullptr) {
+          maillonPrec->setMaillonSuivant(maillonAct->getMaillonSuivant());
+        }
+
+        delete maillonAct;
+        break;
+      } else {
+        maillonPrec = maillonAct;
+        maillonAct = maillonAct->getMaillonSuivant();
       }
-
-      if(maillonAct == dernierMaillon) {
-        dernierMaillon = maillonPrec;
-      }
-
-      if(maillonPrec != nullptr) {
-        maillonPrec->setMaillonSuivant(maillonAct->getMaillonSuivant());
-      }
-
-      delete maillonAct;
     }
-
-    maillonPrec = maillonAct;
-    maillonAct = maillonAct->getMaillonSuivant();
-
   }
 }
-
-bool ListeChaineeTrajets::estVide() const
-// Algorithme :
-//
-{
-  return premierMaillon == nullptr && dernierMaillon == nullptr;
-} //----- Fin de estVide
 
 bool ListeChaineeTrajets::contient(const Trajet* unTrajet) const
 // Algorithme :
 //
 {
+  #ifdef MAP
+  cout << "Appel de ListeChaineeTrajets::contient" << endl;
+  #endif
 
   MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
@@ -117,19 +124,14 @@ bool ListeChaineeTrajets::contient(const Trajet* unTrajet) const
 
 } //----- Fin de contient
 
-MaillonListeChaineeTrajets* ListeChaineeTrajets::getPremierMaillon()
-// Algorithme :
-//
+bool ListeChaineeTrajets::estVide() const
 {
-  return premierMaillon;
-} //----- Fin de getPremierMaillon
+  #ifdef MAP
+  cout << "Appel de ListeChaineeTrajets::estVide" << endl;
+  #endif
 
-MaillonListeChaineeTrajets* ListeChaineeTrajets::getDernierMaillon()
-// Algorithme :
-//
-{
-  return dernierMaillon;
-} //----- Fin de getDernierMaillon
+  return premierMaillon == nullptr && dernierMaillon == nullptr;
+} //----- Fin de estVide
 
 //-------------------------------------------- Constructeurs - destructeur
 

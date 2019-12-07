@@ -23,19 +23,21 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-ostream & operator<<(ostream & out, const MaillonListeChaineeTrajets & maillon)
-{
-  out << *maillon.trajet;
-  return out;
-}
-
 MaillonListeChaineeTrajets* MaillonListeChaineeTrajets::getMaillonSuivant() const
 {
+  #ifdef MAP
+  cout << "Appel de MaillonListeChaineeTrajets::getMaillonSuivant" << endl;
+  #endif
+
   return maillonSuivant;
 }
 
 void MaillonListeChaineeTrajets::setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon)
 {
+  #ifdef MAP
+  cout << "Appel de MaillonListeChaineeTrajets::setMaillonSuivant" << endl;
+  #endif
+
   maillonSuivant = unMaillon;
 }
 

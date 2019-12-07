@@ -1,65 +1,80 @@
 /*************************************************************************
-MaillonListeChaineeTrajets  -  description
+Catalogue  -  description
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
 e-mail               : charles.javerliat@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe MaillonListeChaineeTrajets (fichier MaillonListeChaineeTrajets.h) ----------------
-#if ! defined ( MAILLON_LISTE_CHAINEE_TRAJETS_H )
-#define MAILLON_LISTE_CHAINEE_TRAJETS_H
+//---------- Interface de la classe Catalogue (fichier Catalogue.h) ----------------
+#if !defined ( CATALOGUE_H )
+#define CATALOGUE_H
 
 //--------------------------------------------------- Interfaces utilisées
 
+#include <iostream>
+using namespace std;
+
 #include "Trajet.h"
+#include "ListeChaineeTrajets.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe MaillonListeChaineeTrajets
+// Rôle de la classe Catalogue
 //
 //
 //------------------------------------------------------------------------
 
-class MaillonListeChaineeTrajets
+class Catalogue : public ListeChaineeTrajets
 {
   //----------------------------------------------------------------- PUBLIC
 
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  friend ostream & operator<<(ostream & out, const MaillonListeChaineeTrajets & maillon);
+  void ajouter(Trajet* unTrajet) override;
 
-  MaillonListeChaineeTrajets* getMaillonSuivant() const;
+  void supprimer(Trajet* unTrajet) override;
+
+  bool estValide() const;
+  // Mode d'emploi : Renvoie vrai ou faux selon si le catalogue est valide
+  //
+  // Contrat : Renvoie faux dans les cas suivants:
+  //  - L'un des trajets n'est pas valide
+  // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
+  //
+
+  void rechercheParcours(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  void setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon);
-  // Mode d'emploi :
+  void afficher(ostream & out) const;
+  // Mode d'emploi : Affiche le catalogue sur le flux de sortie
   //
-  // Contrat :
+  // Contrat : Affiche le catalogue sur le flux de sortie au format:
+  // Si le catalogue n'est pas vide:
+  // "- {définition trajet_i}" n fois avec un saut de ligne entre chaque trajet
+  // Sinon:
+  // "Le catalogue est vide."
   //
-
-  Trajet* getTrajet() const;
-  // Mode d'emploi :
+  // Sans retour à la ligne à la fin
   //
-  // Contrat :
   //
 
   //-------------------------------------------- Constructeurs - destructeur
 
-  MaillonListeChaineeTrajets ( Trajet* unTrajet );
+  Catalogue ( );
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual ~MaillonListeChaineeTrajets ( );
+  virtual ~Catalogue ( );
   // Mode d'emploi :
   //
   // Contrat :
@@ -72,12 +87,8 @@ protected:
 
   //----------------------------------------------------- Attributs protégés
 
-  Trajet* trajet;
-
-  MaillonListeChaineeTrajets* maillonSuivant;
-
 };
 
-//-------------------------------- Autres définitions dépendantes de MaillonListeChaineeTrajets
+//-------------------------------- Autres définitions dépendantes de Catalogue
 
-#endif // MAILLON_LISTE_CHAINEE_TRAJETS_H
+#endif // CATALOGUE_H
