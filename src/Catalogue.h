@@ -35,9 +35,9 @@ class Catalogue : public ListeChaineeTrajets
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  void ajouter(Trajet* unTrajet) override;
+  bool ajouter(Trajet* unTrajet) override;
 
-  void supprimer(Trajet* unTrajet) override;
+  bool supprimer(Trajet* unTrajet) override;
 
   bool estValide() const;
   // Mode d'emploi : Renvoie vrai ou faux selon si le catalogue est valide
@@ -47,7 +47,13 @@ public:
   // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
   //
 
-  void rechercheParcours(const char* villeDepart, const char* villeArrivee) const;
+  void rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const;
+  // Mode d'emploi :
+  //
+  // Contrat :
+  //
+
+  void rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //
   // Contrat :
@@ -58,7 +64,7 @@ public:
   //
   // Contrat : Affiche le catalogue sur le flux de sortie au format:
   // Si le catalogue n'est pas vide:
-  // "- {définition trajet_i}" n fois avec un saut de ligne entre chaque trajet
+  // "Trajet i - {définition trajet_i}" n fois avec un saut de ligne entre chaque trajet
   // Sinon:
   // "Le catalogue est vide."
   //

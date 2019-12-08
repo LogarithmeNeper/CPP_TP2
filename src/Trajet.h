@@ -50,6 +50,8 @@ virtual const char* getVilleArrivee() const = 0;
 
 //-------------------------------------------- Constructeurs - destructeur
 
+virtual ~Trajet( ) = 0;
+
 //------------------------------------------------------------------ PRIVE
 
 protected:

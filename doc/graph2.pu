@@ -1,0 +1,12 @@
+@startuml
+digraph graph2 {
+
+  node [style=filled];
+  Berlin -> Bruxelles;
+
+  Bruxelles -> Paris;
+  Paris -> Rome;
+  Paris -> Berlin;
+
+}
+@enduml

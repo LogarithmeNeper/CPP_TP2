@@ -24,34 +24,32 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void TrajetCompose::ajouter(Trajet* unTrajet)
+bool TrajetCompose::ajouter(Trajet* unTrajet)
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::ajouter" << endl;
-  #endif
-
   ListeChaineeTrajets::ajouter(unTrajet);
 
   //Si le trajet n'est pas valide en l'état, on revient en arrière
   if(!estValide())
   {
     ListeChaineeTrajets::supprimer(unTrajet);
+    return false;
   }
+
+  return true;
 }
 
-void TrajetCompose::supprimer(Trajet* unTrajet)
+bool TrajetCompose::supprimer(Trajet* unTrajet)
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::supprimer" << endl;
-  #endif
-
   ListeChaineeTrajets::supprimer(unTrajet);
 
   //Si le trajet n'est pas valide en l'état, on revient en arrière
   if(!estValide())
   {
     ListeChaineeTrajets::ajouter(unTrajet);
+    return false;
   }
+
+  return true;
 }
 
 bool TrajetCompose::estValide() const
@@ -59,10 +57,6 @@ bool TrajetCompose::estValide() const
 // les sous-trajets pour vérifier qu'ils soient tous valides.
 //
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::estValide" << endl;
-  #endif
-
   if(estVide())
   {
     cerr << "Le trajet composé est vide." << endl;
@@ -84,7 +78,7 @@ bool TrajetCompose::estValide() const
         return false;
       }
       else if(maillonAct->getMaillonSuivant() != nullptr
-              && maillonAct->getMaillonSuivant()->getTrajet()->getVilleDepart() != maillonAct->getTrajet()->getVilleArrivee())
+              && strcmp(maillonAct->getMaillonSuivant()->getTrajet()->getVilleDepart(), maillonAct->getTrajet()->getVilleArrivee()) != 0)
       {
         cerr << "Les trajets (";
         maillonAct->getTrajet()->afficher(cerr);
@@ -106,10 +100,6 @@ void TrajetCompose::afficher(ostream & out) const
 // à la suite dans le flux de sortie.
 //
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::afficher" << endl;
-  #endif
-
   if(estVide())
   {
     out << "Le trajet composé est vide.";
@@ -138,10 +128,6 @@ void TrajetCompose::afficher(ostream & out) const
 
 const char* TrajetCompose::getVilleDepart() const
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::getVilleDepart" << endl;
-  #endif
-
   if(estVide())
   {
     return nullptr;
@@ -154,23 +140,19 @@ const char* TrajetCompose::getVilleDepart() const
 
 const char* TrajetCompose::getVilleArrivee() const
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::getVilleArrivee" << endl;
-  #endif
-
   if(estVide())
   {
     return nullptr;
   }
   else
   {
-    return dernierMaillon->getTrajet()->getVilleDepart();
+    return dernierMaillon->getTrajet()->getVilleArrivee();
   }
 }
 
 //-------------------------------------------- Constructeurs - destructeur
 
-TrajetCompose::TrajetCompose ( )
+TrajetCompose::TrajetCompose ( ) : ListeChaineeTrajets()
 // Algorithme :
 //
 {

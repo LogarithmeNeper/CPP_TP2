@@ -31,17 +31,21 @@ class ListeChaineeTrajets
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  virtual void ajouter(Trajet* unTrajet);
+  virtual bool ajouter(Trajet* unTrajet);
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  virtual void supprimer(Trajet* unTrajet);
+  virtual bool supprimer(Trajet* unTrajet);
   // Mode d'emploi :
   //
   // Contrat :
   //
+
+  MaillonListeChaineeTrajets* getMaillonListeChaineeTrajets(unsigned int index) const;
+
+  unsigned int getTaille() const;
 
   bool estVide() const;
   // Mode d'emploi :
@@ -79,6 +83,8 @@ protected:
   MaillonListeChaineeTrajets* premierMaillon;
 
   MaillonListeChaineeTrajets* dernierMaillon;
+
+  unsigned int taille;
 
 };
 

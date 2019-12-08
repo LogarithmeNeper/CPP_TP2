@@ -10,6 +10,10 @@ SRC_TEST_DIR=test
 OBJ_DIR=build
 #Répertoire des exécutables
 BIN_DIR=bin
+#Répertoire de la documentation (compte rendu + diagramme)
+DOC_DIR=doc
+
+PLANTUML_PATH=$(DOC_DIR)/plantuml.jar
 
 #Récupère la liste des fichiers .cpp sauf le main.cpp
 SRC := $(shell find $(SRC_DIR) -name '*.cpp' ! -name 'main.cpp')
@@ -34,6 +38,24 @@ all:
 	@echo ">>> Pour lancer le programme principal: './bin/catalogue'"
 	@echo ">>> Pour lancer les tests: './bin/catalogue-test'"
 
+doc:
+	make class-diagram
+	make memory-diagram
+	make graph1-diagram
+	make graph2-diagram
+
+class-diagram: $(DOC_DIR)/class-diagram.pu
+
+memory-diagram: $(DOC_DIR)/memory-diagram.pu
+
+graph1-diagram: $(DOC_DIR)/graph1.pu
+
+graph2-diagram: $(DOC_DIR)/graph2.pu
+
+%.pu:
+	java -jar $(PLANTUML_PATH) -tsvg $@
+	java -jar $(PLANTUML_PATH) -tpng $@
+
 catalogue: $(CATALOGUE_OBJ) $(HEADERS)
 	@mkdir -p bin
 	$(COMP) -o $(BIN_DIR)/$@ $(CATALOGUE_OBJ)
@@ -52,5 +74,6 @@ $(OBJ_DIR)/%.o: $(SRC_TEST_DIR)/%.cpp
 
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*
+	rm -rf $(DOC_DIR)/diagram.latex $(DOC_DIR)/diagram.png
 
 .PHONY: clean

@@ -25,20 +25,17 @@ using namespace std;
 
 MaillonListeChaineeTrajets* MaillonListeChaineeTrajets::getMaillonSuivant() const
 {
-  #ifdef MAP
-  cout << "Appel de MaillonListeChaineeTrajets::getMaillonSuivant" << endl;
-  #endif
-
   return maillonSuivant;
 }
 
 void MaillonListeChaineeTrajets::setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon)
 {
-  #ifdef MAP
-  cout << "Appel de MaillonListeChaineeTrajets::setMaillonSuivant" << endl;
-  #endif
-
   maillonSuivant = unMaillon;
+}
+
+Trajet* MaillonListeChaineeTrajets::getTrajet() const
+{
+  return trajet;
 }
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -60,12 +57,9 @@ MaillonListeChaineeTrajets::~MaillonListeChaineeTrajets ( )
   #ifdef MAP
   cout << "Appel au destructeur de MaillonListeChaineeTrajets" << endl;
   #endif
-} //----- Fin de ~MaillonListeChaineeTrajets
 
-Trajet* MaillonListeChaineeTrajets::getTrajet() const
-{
-  return trajet;
-}
+  delete trajet;
+} //----- Fin de ~MaillonListeChaineeTrajets
 
 //------------------------------------------------------------------ PRIVE
 

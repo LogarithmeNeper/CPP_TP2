@@ -30,7 +30,7 @@ class MaillonListeChaineeTrajets
 
 public:
   //----------------------------------------------------- Méthodes publiques
-  
+
   MaillonListeChaineeTrajets* getMaillonSuivant() const;
   // Mode d'emploi :
   //

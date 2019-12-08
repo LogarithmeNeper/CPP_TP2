@@ -1,0 +1,17 @@
+@startuml
+digraph graph1 {
+
+  node [style=filled];
+  Paris -> Lyon [label="TGV"];
+
+  Bordeaux -> "Genève" [color=red];
+  Paris -> Genève [color=red];
+
+  Paris -> Genève [label="TGV"];
+  Lyon -> "Clermont-Ferrand" [label="TER"];
+  Lyon -> Marseille [label="TGV"];
+  Lyon -> Paris [label="TGV"];
+  Genève -> Paris [label="TGV"];
+
+}
+@enduml

@@ -1,0 +1,83 @@
+@startuml
+
+class Catalogue {
+  +Catalogue()
+  +~Catalogue() virtual
+  +ajouter(Trajet* trajet) override : bool
+  +supprimer(Trajet* trajet) override : bool
+  +rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const : void
+  +rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const : void
+  +afficher(ostream & out) const : void
+}
+
+class ListeChaineeTrajets {
+  #premierMaillon : MaillonListeChaineeTrajets*
+  #dernierMaillon : MaillonListeChaineeTrajets*
+  #taille : unsigned int
+  +ListeChaineeTrajets()
+  +~ListeChaineeTrajets() virtual
+  +ajouter(Trajet* unTrajet) virtual : bool
+  +supprimer(Trajet* unTrajet) virtual : bool
+  +getMaillonListeChaineeTrajets(unsigned int index) const : MaillonListeChaineeTrajets*
+  +getTaille() const : unsigned int
+  +estVide() const : bool
+  +contient(const Trajet* unTrajet) const : bool
+}
+
+class MaillonListeChaineeTrajets {
+  #trajet : Trajet*
+  #maillonSuivant : MaillonListeChaineeTrajets*
+  +MaillonListeChaineeTrajets(Trajet* unTrajet)
+  +~MaillonListeChaineeTrajets() virtual
+  +getMaillonSuivant() const : MaillonListeChaineeTrajets*
+  +setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon) : void
+  +getTrajet() const : Trajet*
+}
+
+class StringHelper {
+  +strempty(const char* str) static : bool
+}
+
+class Trajet {
+  +estValide() const virtual : bool
+  +afficher(ostream & out) const virtual : void
+  +getVilleDepart() const virtual : const char*
+  +getVilleArrivee() const virtual : const char*
+}
+
+class TrajetCompose  {
+  +TrajetCompose()
+  +~TrajetCompose() virtual
+  +ajouter(Trajet* trajet) override : bool
+  +supprimer(Trajet* trajet) override : bool
+  +estValide() const override : bool
+  +afficher(ostream & out) const override : void
+  +getVilleDepart() const override : const char*
+  +getVilleArrivee() const override : const char*
+}
+
+class TrajetSimple {
+  #villeDepart : const char*
+  #villeArrivee : const char*
+  #typeTransport : const char*
+  +TrajetSimple(const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport)
+  +~TrajetSimple() virtual
+  +estValide() const override : bool
+  +afficher(ostream & out) const override : void
+  +getVilleDepart() const override : const char*
+  +getVilleArrivee() const override : const char*
+}
+
+ListeChaineeTrajets <|-- Catalogue : "hérite de"
+
+Trajet <|-- TrajetSimple : "hérite de"
+
+Trajet <|-- TrajetCompose : "hérite de"
+
+ListeChaineeTrajets <|-- TrajetCompose : "hérite de"
+
+ListeChaineeTrajets --> MaillonListeChaineeTrajets : "contient"
+
+MaillonListeChaineeTrajets --> Trajet : "contient"
+
+@enduml

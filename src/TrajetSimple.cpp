@@ -29,10 +29,6 @@ bool TrajetSimple::estValide() const
 // Algorithme : Vérifie toutes les conditions de validité de manière séquentielle
 //
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::estValide" << endl;
-  #endif
-
   if(villeDepart == NULL) {
     cerr << "La ville de départ est invalide : NULL non autorisé." << endl;
     return false;
@@ -73,10 +69,6 @@ bool TrajetSimple::estValide() const
 
 void TrajetSimple::afficher(ostream & out) const
 {
-  #ifdef MAP
-  cout << "Appel de TrajetCompose::afficher" << endl;
-  #endif
-
   out << "Trajet simple de " << villeDepart << " à " << villeArrivee << " en " << typeTransport;
 }
 
@@ -105,6 +97,10 @@ TrajetSimple::~TrajetSimple (  )
   #ifdef MAP
   cout << "Appel au destructeur de TrajetSimple" << endl;
   #endif
+
+  delete [] villeDepart;
+  delete [] villeArrivee;
+  delete [] typeTransport;
 } //----- Fin de ~TrajetSimple
 
 //------------------------------------------------------------------ PRIVE

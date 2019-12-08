@@ -23,21 +23,19 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void ListeChaineeTrajets::ajouter(Trajet* unTrajet)
+bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
 // Algorithme :
 //
 {
-  #ifdef MAP
-  cout << "Appel de ListeChaineeTrajets::ajouter" << endl;
-  #endif
-
   if(unTrajet == NULL)
   {
     cerr << "Impossible d'ajouter un trajet NULL." << endl;
+    return false;
   }
   else if(contient(unTrajet))
   {
     cerr << "La liste contient déjà ce trajet." << endl;
+    return false;
   }
   else
   {
@@ -50,25 +48,26 @@ void ListeChaineeTrajets::ajouter(Trajet* unTrajet)
       dernierMaillon->setMaillonSuivant(nouvMaillon);
       dernierMaillon = nouvMaillon;
     }
+
+    ++taille;
+    return true;
   }
 
 } //----- Fin de ajouter
 
-void ListeChaineeTrajets::supprimer(Trajet* unTrajet)
+bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
 // Algorithme :
 //
 {
-  #ifdef MAP
-  cout << "Appel de ListeChaineeTrajets::supprimer" << endl;
-  #endif
-
   if(unTrajet == NULL)
   {
     cerr << "Impossible de supprimer un trajet NULL." << endl;
+    return false;
   }
   else if(!contient(unTrajet))
   {
     cerr << "La liste ne contient pas ce trajet." << endl;
+    return false;
   }
   else
   {
@@ -92,23 +91,52 @@ void ListeChaineeTrajets::supprimer(Trajet* unTrajet)
         }
 
         delete maillonAct;
-        break;
+        --taille;
+        return true;
       } else {
         maillonPrec = maillonAct;
         maillonAct = maillonAct->getMaillonSuivant();
       }
     }
+
+    return false;
   }
+}
+
+MaillonListeChaineeTrajets* ListeChaineeTrajets::getMaillonListeChaineeTrajets(unsigned int index) const
+{
+  if(index >= getTaille())
+  {
+    return nullptr;
+  }
+  else
+  {
+    unsigned int i = 0;
+    MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+    while(maillonAct != nullptr) {
+
+      if(i == index) {
+        return maillonAct;
+      }
+
+      maillonAct = maillonAct->getMaillonSuivant();
+      ++i;
+    }
+
+    return nullptr;
+  }
+}
+
+unsigned int ListeChaineeTrajets::getTaille() const
+{
+  return taille;
 }
 
 bool ListeChaineeTrajets::contient(const Trajet* unTrajet) const
 // Algorithme :
 //
 {
-  #ifdef MAP
-  cout << "Appel de ListeChaineeTrajets::contient" << endl;
-  #endif
-
   MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
   while(maillonAct != nullptr)
@@ -126,11 +154,7 @@ bool ListeChaineeTrajets::contient(const Trajet* unTrajet) const
 
 bool ListeChaineeTrajets::estVide() const
 {
-  #ifdef MAP
-  cout << "Appel de ListeChaineeTrajets::estVide" << endl;
-  #endif
-
-  return premierMaillon == nullptr && dernierMaillon == nullptr;
+  return taille == 0;
 } //----- Fin de estVide
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -143,6 +167,7 @@ ListeChaineeTrajets::ListeChaineeTrajets ( ) : premierMaillon(nullptr), dernierM
   cout << "Appel au constructeur de ListeChaineeTrajets" << endl;
   #endif
 
+  taille = 0;
 } //----- Fin de ListeChaineeTrajets
 
 

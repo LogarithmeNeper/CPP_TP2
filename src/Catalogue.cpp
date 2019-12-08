@@ -14,6 +14,8 @@ e-mail               : charles.javerliat@insa-lyon.fr
 using namespace std;
 #include <iostream>
 
+#include <string.h>
+
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 
@@ -23,42 +25,36 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Catalogue::ajouter(Trajet* unTrajet)
+bool Catalogue::ajouter(Trajet* unTrajet)
 {
-  #ifdef MAP
-  cout << "Appel de Catalogue::ajouter" << endl;
-  #endif
-
   ListeChaineeTrajets::ajouter(unTrajet);
 
   //Si le catalogue n'est pas valide en l'état, on revient en arrière
   if(!estValide())
   {
     ListeChaineeTrajets::supprimer(unTrajet);
+    return false;
   }
+
+  return true;
 }
 
-void Catalogue::supprimer(Trajet* unTrajet)
+bool Catalogue::supprimer(Trajet* unTrajet)
 {
-  #ifdef MAP
-  cout << "Appel de Catalogue::supprimer" << endl;
-  #endif
-
   ListeChaineeTrajets::supprimer(unTrajet);
 
   //Si le catalogue n'est pas valide en l'état, on revient en arrière
   if(!estValide())
   {
     ListeChaineeTrajets::ajouter(unTrajet);
+    return false;
   }
+
+  return true;
 }
 
 bool Catalogue::estValide() const
 {
-  #ifdef MAP
-  cout << "Appel de Catalogue::estValide" << endl;
-  #endif
-
   MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
   while(maillonAct != nullptr)
@@ -74,32 +70,46 @@ bool Catalogue::estValide() const
   return true;
 }
 
-void Catalogue::rechercheParcours(const char* villeDepart, const char* villeArrivee) const
+void Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const
 {
-  #ifdef MAP
-  cout << "Appel de Catalogue::rechercheParcours" << endl;
-  #endif
+
+  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+  while(maillonAct != nullptr) {
+    if(strcmp(maillonAct->getTrajet()->getVilleDepart(), villeDepart) == 0
+      && strcmp(maillonAct->getTrajet()->getVilleArrivee(), villeArrivee) == 0)
+    {
+      cout << "- ";
+      maillonAct->getTrajet()->afficher(cout);
+      cout << endl;
+      
+      maillonAct = maillonAct->getMaillonSuivant();
+    }
+  }
+
+} //----- Fin de rechercheTrajetSimple
+
+void Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const
+{
 
 
-} //----- Fin de rechercheParcours
+} //----- Fin de rechercheTrajetAvancee
+
 
 void Catalogue::afficher(ostream & out) const
 {
-  #ifdef MAP
-  cout << "Appel de Catalogue::afficher" << endl;
-  #endif
-
   if(estVide())
   {
     out << "Le catalogue est vide.";
   }
   else
   {
+    int i = 1;
     MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
     while(maillonAct != nullptr) {
 
-      out << "- ";
+      out << "Trajet " << i << " - ";
       maillonAct->getTrajet()->afficher(out);
 
       if(maillonAct->getMaillonSuivant() != nullptr)
@@ -108,12 +118,13 @@ void Catalogue::afficher(ostream & out) const
       }
 
       maillonAct = maillonAct->getMaillonSuivant();
+      ++i;
     }
   }
 
 } //----- Fin de afficher
 
-Catalogue::Catalogue ( )
+Catalogue::Catalogue ( ) : ListeChaineeTrajets()
 // Algorithme : Crée le tableau de trajets sur le tas
 //
 {

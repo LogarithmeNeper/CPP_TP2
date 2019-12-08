@@ -15,10 +15,6 @@ static bool strempty(const char* str)
 //    Dès qu'un caractère différent d'une espace est rencontré, retourne faux
 //    Si la chaîne de caractères ne contient aucun caractère ou que des espaces, retourne vrai
 {
-  #ifdef MAP
-  cout << "Appel de StringHelper::strempty" << endl;
-  #endif
-
   for(unsigned int i = 0; i < strlen(str); i++)
   {
     if(str[i] != ' ')

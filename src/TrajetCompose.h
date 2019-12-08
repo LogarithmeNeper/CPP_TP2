@@ -36,9 +36,9 @@ class TrajetCompose : public Trajet, public ListeChaineeTrajets
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  void ajouter(Trajet* unTrajet) override;
+  bool ajouter(Trajet* unTrajet) override;
 
-  void supprimer(Trajet* unTrajet) override;
+  bool supprimer(Trajet* unTrajet) override;
 
   bool estValide() const override;
   // Mode d'emploi : Renvoie vrai ou faux selon si le trajet est valide
