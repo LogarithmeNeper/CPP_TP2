@@ -62,6 +62,11 @@ bool TrajetCompose::estValide() const
     cerr << "Le trajet composé est vide." << endl;
     return false;
   }
+  else if(strcmp(getVilleDepart(), getVilleArrivee()) == 0)
+  {
+    cerr << "Le trajet composé est invalide. La ville de départ ne peut pas être égale à la ville d'arrivée." << endl;
+    return false;
+  }
   else
   {
     MaillonListeChaineeTrajets* maillonAct = premierMaillon;

@@ -48,6 +48,7 @@ public:
   //  - Pour deux trajets successifs, la ville d'arrivée du premier ne correspond
   //    pas à la ville de départ de l'autre
   //  - Le trajet composé est vide
+  //  - La ville de départ est égale à la ville d'arrivée
   // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
   //
 
