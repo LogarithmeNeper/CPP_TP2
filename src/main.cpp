@@ -18,12 +18,11 @@ static void ajouterTrajetSimple(Catalogue & catalogue)
 {
   cout << endl << " ===  AJOUT D'UN TRAJET SIMPLE === " << endl << endl;
   TrajetSimple* trajetSimple = nullptr;
-  char* villeDepart = new char[100];
-  char* villeArrivee = new char[100];
-  char* typeTransport = new char[100];
 
   do {
-    delete trajetSimple;
+    char* villeDepart = new char[100];
+    char* villeArrivee = new char[100];
+    char* typeTransport = new char[100];
     cout << "Ville de départ: ";
     cin >> villeDepart;
     cout << "Ville d'arrivée: ";
