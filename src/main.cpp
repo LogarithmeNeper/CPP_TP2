@@ -86,7 +86,7 @@ static void supprimerTrajet(Catalogue & catalogue)
 
   if(catalogue.estVide())
   {
-    cout << "Aucun trajet à supprimer." << endl;
+    cout << endl << "Aucun trajet à supprimer." << endl;
   }
   else
   {
@@ -94,18 +94,20 @@ static void supprimerTrajet(Catalogue & catalogue)
 
     do
     {
-      cout << "Entrez le numéro de trajet à supprimer (entre 1 et " << catalogue.getTaille() << "): ";
+      cout << endl << "Entrez le numéro de trajet à supprimer (entre 1 et " << catalogue.getTaille() << "): ";
       cin >> numeroTrajet;
 
-      if(numeroTrajet < 1 || numeroTrajet > catalogue.getTaille())
+      if(cin.fail() || numeroTrajet < 1 || numeroTrajet > catalogue.getTaille())
       {
         cout << "Numéro de trajet invalide." << endl;
+        cin.clear();
+        cin.ignore(10000, '\n');
       }
-    } while(numeroTrajet < 1 || numeroTrajet > catalogue.getTaille());
+    } while(cin.fail() || numeroTrajet < 1 || numeroTrajet > catalogue.getTaille());
 
     catalogue.supprimer(catalogue.getMaillonListeChaineeTrajets(numeroTrajet - 1)->getTrajet());
   }
-  cout << " ====== FIN DE LA SUPPRESSION ====== " << endl << endl;
+  cout << endl << " ====== FIN DE LA SUPPRESSION ====== " << endl << endl;
 }
 
 static void rechercheTrajetSimple(Catalogue & catalogue)
@@ -158,11 +160,13 @@ int main(void)
       cout << "Entrez votre choix: ";
       cin >> choix;
 
-      if(choix < 1 || choix > 7) {
+      if(cin.fail() || choix < 1 || choix > 7) {
         cout << "Choix invalide." << endl;
+        cin.clear();
+        cin.ignore(10000, '\n');
       }
 
-    } while(choix < 1 || choix > 7);
+    } while(cin.fail() || choix < 1 || choix > 7);
 
     switch(choix) {
 

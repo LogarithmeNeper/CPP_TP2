@@ -82,9 +82,9 @@ void Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* ville
       cout << "- ";
       maillonAct->getTrajet()->afficher(cout);
       cout << endl;
-
-      maillonAct = maillonAct->getMaillonSuivant();
     }
+
+    maillonAct = maillonAct->getMaillonSuivant();
   }
 
 } //----- Fin de rechercheTrajetSimple
