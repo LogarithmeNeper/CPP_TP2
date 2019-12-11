@@ -5,9 +5,11 @@ class Catalogue {
   +~Catalogue() virtual
   +ajouter(Trajet* trajet) override : bool
   +supprimer(Trajet* trajet) override : bool
+  +rechercheTrajetsEnDepartDe(const char* villeDepart) const : ListeChaineeTrajets
   +rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const : void
   +rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const : void
   +afficher(ostream & out) const : void
+  #sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const : void
 }
 
 class ListeChaineeTrajets {
@@ -43,6 +45,9 @@ class Trajet {
   +afficher(ostream & out) const virtual : void
   +getVilleDepart() const virtual : const char*
   +getVilleArrivee() const virtual : const char*
+  +getIndice() const : unsigned int
+  +setIndice(unsigned int unIndice) : void
+  #indice : unsigned int
 }
 
 class TrajetCompose  {

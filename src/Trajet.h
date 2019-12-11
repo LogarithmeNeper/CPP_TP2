@@ -48,9 +48,9 @@ virtual const char* getVilleDepart() const = 0;
 
 virtual const char* getVilleArrivee() const = 0;
 
-void setIndice(unsigned int unIndice);
-
 unsigned int getIndice() const;
+
+void setIndice(unsigned int unIndice);
 
 //-------------------------------------------- Constructeurs - destructeur
 
