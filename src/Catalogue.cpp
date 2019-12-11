@@ -129,77 +129,17 @@ ListeChaineeTrajets Catalogue::rechercheTrajetsEnDepartDe(const char* villeDepar
   return liste;
 }
 
-bool Catalogue::sousRechercheTrajetAvancee(Trajet* trajet, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const
-{
-  bool found = false;
-  trajetsParcourus[trajet->getIndice()] = true;
-  chemin->ajouter(trajet);
-
-  if(strcmp(trajet->getVilleArrivee(), villeArrivee) == 0)
-  {
-    found = true;
-
-    //Affiche le trajet
-    MaillonListeChaineeTrajets* maillonAct = chemin->getPremierMaillon();
-
-    cout << endl << " - ";
-
-    while(maillonAct != nullptr)
-    {
-      maillonAct->getTrajet()->afficher(cout);
-
-      if(maillonAct->getMaillonSuivant() != nullptr)
-      {
-        cout << " + ";
-      }
-
-      maillonAct = maillonAct->getMaillonSuivant();
-    }
-  }
-  else
-  {
-    ListeChaineeTrajets adj = rechercheTrajetsEnDepartDe(trajet->getVilleArrivee());
-    MaillonListeChaineeTrajets* maillonAct = adj.getPremierMaillon();
-
-    while(maillonAct != nullptr)
-    {
-      if(!trajetsParcourus[maillonAct->getTrajet()->getIndice()])
-      {
-        found |= sousRechercheTrajetAvancee(maillonAct->getTrajet(), villeArrivee, trajetsParcourus, chemin);
-      }
-      maillonAct = maillonAct->getMaillonSuivant();
-    }
-  }
-
-  chemin->supprimer(trajet);
-  trajetsParcourus[trajet->getIndice()] = false;
-
-  return found;
-}
-
 bool Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const
 {
-  bool found = false;
+  //Le nombre d'arêtes du graphe
   unsigned int nbTrajets = getTaille();
-
-  bool* trajetsParcourus = new bool[nbTrajets];
+  //Vrai pour une arête si elle a déjà été parcourue (initialisé à false)
+  bool* trajetsParcourus = new bool[nbTrajets]();
+  //Liste des trajets constituant le chemin
   ListeChaineeTrajets chemin;
 
-  for(unsigned int i = 0; i < nbTrajets; i++)
-  {
-    trajetsParcourus[i] = false;
-  }
-
-  ListeChaineeTrajets adj = rechercheTrajetsEnDepartDe(villeDepart);
-  MaillonListeChaineeTrajets* maillonAct = adj.getPremierMaillon();
-
-  while(maillonAct != nullptr)
-  {
-    found |= sousRechercheTrajetAvancee(maillonAct->getTrajet(), villeArrivee, trajetsParcourus, &chemin);
-    maillonAct = maillonAct->getMaillonSuivant();
-  }
-
-  return found;
+  //Vrai si un trajet a été trouvé
+  return sousRechercheTrajetAvancee(villeDepart, villeArrivee, trajetsParcourus, &chemin);
 
 } //----- Fin de rechercheTrajetAvancee
 
@@ -265,3 +205,63 @@ Catalogue::~Catalogue ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+bool Catalogue::sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const
+{
+  ListeChaineeTrajets trajets = rechercheTrajetsEnDepartDe(villeDepart);
+  MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
+
+  //Vrai si un trajet a été trouvé
+  bool found = false;
+
+  //Pour chaque trajet possible à partir de la ville de départ donné en argument
+  //on fait un appel récursif pour afficher les trajets possibles.
+  while(maillonAct != nullptr)
+  {
+    if(!trajetsParcourus[maillonAct->getTrajet()->getIndice()])
+    {
+      Trajet* trajet = maillonAct->getTrajet();
+
+      //On ne repassera pas par cette arête dans les appels fils
+      trajetsParcourus[trajet->getIndice()] = true;
+      chemin->ajouter(trajet);
+
+      //Si la ville d'arrivée du trajet correspond à la ville d'arrivée qu'on cherche
+      if(strcmp(trajet->getVilleArrivee(), villeArrivee) == 0)
+      {
+        found = true;
+
+        //-----------------  Affichage d'un trajet solution -----------------------
+        MaillonListeChaineeTrajets* maillonAct = chemin->getPremierMaillon();
+
+        cout << endl << " - ";
+
+        while(maillonAct != nullptr)
+        {
+          maillonAct->getTrajet()->afficher(cout);
+
+          if(maillonAct->getMaillonSuivant() != nullptr)
+          {
+            cout << " + ";
+          }
+
+          maillonAct = maillonAct->getMaillonSuivant();
+        }
+        //-------------------------------------------------------------------------
+
+      }
+      else
+      {
+        found |= sousRechercheTrajetAvancee(trajet->getVilleArrivee(), villeArrivee, trajetsParcourus, chemin);
+      }
+
+      chemin->supprimer(trajet);
+      trajetsParcourus[trajet->getIndice()] = false;
+
+    }
+
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
+
+  return found;
+}

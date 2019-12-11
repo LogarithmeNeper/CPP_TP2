@@ -55,8 +55,6 @@ public:
   // Contrat :
   //
 
-  bool sousRechercheTrajetAvancee(Trajet* trajet, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const;
-
   bool rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //
@@ -94,6 +92,8 @@ public:
 
 protected:
   //----------------------------------------------------- Méthodes protégées
+
+  bool sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const;
 
   //----------------------------------------------------- Attributs protégés
 

@@ -203,13 +203,6 @@ int main(void)
   //Instance unique du Catalogue
   Catalogue catalogue;
 
-  TrajetSimple* ts1 = new TrajetSimple("Paris", "Lyon", "TGV");
-  TrajetSimple* ts2 = new TrajetSimple("Lyon", "Paris", "TGV");
-  TrajetSimple* ts3 = new TrajetSimple("Paris", "Poitiers", "TGV");
-  catalogue.ajouter(ts1);
-  catalogue.ajouter(ts2);
-  catalogue.ajouter(ts3);
-
   unsigned short choix;
 
   cout << " === PROGRAMME DE GESTION DE CATALOGUE === " << endl;
