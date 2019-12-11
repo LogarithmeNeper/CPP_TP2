@@ -45,6 +45,10 @@ public:
 
   MaillonListeChaineeTrajets* get(unsigned int index) const;
 
+  MaillonListeChaineeTrajets* getPremierMaillon() const;
+
+  MaillonListeChaineeTrajets* getDernierMaillon() const;
+
   unsigned int getTaille() const;
 
   bool estVide() const;

@@ -49,13 +49,15 @@ public:
 
   ListeChaineeTrajets rechercheTrajetsEnDepartDe(const char* villeDepart) const;
 
-  void rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const;
+  bool rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //
   // Contrat :
   //
 
-  void rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const;
+  bool sousRechercheTrajetAvancee(Trajet* trajet, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const;
+
+  bool rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //
   // Contrat :

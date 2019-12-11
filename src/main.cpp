@@ -115,12 +115,43 @@ static void rechercheTrajetSimple(Catalogue & catalogue)
   cout << endl << " =====  RECHERCHE DE TRAJET SIMPLE ===== " << endl << endl;
   char villeDepart[100];
   char villeArrivee[100];
-  cout << "Ville de départ: ";
-  cin >> villeDepart;
-  cout << "Ville d'arrivée: ";
-  cin >> villeArrivee;
-  catalogue.rechercheTrajetSimple(villeDepart, villeArrivee);
-  cout << endl << " ==  FIN DE RECHERCHE DE TRAJET SIMPLE == " << endl;
+
+  //Lecture de la ville de départ
+  do
+  {
+    villeDepart[0] = '\0';
+    cout << "Ville de départ: ";
+    cin >> villeDepart;
+
+    if(cin.fail())
+    {
+      cout << "Entrée invalide." << endl;
+      cin.clear();
+      cin.ignore(10000, '\n');
+    }
+  } while(cin.fail());
+
+  //Lecture de la ville d'arrivée
+  do
+  {
+    villeArrivee[0] = '\0';
+    cout << "Ville d'arrivée: ";
+    cin >> villeArrivee;
+
+    if(cin.fail())
+    {
+      cout << "Entrée invalide." << endl;
+      cin.clear();
+      cin.ignore(10000, '\n');
+    }
+  } while(cin.fail());
+
+  bool found = catalogue.rechercheTrajetSimple(villeDepart, villeArrivee);
+  if(!found)
+  {
+    cout << endl << "Aucun trajet trouvé entre " << villeDepart << " et " << villeArrivee;
+  }
+  cout << endl << endl << " ==  FIN DE RECHERCHE DE TRAJET SIMPLE == " << endl << endl;
 }
 
 static void rechercheTrajetAvancee(Catalogue & catalogue)
@@ -128,18 +159,56 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   cout << endl << " =====  RECHERCHE DE TRAJET AVANCEE ===== " << endl << endl;
   char villeDepart[100];
   char villeArrivee[100];
-  cout << "Ville de départ: ";
-  cin >> villeDepart;
-  cout << "Ville d'arrivée: ";
-  cin >> villeArrivee;
-  catalogue.rechercheTrajetAvancee(villeDepart, villeArrivee);
-  cout << endl << " ==  FIN DE RECHERCHE DE TRAJET AVANCEE == " << endl;
+
+  //Lecture de la ville de départ
+  do
+  {
+    villeDepart[0] = '\0';
+    cout << "Ville de départ: ";
+    cin >> villeDepart;
+
+    if(cin.fail())
+    {
+      cout << "Entrée invalide." << endl;
+      cin.clear();
+      cin.ignore(10000, '\n');
+    }
+  } while(cin.fail());
+
+  //Lecture de la ville d'arrivée
+  do
+  {
+    villeArrivee[0] = '\0';
+    cout << "Ville d'arrivée: ";
+    cin >> villeArrivee;
+
+    if(cin.fail())
+    {
+      cout << "Entrée invalide." << endl;
+      cin.clear();
+      cin.ignore(10000, '\n');
+    }
+  } while(cin.fail());
+
+  bool found = catalogue.rechercheTrajetAvancee(villeDepart, villeArrivee);
+  if(!found)
+  {
+    cout << endl << "Aucun trajet trouvé entre " << villeDepart << " et " << villeArrivee;
+  }
+  cout << endl << endl << " ==  FIN DE RECHERCHE DE TRAJET AVANCEE == " << endl << endl;
 }
 
 int main(void)
 {
   //Instance unique du Catalogue
   Catalogue catalogue;
+
+  TrajetSimple* ts1 = new TrajetSimple("Paris", "Lyon", "TGV");
+  TrajetSimple* ts2 = new TrajetSimple("Lyon", "Paris", "TGV");
+  TrajetSimple* ts3 = new TrajetSimple("Paris", "Poitiers", "TGV");
+  catalogue.ajouter(ts1);
+  catalogue.ajouter(ts2);
+  catalogue.ajouter(ts3);
 
   unsigned short choix;
 

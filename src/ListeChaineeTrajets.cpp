@@ -128,6 +128,16 @@ MaillonListeChaineeTrajets* ListeChaineeTrajets::get(unsigned int index) const
   }
 }
 
+MaillonListeChaineeTrajets* ListeChaineeTrajets::getPremierMaillon() const
+{
+  return premierMaillon;
+}
+
+MaillonListeChaineeTrajets* ListeChaineeTrajets::getDernierMaillon() const
+{
+  return dernierMaillon;
+}
+
 unsigned int ListeChaineeTrajets::getTaille() const
 {
   return taille;
