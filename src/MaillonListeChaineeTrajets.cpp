@@ -57,8 +57,6 @@ MaillonListeChaineeTrajets::~MaillonListeChaineeTrajets ( )
   #ifdef MAP
   cout << "Appel au destructeur de MaillonListeChaineeTrajets" << endl;
   #endif
-
-  delete trajet;
 } //----- Fin de ~MaillonListeChaineeTrajets
 
 //------------------------------------------------------------------ PRIVE

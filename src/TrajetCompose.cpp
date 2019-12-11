@@ -32,6 +32,10 @@ bool TrajetCompose::ajouter(Trajet* unTrajet)
   if(!estValide())
   {
     ListeChaineeTrajets::supprimer(unTrajet);
+
+    //Supprime le trajet du tas
+    delete unTrajet;
+
     return false;
   }
 
@@ -48,6 +52,9 @@ bool TrajetCompose::supprimer(Trajet* unTrajet)
     ListeChaineeTrajets::ajouter(unTrajet);
     return false;
   }
+
+  //Supprime le trajet du tas
+  delete unTrajet;
 
   return true;
 }
@@ -174,6 +181,15 @@ TrajetCompose::~TrajetCompose ( )
   #ifdef MAP
   cout << "Appel au destructeur de TrajetCompose" << endl;
   #endif
+
+  //Suppression des trajets sur le tas
+  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+  while(maillonAct != nullptr)
+  {
+    delete maillonAct->getTrajet();
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
 } //----- Fin de ~TrajetCompose
 
 

@@ -33,6 +33,10 @@ bool Catalogue::ajouter(Trajet* unTrajet)
   if(!estValide())
   {
     ListeChaineeTrajets::supprimer(unTrajet);
+
+    //Supprime le trajet du tas
+    delete unTrajet;
+
     return false;
   }
 
@@ -50,6 +54,8 @@ bool Catalogue::supprimer(Trajet* unTrajet)
     return false;
   }
 
+  //Supprime le trajet du tas
+  delete unTrajet;
   return true;
 }
 
@@ -141,6 +147,16 @@ Catalogue::~Catalogue ( )
   #ifdef MAP
   cout << "Appel au destructeur de Catalogue" << endl;
   #endif
+
+  //Suppression des trajets sur le tas
+  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+  while(maillonAct != nullptr)
+  {
+    delete maillonAct->getTrajet();
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
+
 } //----- Fin de ~Catalogue
 
 //------------------------------------------------------------------ PRIVE
