@@ -43,7 +43,7 @@ public:
   // Contrat :
   //
 
-  MaillonListeChaineeTrajets* getMaillonListeChaineeTrajets(unsigned int index) const;
+  MaillonListeChaineeTrajets* get(unsigned int index) const;
 
   unsigned int getTaille() const;
 

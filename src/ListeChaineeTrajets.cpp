@@ -103,7 +103,7 @@ bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
   }
 }
 
-MaillonListeChaineeTrajets* ListeChaineeTrajets::getMaillonListeChaineeTrajets(unsigned int index) const
+MaillonListeChaineeTrajets* ListeChaineeTrajets::get(unsigned int index) const
 {
   if(index >= getTaille())
   {

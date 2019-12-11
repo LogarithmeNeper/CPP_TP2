@@ -18,7 +18,7 @@ class ListeChaineeTrajets {
   +~ListeChaineeTrajets() virtual
   +ajouter(Trajet* unTrajet) virtual : bool
   +supprimer(Trajet* unTrajet) virtual : bool
-  +getMaillonListeChaineeTrajets(unsigned int index) const : MaillonListeChaineeTrajets*
+  +get(unsigned int index) const : MaillonListeChaineeTrajets*
   +getTaille() const : unsigned int
   +estVide() const : bool
   +contient(const Trajet* unTrajet) const : bool

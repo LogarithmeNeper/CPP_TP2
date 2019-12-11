@@ -105,7 +105,7 @@ static void supprimerTrajet(Catalogue & catalogue)
       }
     } while(cin.fail() || numeroTrajet < 1 || numeroTrajet > catalogue.getTaille());
 
-    catalogue.supprimer(catalogue.getMaillonListeChaineeTrajets(numeroTrajet - 1)->getTrajet());
+    catalogue.supprimer(catalogue.get(numeroTrajet - 1)->getTrajet());
   }
   cout << endl << " ====== FIN DE LA SUPPRESSION ====== " << endl << endl;
 }
