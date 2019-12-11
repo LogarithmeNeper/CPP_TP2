@@ -43,6 +43,10 @@ public:
   // Contrat :
   //
 
+  void setIndice(unsigned int unIndice);
+
+  unsigned int getIndice() const;
+
   Trajet* getTrajet() const;
   // Mode d'emploi :
   //

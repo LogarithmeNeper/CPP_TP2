@@ -27,6 +27,9 @@ using namespace std;
 
 bool Catalogue::ajouter(Trajet* unTrajet)
 {
+  //Affecte un indice au trajet
+  unTrajet->setIndice(getTaille());
+
   ListeChaineeTrajets::ajouter(unTrajet);
 
   //Si le catalogue n'est pas valide en l'état, on revient en arrière
@@ -54,8 +57,18 @@ bool Catalogue::supprimer(Trajet* unTrajet)
     return false;
   }
 
+  //On décrémente tous les indices des trajets suivants
+  MaillonListeChaineeTrajets* maillonAct = get(unTrajet->getIndice());
+
+  while(maillonAct != nullptr)
+  {
+    maillonAct->getTrajet()->setIndice(maillonAct->getTrajet()->getIndice() - 1);
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
+
   //Supprime le trajet du tas
   delete unTrajet;
+
   return true;
 }
 
@@ -83,7 +96,7 @@ void Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* ville
 
   while(maillonAct != nullptr) {
     if(strcmp(maillonAct->getTrajet()->getVilleDepart(), villeDepart) == 0
-      && strcmp(maillonAct->getTrajet()->getVilleArrivee(), villeArrivee) == 0)
+    && strcmp(maillonAct->getTrajet()->getVilleArrivee(), villeArrivee) == 0)
     {
       cout << "- ";
       maillonAct->getTrajet()->afficher(cout);
@@ -95,8 +108,29 @@ void Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* ville
 
 } //----- Fin de rechercheTrajetSimple
 
+ListeChaineeTrajets Catalogue::rechercheTrajetsEnDepartDe(const char* villeDepart) const
+{
+  ListeChaineeTrajets liste;
+
+  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+  while(maillonAct != nullptr)
+  {
+    if(strcmp(maillonAct->getTrajet()->getVilleDepart(), villeDepart) == 0)
+    {
+      liste.ajouter(maillonAct->getTrajet());
+    }
+
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
+
+  return liste;
+}
+
 void Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const
 {
+  ListeChaineeTrajets suiteTrajets;
+
 
 
 } //----- Fin de rechercheTrajetAvancee
@@ -117,6 +151,7 @@ void Catalogue::afficher(ostream & out) const
 
       out << "Trajet " << i << " - ";
       maillonAct->getTrajet()->afficher(out);
+      out << " (indice = " << maillonAct->getTrajet()->getIndice() << ")";
 
       if(maillonAct->getMaillonSuivant() != nullptr)
       {

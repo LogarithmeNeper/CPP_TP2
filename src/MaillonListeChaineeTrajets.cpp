@@ -47,7 +47,6 @@ MaillonListeChaineeTrajets::MaillonListeChaineeTrajets ( Trajet* unTrajet ) : tr
   #ifdef MAP
   cout << "Appel au constructeur de MaillonListeChaineeTrajets" << endl;
   #endif
-
 } //----- Fin de MaillonListeChaineeTrajets
 
 MaillonListeChaineeTrajets::~MaillonListeChaineeTrajets ( )

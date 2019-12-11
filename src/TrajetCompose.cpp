@@ -164,7 +164,7 @@ const char* TrajetCompose::getVilleArrivee() const
 
 //-------------------------------------------- Constructeurs - destructeur
 
-TrajetCompose::TrajetCompose ( ) : ListeChaineeTrajets()
+TrajetCompose::TrajetCompose ( ) : Trajet(), ListeChaineeTrajets()
 // Algorithme :
 //
 {

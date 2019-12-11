@@ -47,6 +47,8 @@ public:
   // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
   //
 
+  ListeChaineeTrajets rechercheTrajetsEnDepartDe(const char* villeDepart) const;
+
   void rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const;
   // Mode d'emploi :
   //

@@ -48,7 +48,13 @@ virtual const char* getVilleDepart() const = 0;
 
 virtual const char* getVilleArrivee() const = 0;
 
+void setIndice(unsigned int unIndice);
+
+unsigned int getIndice() const;
+
 //-------------------------------------------- Constructeurs - destructeur
+
+Trajet();
 
 virtual ~Trajet( ) = 0;
 
@@ -56,6 +62,8 @@ virtual ~Trajet( ) = 0;
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+
+  unsigned int indice;
 
 //----------------------------------------------------- Attributs protégés
 

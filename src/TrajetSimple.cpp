@@ -85,7 +85,7 @@ const char* TrajetSimple::getVilleArrivee() const
 //-------------------------------------------- Constructeurs - destructeur
 
 TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport )
-  : villeDepart(uneVilleDepart), villeArrivee(uneVilleArrivee), typeTransport(unTypeTransport)
+  : Trajet(), villeDepart(uneVilleDepart), villeArrivee(uneVilleArrivee), typeTransport(unTypeTransport)
 {
   #ifdef MAP
   cout << "Appel au constructeur de TrajetSimple" << endl;
