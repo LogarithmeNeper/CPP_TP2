@@ -96,16 +96,31 @@ TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArr
   #endif
 
 
+
   //Copie en profondeur les chaines de caractères passées en paramètre
-  char* villeDepartCopy = new char[strlen(uneVilleDepart) + 1];
-  char* villeArriveeCopy = new char[strlen(uneVilleArrivee) + 1];
-  char* typeTransportCopy = new char[strlen(unTypeTransport) + 1];
-  strcpy(villeDepartCopy, uneVilleDepart);
-  strcpy(villeArriveeCopy, uneVilleArrivee);
-  strcpy(typeTransportCopy, unTypeTransport);
-  villeDepart = villeDepartCopy;
-  villeArrivee = villeArriveeCopy;
-  typeTransport = typeTransportCopy;
+  if(uneVilleDepart != nullptr) {
+    char* villeDepartCopy = new char[strlen(uneVilleDepart) + 1];
+    strcpy(villeDepartCopy, uneVilleDepart);
+    villeDepart = villeDepartCopy;
+  } else {
+    villeDepart = nullptr;
+  }
+
+  if(uneVilleArrivee != nullptr) {
+    char* villeArriveeCopy = new char[strlen(uneVilleArrivee) + 1];
+    strcpy(villeArriveeCopy, uneVilleArrivee);
+    villeArrivee = villeArriveeCopy;
+  } else {
+    villeArrivee = nullptr;
+  }
+
+  if(unTypeTransport != nullptr) {
+    char* typeTransportCopy = new char[strlen(unTypeTransport) + 1];
+    strcpy(typeTransportCopy, unTypeTransport);
+    typeTransport = typeTransportCopy;
+  } else {
+    typeTransport = nullptr;
+  }
 
 } //----- Fin de TrajetSimple
 
