@@ -248,16 +248,12 @@ bool Catalogue::sousRechercheTrajetAvancee(const char* villeDepart, const char* 
           maillonAct = maillonAct->getMaillonSuivant();
         }
         //-------------------------------------------------------------------------
+      }
 
-      }
-      else
-      {
-        found |= sousRechercheTrajetAvancee(trajet->getVilleArrivee(), villeArrivee, trajetsParcourus, chemin);
-      }
+      found |= sousRechercheTrajetAvancee(trajet->getVilleArrivee(), villeArrivee, trajetsParcourus, chemin);
 
       chemin->supprimer(trajet);
       trajetsParcourus[trajet->getIndice()] = false;
-
     }
 
     maillonAct = maillonAct->getMaillonSuivant();
