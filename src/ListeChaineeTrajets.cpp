@@ -27,7 +27,7 @@ bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
 // Algorithme :
 //
 {
-  if(unTrajet == NULL)
+  if(unTrajet == nullptr)
   {
     cerr << "Impossible d'ajouter un trajet NULL." << endl;
     return false;

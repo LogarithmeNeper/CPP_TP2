@@ -8,13 +8,18 @@ static bool strempty(const char* str)
 //    Retourne vrai si la chaîne de caractères est vide
 //
 // Contrat :
-//    Retourne vrai si la chaîne de caractère ne contient aucun caractères ou que des espaces
+//    Retourne vrai si la chaîne de caractère ne contient aucun caractères, que des espaces ou si elle est nulle
 //
 // Algorithme :
 //    Parcourt tous les caractères de la chaîne de caractère
 //    Dès qu'un caractère différent d'une espace est rencontré, retourne faux
 //    Si la chaîne de caractères ne contient aucun caractère ou que des espaces, retourne vrai
 {
+  if(str == nullptr)
+  {
+    return true;
+  }
+
   for(unsigned int i = 0; i < strlen(str); i++)
   {
     if(str[i] != ' ')

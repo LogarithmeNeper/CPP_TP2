@@ -69,7 +69,11 @@ bool TrajetSimple::estValide() const
 
 void TrajetSimple::afficher(ostream & out) const
 {
-  out << "Trajet simple de " << villeDepart << " à " << villeArrivee << " en " << typeTransport;
+  //Evite une erreur si un nom pointe vers nullptr
+  out << "Trajet simple de ";
+  out << (villeDepart == nullptr ? "NULL" : villeDepart);
+  out << " à " << (villeArrivee == nullptr ? "NULL" : villeArrivee);
+  out << " en " << (typeTransport == nullptr ? "NULL" : typeTransport);
 }
 
 const char* TrajetSimple::getVilleDepart() const

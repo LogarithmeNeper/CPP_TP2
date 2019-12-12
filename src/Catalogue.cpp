@@ -28,7 +28,10 @@ using namespace std;
 bool Catalogue::ajouter(Trajet* unTrajet)
 {
   //Affecte un indice au trajet
-  unTrajet->setIndice(getTaille());
+  if(unTrajet != nullptr)
+  {
+    unTrajet->setIndice(getTaille());
+  }
 
   ListeChaineeTrajets::ajouter(unTrajet);
 
