@@ -141,8 +141,11 @@ bool Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* vill
   //Liste des trajets constituant le chemin
   ListeChaineeTrajets chemin;
 
+  bool found = sousRechercheTrajetAvancee(villeDepart, villeArrivee, trajetsParcourus, &chemin);
+  delete [] trajetsParcourus;
+
   //Vrai si un trajet a été trouvé
-  return sousRechercheTrajetAvancee(villeDepart, villeArrivee, trajetsParcourus, &chemin);
+  return found;
 
 } //----- Fin de rechercheTrajetAvancee
 

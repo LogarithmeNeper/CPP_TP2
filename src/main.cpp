@@ -19,16 +19,33 @@ static void ajouterTrajetSimple(Catalogue & catalogue)
   cout << endl << " ===  AJOUT D'UN TRAJET SIMPLE === " << endl << endl;
   TrajetSimple* trajetSimple = nullptr;
 
-  do {
+  do
+  {
     char villeDepart[100];
     char villeArrivee[100];
     char typeTransport[100];
-    cout << "Ville de départ: ";
-    cin >> villeDepart;
-    cout << "Ville d'arrivée: ";
-    cin >> villeArrivee;
-    cout << "Type de transport: ";
-    cin >> typeTransport;
+
+    do {
+      villeDepart[0] = '\0';
+      cout << "Ville de départ: ";
+      cin.clear();
+      cin.getline(villeDepart, sizeof(villeDepart));
+    } while(cin.fail());
+
+    do {
+      villeArrivee[0] = '\0';
+      cout << "Ville d'arrivée: ";
+      cin.clear();
+      cin.getline(villeArrivee, sizeof(villeArrivee));
+    } while(cin.fail());
+
+    do {
+      typeTransport[0] = '\0';
+      cout << "Type de transport: ";
+      cin.clear();
+      cin.getline(typeTransport, sizeof(typeTransport));
+    } while(cin.fail());
+
     trajetSimple = new TrajetSimple(villeDepart, villeArrivee, typeTransport);
   } while(!catalogue.ajouter(trajetSimple));
 
@@ -53,25 +70,43 @@ static void ajouterTrajetCompose(Catalogue & catalogue)
         char villeArrivee[100];
         char typeTransport[100];
         cout << endl << ">>> Ajout d'un trajet simple <<<" << endl;
-        cout << "Ville de départ: ";
-        cin >> villeDepart;
-        cout << "Ville d'arrivée: ";
-        cin >> villeArrivee;
-        cout << "Type de transport: ";
-        cin >> typeTransport;
+
+        do {
+          villeDepart[0] = '\0';
+          cout << "Ville de départ: ";
+          cin.clear();
+          cin.getline(villeDepart, sizeof(villeDepart));
+        } while(cin.fail());
+
+        do {
+          villeArrivee[0] = '\0';
+          cout << "Ville d'arrivée: ";
+          cin.clear();
+          cin.getline(villeArrivee, sizeof(villeArrivee));
+        } while(cin.fail());
+
+        do {
+          typeTransport[0] = '\0';
+          cout << "Type de transport: ";
+          cin.clear();
+          cin.getline(typeTransport, sizeof(typeTransport));
+        } while(cin.fail());
+
         trajetSimple = new TrajetSimple(villeDepart, villeArrivee, typeTransport);
       } while(!trajetCompose->ajouter(trajetSimple));
 
       do
       {
         cout << endl << "Ajouter un autre trajet simple (o/n) ? ";
+        cin.clear();
         cin >> ajouterTrajetSimple;
+        cin.ignore(10000, '\n');
 
-        if(ajouterTrajetSimple != 'o' && ajouterTrajetSimple != 'n')
+        if(cin.fail() || (ajouterTrajetSimple != 'o' && ajouterTrajetSimple != 'n'))
         {
           cout << "Veuillez écrire o ou n." << endl;
         }
-      } while(ajouterTrajetSimple != 'o' && ajouterTrajetSimple != 'n');
+      } while(cin.fail() || (ajouterTrajetSimple != 'o' && ajouterTrajetSimple != 'n'));
 
     } while(ajouterTrajetSimple == 'o');
 
@@ -95,15 +130,17 @@ static void supprimerTrajet(Catalogue & catalogue)
     do
     {
       cout << endl << "Entrez le numéro de trajet à supprimer (entre 1 et " << catalogue.getTaille() << "): ";
+      cin.clear();
       cin >> numeroTrajet;
 
       if(cin.fail() || numeroTrajet < 1 || numeroTrajet > catalogue.getTaille())
       {
         cout << "Numéro de trajet invalide." << endl;
         cin.clear();
-        cin.ignore(10000, '\n');
       }
-    } while(cin.fail() || numeroTrajet < 1 || numeroTrajet > catalogue.getTaille());
+    } while(numeroTrajet < 1 || numeroTrajet > catalogue.getTaille());
+
+    cin.ignore(10000, '\n');
 
     catalogue.supprimer(catalogue.get(numeroTrajet - 1)->getTrajet());
   }
@@ -121,13 +158,12 @@ static void rechercheTrajetSimple(Catalogue & catalogue)
   {
     villeDepart[0] = '\0';
     cout << "Ville de départ: ";
-    cin >> villeDepart;
+    cin.clear();
+    cin.getline(villeDepart, 100);
 
     if(cin.fail())
     {
       cout << "Entrée invalide." << endl;
-      cin.clear();
-      cin.ignore(10000, '\n');
     }
   } while(cin.fail());
 
@@ -136,14 +172,14 @@ static void rechercheTrajetSimple(Catalogue & catalogue)
   {
     villeArrivee[0] = '\0';
     cout << "Ville d'arrivée: ";
-    cin >> villeArrivee;
+    cin.clear();
+    cin.getline(villeArrivee, 100);
 
     if(cin.fail())
     {
       cout << "Entrée invalide." << endl;
-      cin.clear();
-      cin.ignore(10000, '\n');
     }
+
   } while(cin.fail());
 
   bool found = catalogue.rechercheTrajetSimple(villeDepart, villeArrivee);
@@ -165,13 +201,12 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   {
     villeDepart[0] = '\0';
     cout << "Ville de départ: ";
-    cin >> villeDepart;
+    cin.clear();
+    cin.getline(villeDepart, 100);
 
     if(cin.fail())
     {
       cout << "Entrée invalide." << endl;
-      cin.clear();
-      cin.ignore(10000, '\n');
     }
   } while(cin.fail());
 
@@ -180,13 +215,12 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   {
     villeArrivee[0] = '\0';
     cout << "Ville d'arrivée: ";
-    cin >> villeArrivee;
+    cin.clear();
+    cin.getline(villeArrivee, 100);
 
     if(cin.fail())
     {
       cout << "Entrée invalide." << endl;
-      cin.clear();
-      cin.ignore(10000, '\n');
     }
   } while(cin.fail());
 
@@ -203,7 +237,7 @@ int main(void)
   //Instance unique du Catalogue
   Catalogue catalogue;
 
-  unsigned short choix;
+  unsigned short choix = 0;
 
   cout << " === PROGRAMME DE GESTION DE CATALOGUE === " << endl;
 
@@ -225,10 +259,11 @@ int main(void)
       if(cin.fail() || choix < 1 || choix > 7) {
         cout << "Choix invalide." << endl;
         cin.clear();
-        cin.ignore(10000, '\n');
       }
 
-    } while(cin.fail() || choix < 1 || choix > 7);
+      cin.ignore(10000, '\n');
+
+    } while(choix < 1 || choix > 7);
 
     switch(choix) {
 
@@ -256,7 +291,7 @@ int main(void)
 
   } while(choix != 7);
 
-  cout << " === FERMETURE DU PROGRAMME === " << endl;
+  cout << endl << " === FERMETURE DU PROGRAMME === " << endl;
 
   return 0;
 }
