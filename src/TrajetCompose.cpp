@@ -1,9 +1,9 @@
 /*************************************************************************
-TrajetCompose  -  description
+TrajetCompose  -  Trajet composé de plusieurs sous-trajets
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe TrajetCompose (fichier TrajetCompose.cpp) ------------
@@ -165,8 +165,6 @@ const char* TrajetCompose::getVilleArrivee() const
 //-------------------------------------------- Constructeurs - destructeur
 
 TrajetCompose::TrajetCompose ( ) : Trajet(), ListeChaineeTrajets()
-// Algorithme :
-//
 {
   #ifdef MAP
   cout << "Appel au constructeur de TrajetCompose" << endl;
@@ -175,8 +173,6 @@ TrajetCompose::TrajetCompose ( ) : Trajet(), ListeChaineeTrajets()
 
 
 TrajetCompose::~TrajetCompose ( )
-// Algorithme :
-//
 {
   #ifdef MAP
   cout << "Appel au destructeur de TrajetCompose" << endl;

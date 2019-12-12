@@ -1,9 +1,9 @@
 /*************************************************************************
-TrajetCompose  -  description
+TrajetCompose  -  Trajet composé de plusieurs sous-trajets
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe TrajetCompose (fichier TrajetCompose.h) ----------------
@@ -25,7 +25,8 @@ using namespace std;
 
 //------------------------------------------------------------------------
 // Rôle de la classe TrajetCompose
-//
+// La classe TrajetCompose permet de gérer un Trajet composé de plusieurs
+// sous-trajets.
 //
 //------------------------------------------------------------------------
 
@@ -37,8 +38,22 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
   bool ajouter(Trajet* unTrajet) override;
+  // Mode d'emploi : Ajoute un trajet au trajet composé, retourne vrai si l'action a été
+  // effectuée avec succès.
+  //
+  // Contrat :
+  // - Ne rajoute pas le trajet si il rend le trajet composé invalide.
+  // - Retourne vrai si le trajet a bien été rajouté.
+  // - Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée.
 
   bool supprimer(Trajet* unTrajet) override;
+  // Mode d'emploi : Supprime un trajet du trajet composé, retourne vrai si l'action a été
+  // effectuée avec succès.
+  //
+  // Contrat :
+  // - Ne supprime pas le trajet si il rend le trajet composé invalide.
+  // - Retourne vrai si le trajet a bien été supprimé.
+  // - Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée.
 
   bool estValide() const override;
   // Mode d'emploi : Renvoie vrai ou faux selon si le trajet est valide
@@ -49,19 +64,18 @@ public:
   //    pas à la ville de départ de l'autre
   //  - Le trajet composé est vide
   //  - La ville de départ est égale à la ville d'arrivée
-  // Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
+  //  - Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée
   //
 
   void afficher(ostream & out) const override;
   // Mode d'emploi : Affiche la définition du trajet sur la sortie standard
   //
-  // Contrat : Affiche la description du trajet sur le stdout au format:
-  // Si le trajet composé n'est pas vide:
-  // "Trajet composé: ({description trajetSimple1}) + ({description trajetSimple2}) + ({...})"
-  // Sinon:
-  // "Le trajet composé est vide."
-  //
-  // Sans retour à la ligne
+  // Contrat :
+  // - Affiche (Sans retour à la ligne) la description du trajet sur le stdout au format:
+  //    Si le trajet composé n'est pas vide:
+  //      "Trajet composé: ({description trajetSimple1}) + ({description trajetSimple2}) + ({...})"
+  //    Sinon:
+  //      "Le trajet composé est vide."
   //
 
   const char* getVilleDepart() const override;
@@ -71,16 +85,8 @@ public:
   //-------------------------------------------- Constructeurs - destructeur
 
   TrajetCompose ( );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
 
   virtual ~TrajetCompose ( );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
 
   //------------------------------------------------------------------ PRIVE
 

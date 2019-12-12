@@ -1,9 +1,9 @@
 /*************************************************************************
-MaillonListeChaineeTrajets  -  description
+MaillonListeChaineeTrajets  -  Maillon d'une liste chaînée contenant un trajet
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe MaillonListeChaineeTrajets (fichier MaillonListeChaineeTrajets.h) ----------------
@@ -21,6 +21,8 @@ e-mail               : charles.javerliat@insa-lyon.fr
 //------------------------------------------------------------------------
 // Rôle de la classe MaillonListeChaineeTrajets
 //
+// La classe MaillonListeChaineeTrajets permet de contenir un trajet dans une
+// liste chaînée (Cf ListeChaineeTrajets) et de pointer vers le maillon suivant.
 //
 //------------------------------------------------------------------------
 
@@ -32,40 +34,29 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
   MaillonListeChaineeTrajets* getMaillonSuivant() const;
-  // Mode d'emploi :
+  // Mode d'emploi : Retourne le pointeur vers le maillon suivant le maillon actuel
   //
   // Contrat :
+  // - Renvoie nullptr si il n'y a pas de maillon suivant
   //
 
   void setMaillonSuivant(MaillonListeChaineeTrajets* unMaillon);
-  // Mode d'emploi :
+  // Mode d'emploi : Met à jour le pointeur vers le maillon suivant
   //
   // Contrat :
-  //
-
-  void setIndice(unsigned int unIndice);
-
-  unsigned int getIndice() const;
+  // - Met à jour le pointeur vers le maillon suivant
 
   Trajet* getTrajet() const;
-  // Mode d'emploi :
+  // Mode d'emploi : Retourne le pointeur du trajet contenu dans le maillon
   //
   // Contrat :
-  //
+  // - Retourne le pointeur du trajet contenu dans le maillon
 
   //-------------------------------------------- Constructeurs - destructeur
 
   MaillonListeChaineeTrajets ( Trajet* unTrajet );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
 
   virtual ~MaillonListeChaineeTrajets ( );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
 
   //------------------------------------------------------------------ PRIVE
 
@@ -74,8 +65,10 @@ protected:
 
   //----------------------------------------------------- Attributs protégés
 
+  //Le pointeur du trajet contenu dans le maillon
   Trajet* trajet;
 
+  //Le pointeur vers le maillon suivant
   MaillonListeChaineeTrajets* maillonSuivant;
 
 };

@@ -1,9 +1,10 @@
 /*************************************************************************
-TrajetSimple  -  description
+TrajetSimple  -  Trajet simple allant d'une ville de départ à une ville d'arrivée
+à l'aide d'un moyen de transport défini.
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe TrajetSimple (fichier TrajetSimple.cpp) ------------
@@ -94,7 +95,8 @@ TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArr
   cout << "Appel au constructeur de TrajetSimple" << endl;
   #endif
 
-  //On copie le contenu des char* pour ne pas modifier les valeurs de l'appelant
+
+  //Copie en profondeur les chaines de caractères passées en paramètre
   char* villeDepartCopy = new char[strlen(uneVilleDepart) + 1];
   char* villeArriveeCopy = new char[strlen(uneVilleArrivee) + 1];
   char* typeTransportCopy = new char[strlen(unTypeTransport) + 1];

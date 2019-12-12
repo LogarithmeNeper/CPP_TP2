@@ -1,9 +1,9 @@
 /*************************************************************************
-ListeChaineeTrajets  -  description
+ListeChaineeTrajets  -  Liste chaînée de MaillonListeChaineeTrajets
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe ListeChaineeTrajets (fichier ListeChaineeTrajets.cpp) ------------
@@ -24,8 +24,6 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
-// Algorithme :
-//
 {
   if(unTrajet == nullptr)
   {
@@ -41,6 +39,7 @@ bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
   {
     MaillonListeChaineeTrajets* nouvMaillon = new MaillonListeChaineeTrajets(unTrajet);
 
+    //Met à jour les relations entre les maillons
     if(estVide()) {
       premierMaillon = nouvMaillon;
       dernierMaillon = nouvMaillon;
@@ -49,6 +48,7 @@ bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
       dernierMaillon = nouvMaillon;
     }
 
+    //Met à jour la taille de la liste
     ++taille;
     return true;
   }
@@ -56,10 +56,8 @@ bool ListeChaineeTrajets::ajouter(Trajet* unTrajet)
 } //----- Fin de ajouter
 
 bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
-// Algorithme :
-//
 {
-  if(unTrajet == NULL)
+  if(unTrajet == nullptr)
   {
     cerr << "Impossible de supprimer un trajet NULL." << endl;
     return false;
@@ -74,10 +72,12 @@ bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
     MaillonListeChaineeTrajets* maillonPrec = nullptr;
     MaillonListeChaineeTrajets* maillonAct = premierMaillon;
 
+    //Cherche le trajet dans la liste
     while(maillonAct != nullptr) {
 
       if(maillonAct->getTrajet() == unTrajet) {
 
+        //Met à jour la relation entre les maillons
         if(maillonAct == premierMaillon) {
           premierMaillon = maillonAct->getMaillonSuivant();
         }
@@ -90,6 +90,7 @@ bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
           maillonPrec->setMaillonSuivant(maillonAct->getMaillonSuivant());
         }
 
+        //On supprime et on met à jour la taille de la liste
         delete maillonAct;
         --taille;
         return true;
@@ -144,7 +145,7 @@ unsigned int ListeChaineeTrajets::getTaille() const
 }
 
 bool ListeChaineeTrajets::contient(const Trajet* unTrajet) const
-// Algorithme :
+// Algorithme : Vérifie de manière itérative qu'un des maillon contient le trajet
 //
 {
   MaillonListeChaineeTrajets* maillonAct = premierMaillon;
@@ -189,6 +190,7 @@ ListeChaineeTrajets::~ListeChaineeTrajets ( )
   cout << "Appel au destructeur de ListeChaineeTrajets" << endl;
   #endif
 
+  //Supprime les maillons
   MaillonListeChaineeTrajets* maillonActuel = premierMaillon;
   MaillonListeChaineeTrajets* tmp;
 

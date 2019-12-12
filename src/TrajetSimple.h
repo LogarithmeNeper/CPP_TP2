@@ -1,9 +1,10 @@
 /*************************************************************************
-TrajetSimple  -  description
+TrajetSimple  -  Trajet simple allant d'une ville de départ à une ville d'arrivée
+à l'aide d'un moyen de transport défini.
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Interface de la classe TrajetSimple (fichier TrajetSimple.h) ----------------
@@ -21,6 +22,8 @@ e-mail               : charles.javerliat@insa-lyon.fr
 //------------------------------------------------------------------------
 // Rôle de la classe TrajetSimple
 //
+// Classe permettant de décrire un trajet simple: sa ville de départ, d'arrivée
+// et le mode de transport
 //
 //------------------------------------------------------------------------
 
@@ -60,16 +63,9 @@ public:
   //-------------------------------------------- Constructeurs - destructeur
 
   TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
+  // Contrat : Copie en profondeur les chaines de caractères passées en paramètre
 
   virtual ~TrajetSimple ( );
-  // Mode d'emploi :
-  //
-  // Contrat :
-  //
 
   //------------------------------------------------------------------ PRIVE
 

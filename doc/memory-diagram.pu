@@ -164,6 +164,11 @@ digraph memory {
     <td bgcolor="#b2f9ca" port="ts1typetransp" border="1">0x...</td>
     </tr>
 
+    <tr>
+    <td bgcolor="#d7d7d7" border="0">indice</td>
+    <td bgcolor="#d7d7d7" border="1">0</td>
+    </tr>
+
     </table>
     </td>
     </tr>
@@ -193,6 +198,11 @@ digraph memory {
     <tr>
     <td bgcolor="#d7d7d7" border="0">typeTransport</td>
     <td bgcolor="#b2f9ca" port="ts2_1typetransp" border="1">0x...</td>
+    </tr>
+
+    <tr>
+    <td bgcolor="#d7d7d7" border="0">indice</td>
+    <td bgcolor="#d7d7d7" border="1">0</td>
     </tr>
 
     </table>
@@ -226,6 +236,11 @@ digraph memory {
     <td bgcolor="#b2f9ca" port="ts2_2typetransp" border="1">0x...</td>
     </tr>
 
+    <tr>
+    <td bgcolor="#d7d7d7" border="0">indice</td>
+    <td bgcolor="#d7d7d7" border="1">0</td>
+    </tr>
+
     </table>
     </td>
     </tr>
@@ -257,6 +272,11 @@ digraph memory {
     <td bgcolor="#b2f9ca" port="ts3typetransp" border="1">0x...</td>
     </tr>
 
+    <tr>
+    <td bgcolor="#d7d7d7" border="0">indice</td>
+    <td bgcolor="#d7d7d7" border="1">0</td>
+    </tr>
+
     </table>
     </td>
     </tr>
@@ -286,6 +306,11 @@ digraph memory {
     <tr>
     <td bgcolor="#d7d7d7" border="0">taille</td>
     <td bgcolor="lightgray" border="1" port="cdm">2</td>
+    </tr>
+
+    <tr>
+    <td bgcolor="#d7d7d7" border="0">indice</td>
+    <td bgcolor="#d7d7d7" border="1">1</td>
     </tr>
 
     </table>

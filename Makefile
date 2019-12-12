@@ -39,10 +39,11 @@ all:
 	@echo ">>> Pour lancer les tests: './bin/catalogue-test'"
 
 doc:
-	make class-diagram
-	make memory-diagram
-	make graph1-diagram
-	make graph2-diagram
+	make -B class-diagram
+	make -B memory-diagram
+	make -B graph1-diagram
+	make -B graph2-diagram
+	make -B graph3-diagram
 
 class-diagram: $(DOC_DIR)/class-diagram.pu
 
@@ -51,6 +52,8 @@ memory-diagram: $(DOC_DIR)/memory-diagram.pu
 graph1-diagram: $(DOC_DIR)/graph1.pu
 
 graph2-diagram: $(DOC_DIR)/graph2.pu
+
+graph3-diagram: $(DOC_DIR)/graph3.pu
 
 %.pu:
 	java -jar $(PLANTUML_PATH) -tsvg $@
@@ -76,4 +79,4 @@ clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*
 	rm -rf $(DOC_DIR)/diagram.latex $(DOC_DIR)/diagram.png
 
-.PHONY: clean
+.PHONY: clean doc

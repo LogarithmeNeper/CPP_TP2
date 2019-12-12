@@ -1,9 +1,9 @@
 /*************************************************************************
-Catalogue  -  description
+Catalogue  -  Un catalogue est un ensemble de trajets
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe Catalogue (fichier Catalogue.cpp) ------------
@@ -17,6 +17,7 @@ using namespace std;
 #include <string.h>
 
 //------------------------------------------------------ Include personnel
+
 #include "Catalogue.h"
 
 //------------------------------------------------------------- Constantes
@@ -25,6 +26,8 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+// Algorithme : Attribue un indice au trajet, puis essaie de l'ajouter,
+// si une erreur survient (trajet non valide), on procède à un retour en arrière.
 bool Catalogue::ajouter(Trajet* unTrajet)
 {
   //Affecte un indice au trajet
@@ -49,6 +52,9 @@ bool Catalogue::ajouter(Trajet* unTrajet)
   return true;
 }
 
+// Algorithme : Essaie de supprimer un trajet du Catalogue.
+// Décrèmente l'indice de tous les trajets suivants si il est effectivement supprimé.
+// Si une erreur survient (trajet non valide), on procède à un retour en arrière.
 bool Catalogue::supprimer(Trajet* unTrajet)
 {
   ListeChaineeTrajets::supprimer(unTrajet);
@@ -75,6 +81,8 @@ bool Catalogue::supprimer(Trajet* unTrajet)
   return true;
 }
 
+// Algorithme : Vérifie de manière itérative que tous les trajets du catalogue
+// sont valides.
 bool Catalogue::estValide() const
 {
   MaillonListeChaineeTrajets* maillonAct = premierMaillon;
@@ -92,6 +100,29 @@ bool Catalogue::estValide() const
   return true;
 }
 
+// Algorithme : Cherche de manière itérative dans le catalogue les trajets ayant
+// pour ville de départ la ville donnée en argument.
+ListeChaineeTrajets Catalogue::rechercheTrajetsEnDepartDe(const char* villeDepart) const
+{
+  ListeChaineeTrajets liste;
+
+  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
+
+  while(maillonAct != nullptr)
+  {
+    if(strcmp(maillonAct->getTrajet()->getVilleDepart(), villeDepart) == 0)
+    {
+      liste.ajouter(maillonAct->getTrajet());
+    }
+
+    maillonAct = maillonAct->getMaillonSuivant();
+  }
+
+  return liste;
+}
+
+// Algorithme: Cherche de manière itérative un trajet du catalogue respectant
+// la contrainte de ville de départ et d'arrivée.
 bool Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const
 {
   bool found = false;
@@ -113,25 +144,8 @@ bool Catalogue::rechercheTrajetSimple(const char* villeDepart, const char* ville
 
 } //----- Fin de rechercheTrajetSimple
 
-ListeChaineeTrajets Catalogue::rechercheTrajetsEnDepartDe(const char* villeDepart) const
-{
-  ListeChaineeTrajets liste;
-
-  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
-
-  while(maillonAct != nullptr)
-  {
-    if(strcmp(maillonAct->getTrajet()->getVilleDepart(), villeDepart) == 0)
-    {
-      liste.ajouter(maillonAct->getTrajet());
-    }
-
-    maillonAct = maillonAct->getMaillonSuivant();
-  }
-
-  return liste;
-}
-
+// Algorithme : Cherche toutes les combinaisons de trajets respectant la contrainte
+// de manière récursive dans le graphe de trajets.
 bool Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const
 {
   //Le nombre d'arêtes du graphe
@@ -149,7 +163,7 @@ bool Catalogue::rechercheTrajetAvancee(const char* villeDepart, const char* vill
 
 } //----- Fin de rechercheTrajetAvancee
 
-
+// Algorithme: Affiche de manière itérative tous les trajets dans le flux de sortie
 void Catalogue::afficher(ostream & out) const
 {
   if(estVide())
@@ -179,6 +193,8 @@ void Catalogue::afficher(ostream & out) const
 
 } //----- Fin de afficher
 
+//-------------------------------------------- Constructeurs - destructeur
+
 Catalogue::Catalogue ( ) : ListeChaineeTrajets()
 // Algorithme : Crée le tableau de trajets sur le tas
 //
@@ -187,7 +203,6 @@ Catalogue::Catalogue ( ) : ListeChaineeTrajets()
   cout << "Appel au constructeur de Catalogue" << endl;
   #endif
 } //----- Fin de Catalogue
-
 
 Catalogue::~Catalogue ( )
 // Algorithme : Détruit le tableau de trajets
@@ -212,6 +227,8 @@ Catalogue::~Catalogue ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+// Algorithme : Cherche toutes les combinaisons de trajets respectant la contrainte
+// de manière récursive dans le graphe de trajets.
 bool Catalogue::sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const
 {
   ListeChaineeTrajets trajets = rechercheTrajetsEnDepartDe(villeDepart);
@@ -237,7 +254,7 @@ bool Catalogue::sousRechercheTrajetAvancee(const char* villeDepart, const char* 
       {
         found = true;
 
-        //-----------------  Affichage d'un trajet solution -----------------------
+        //-----------------  Affichage d'un trajet solution --------------------
         MaillonListeChaineeTrajets* maillonAct = chemin->getPremierMaillon();
 
         cout << endl << " - ";
@@ -253,11 +270,12 @@ bool Catalogue::sousRechercheTrajetAvancee(const char* villeDepart, const char* 
 
           maillonAct = maillonAct->getMaillonSuivant();
         }
-        //-------------------------------------------------------------------------
+        //----------------------------------------------------------------------
       }
 
       found |= sousRechercheTrajetAvancee(trajet->getVilleArrivee(), villeArrivee, trajetsParcourus, chemin);
 
+      //On rend à nouveau le trajet disponible pour les autres noeuds du même niveau du graphe
       chemin->supprimer(trajet);
       trajetsParcourus[trajet->getIndice()] = false;
     }

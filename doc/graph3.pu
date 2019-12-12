@@ -1,0 +1,42 @@
+@startuml
+digraph graph3 {
+
+  node [style=filled];
+  layout = circo;
+  Lyon -> Paris;
+  Lyon -> Bordeaux;
+  Lyon -> Marseille;
+  Lyon -> Toulon;
+  Lyon -> Valenciennes;
+
+  Paris -> Bordeaux;
+  Paris -> Marseille;
+  Paris -> Toulon;
+  Paris -> Valenciennes;
+  Paris -> Lyon;
+
+  Bordeaux -> Paris;
+  Bordeaux -> Lyon;
+  Bordeaux -> Marseille;
+  Bordeaux -> Toulon;
+  Bordeaux -> Valenciennes;
+
+  Marseille -> Paris;
+  Marseille -> Lyon;
+  Marseille -> Bordeaux;
+  Marseille -> Toulon;
+  Marseille -> Valenciennes;
+
+  Toulon -> Paris;
+  Toulon -> Lyon;
+  Toulon -> Bordeaux;
+  Toulon -> Marseille;
+  Toulon -> Valenciennes;
+
+  Valenciennes -> Paris;
+  Valenciennes -> Lyon;
+  Valenciennes -> Bordeaux;
+  Valenciennes -> Marseille;
+  Valenciennes -> Toulon;
+}
+@enduml

@@ -1,9 +1,9 @@
 /*************************************************************************
-MaillonListeChaineeTrajets  -  description
+MaillonListeChaineeTrajets  -  Maillon d'une liste chaînée contenant un trajet
 -------------------
 début                : 20/11/2019
 copyright            : (C) 2019 par Charles Javerliat
-e-mail               : charles.javerliat@insa-lyon.fr
+e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe MaillonListeChaineeTrajets (fichier MaillonListeChaineeTrajets.cpp) ------------
@@ -15,6 +15,7 @@ using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
+
 #include "MaillonListeChaineeTrajets.h"
 
 //------------------------------------------------------------- Constantes
@@ -41,8 +42,6 @@ Trajet* MaillonListeChaineeTrajets::getTrajet() const
 //-------------------------------------------- Constructeurs - destructeur
 
 MaillonListeChaineeTrajets::MaillonListeChaineeTrajets ( Trajet* unTrajet ) : trajet(unTrajet), maillonSuivant(nullptr)
-// Algorithme :
-//
 {
   #ifdef MAP
   cout << "Appel au constructeur de MaillonListeChaineeTrajets" << endl;
@@ -50,8 +49,6 @@ MaillonListeChaineeTrajets::MaillonListeChaineeTrajets ( Trajet* unTrajet ) : tr
 } //----- Fin de MaillonListeChaineeTrajets
 
 MaillonListeChaineeTrajets::~MaillonListeChaineeTrajets ( )
-// Algorithme :
-//
 {
   #ifdef MAP
   cout << "Appel au destructeur de MaillonListeChaineeTrajets" << endl;
