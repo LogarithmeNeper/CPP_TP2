@@ -13,7 +13,7 @@ e-mail               : charles.javerliat@insa-lyon.fr
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 //------------------------------------------------------ Include personnel
 #include "TrajetSimple.h"
@@ -84,12 +84,23 @@ const char* TrajetSimple::getVilleArrivee() const
 
 //-------------------------------------------- Constructeurs - destructeur
 
-TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport )
-  : Trajet(), villeDepart(uneVilleDepart), villeArrivee(uneVilleArrivee), typeTransport(unTypeTransport)
+TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport ) : Trajet()
 {
   #ifdef MAP
   cout << "Appel au constructeur de TrajetSimple" << endl;
   #endif
+
+  //On copie le contenu des char* pour ne pas modifier les valeurs de l'appelant
+  char* villeDepartCopy = new char[strlen(uneVilleDepart) + 1];
+  char* villeArriveeCopy = new char[strlen(uneVilleArrivee) + 1];
+  char* typeTransportCopy = new char[strlen(unTypeTransport) + 1];
+  strcpy(villeDepartCopy, uneVilleDepart);
+  strcpy(villeArriveeCopy, uneVilleArrivee);
+  strcpy(typeTransportCopy, unTypeTransport);
+  villeDepart = villeDepartCopy;
+  villeArrivee = villeArriveeCopy;
+  typeTransport = typeTransportCopy;
+
 } //----- Fin de TrajetSimple
 
 TrajetSimple::~TrajetSimple (  )

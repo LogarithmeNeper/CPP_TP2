@@ -56,7 +56,7 @@ void setIndice(unsigned int unIndice);
 
 Trajet();
 
-virtual ~Trajet( ) = 0;
+virtual ~Trajet( );
 
 //------------------------------------------------------------------ PRIVE
 

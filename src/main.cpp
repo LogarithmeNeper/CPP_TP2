@@ -20,9 +20,9 @@ static void ajouterTrajetSimple(Catalogue & catalogue)
   TrajetSimple* trajetSimple = nullptr;
 
   do {
-    char* villeDepart = new char[100];
-    char* villeArrivee = new char[100];
-    char* typeTransport = new char[100];
+    char villeDepart[100];
+    char villeArrivee[100];
+    char typeTransport[100];
     cout << "Ville de départ: ";
     cin >> villeDepart;
     cout << "Ville d'arrivée: ";
@@ -49,9 +49,9 @@ static void ajouterTrajetCompose(Catalogue & catalogue)
 
       do
       {
-        char* villeDepart = new char[100];
-        char* villeArrivee = new char[100];
-        char* typeTransport = new char[100];
+        char villeDepart[100];
+        char villeArrivee[100];
+        char typeTransport[100];
         cout << endl << ">>> Ajout d'un trajet simple <<<" << endl;
         cout << "Ville de départ: ";
         cin >> villeDepart;
@@ -202,20 +202,6 @@ int main(void)
 {
   //Instance unique du Catalogue
   Catalogue catalogue;
-
-  TrajetSimple* ts1 = new TrajetSimple("0", "1", "TGV");
-  TrajetSimple* ts2 = new TrajetSimple("1", "0", "TGV");
-  TrajetSimple* ts3 = new TrajetSimple("0", "2", "TGV");
-  TrajetSimple* ts4 = new TrajetSimple("2", "0", "TGV");
-  TrajetSimple* ts5 = new TrajetSimple("1", "2", "TGV");
-  TrajetSimple* ts6 = new TrajetSimple("2", "1", "TGV");
-  catalogue.ajouter(ts1);
-  catalogue.ajouter(ts2);
-  catalogue.ajouter(ts3);
-  catalogue.ajouter(ts4);
-  catalogue.ajouter(ts5);
-  catalogue.ajouter(ts6);
-
 
   unsigned short choix;
 
