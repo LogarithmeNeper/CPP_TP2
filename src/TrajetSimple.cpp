@@ -95,8 +95,6 @@ TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArr
   cout << "Appel au constructeur de TrajetSimple" << endl;
   #endif
 
-
-
   //Copie en profondeur les chaines de caractères passées en paramètre
   if(uneVilleDepart != nullptr) {
     char* villeDepartCopy = new char[strlen(uneVilleDepart) + 1];
