@@ -2,393 +2,574 @@
 
 digraph memory {
 
-  rankdir = LR;
-
-  overlap = false;
   splines = true;
+  nodesep = 2;
+  ordering=out;
 
   subgraph cluster_0 {
-    color=none;
-
-    pile
-    [
-    shape = none
-    label = <<table border="1" cellspacing="2">
-
-    <tr><td colspan="2" border="1" bgcolor="gray">Pile</td></tr>
-    <tr><td border="1" bgcolor="lightgray">Nom</td><td border="1" bgcolor="lightgray">Valeur</td></tr>
-
-    'Zone mémoire du catalogue'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td colspan="2" border="0">Catalogue</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Liste chaînée)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">premierMaillon</td>
-    <td bgcolor="#faf391" border="1" port="cpm">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">dernierMaillon</td>
-    <td bgcolor="#f9dab2" border="1" port="cdm">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">taille</td>
-    <td bgcolor="lightgray" border="1" port="cdm">3</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire du catalogue'
-
-    </table>>
-    ]
-
-    tas
-    [
-    shape = none
-    label = <<table border="1" cellspacing="2">
-
-    <tr><td colspan="2" border="1" bgcolor="gray">Tas</td></tr>
-    <tr><td border="1" bgcolor="lightgray">Nom</td><td border="1" bgcolor="lightgray">Valeur</td></tr>
-
-    'Zone mémoire maillon catalogue m1'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="m1" colspan="2" border="0">MaillonListeChaineeTrajets</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Entrée catalogue TS1)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">trajet</td>
-    <td bgcolor="#d3b2f9" border="1" port="m1t">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
-    <td bgcolor="#70a3d7" border="1" port="m1ms">0x...</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire maillon catalogue m1'
-
-    'Zone mémoire maillon catalogue m2'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="m2" colspan="2" border="0">MaillonListeChaineeTrajets</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Entrée catalogue TC2)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">trajet</td>
-    <td bgcolor="#d3b2f9" border="1" port="m2t">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
-    <td bgcolor="#70a3d7" border="1" port="m2ms">0x...</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire maillon catalogue m2'
-
-    'Zone mémoire maillon catalogue m3'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="m3" colspan="2" border="0">MaillonListeChaineeTrajets</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Entrée catalogue TS3)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">trajet</td>
-    <td bgcolor="#d3b2f9" border="1" port="m3t">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
-    <td bgcolor="#70a3d7" border="1" port="m3ms">nullptr</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire maillon catalogue m3'
-
-    'Zone mémoire trajet simple TS1'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="ts1" colspan="2" border="0">TrajetSimple</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(TS1)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeDepart</td>
-    <td bgcolor="#b2f9ca" port="ts1villedep" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
-    <td bgcolor="#b2f9ca" port="ts1villearr" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">typeTransport</td>
-    <td bgcolor="#b2f9ca" port="ts1typetransp" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">indice</td>
-    <td bgcolor="#d7d7d7" border="1">0</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire TS1'
-
-    'Zone mémoire trajet simple TS2-1'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="ts2_1" colspan="2" border="0">TrajetSimple</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(TS2-1)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeDepart</td>
-    <td bgcolor="#b2f9ca" port="ts2_1villedep" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
-    <td bgcolor="#b2f9ca" port="ts2_1villearr" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">typeTransport</td>
-    <td bgcolor="#b2f9ca" port="ts2_1typetransp" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">indice</td>
-    <td bgcolor="#d7d7d7" border="1">0</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire TS2-1'
-
-    'Zone mémoire trajet simple TS2-2'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="ts2_2" colspan="2" border="0">TrajetSimple</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(TS2-2)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeDepart</td>
-    <td bgcolor="#b2f9ca" port="ts2_2villedep" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
-    <td bgcolor="#b2f9ca" port="ts2_2villearr" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">typeTransport</td>
-    <td bgcolor="#b2f9ca" port="ts2_2typetransp" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">indice</td>
-    <td bgcolor="#d7d7d7" border="1">0</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire TS2-2'
-
-    'Zone mémoire trajet simple TS3'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="ts3" colspan="2" border="0">TrajetSimple</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(TS3)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeDepart</td>
-    <td bgcolor="#b2f9ca" port="ts3villedep" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
-    <td bgcolor="#b2f9ca" port="ts3villearr" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">typeTransport</td>
-    <td bgcolor="#b2f9ca" port="ts3typetransp" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">indice</td>
-    <td bgcolor="#d7d7d7" border="1">0</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire TS3'
-
-    'Zone mémoire trajet simple TC2'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="tc2" colspan="2" border="0">TrajetCompose</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(TC2 - Liste chaînée)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">premierMaillon</td>
-    <td bgcolor="#faf391" port="tc2pm" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">dernierMaillon</td>
-    <td bgcolor="#f9dab2" port="tc2dm" border="1">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">taille</td>
-    <td bgcolor="lightgray" border="1" port="cdm">2</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">indice</td>
-    <td bgcolor="#d7d7d7" border="1">1</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire TC2'
-
-    'Zone mémoire maillon trajet composé mtc1'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="mtc2_1" colspan="2" border="0">MaillonListeChaineeTrajets</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Entrée TS2-1 TrajetCompose TC2)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">trajet</td>
-    <td bgcolor="#d3b2f9" border="1" port="mtc2_1t">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
-    <td bgcolor="#70a3d7" border="1" port="mtc2_1ms">0x...</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire maillon catalogue mtc1'
-
-    'Zone mémoire maillon trajet composé mtc2'
-    <tr>
-    <td colspan="2">
-    <table>
-    <tr>
-    <td port="mtc2_2" colspan="2" border="0">MaillonListeChaineeTrajets</td>
-    </tr>
-    <tr>
-    <td colspan="2" border="0">(Entrée TS2-2 TrajetCompose TC2)</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">trajet</td>
-    <td bgcolor="#d3b2f9" border="1" port="mtc2_2t">0x...</td>
-    </tr>
-
-    <tr>
-    <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
-    <td bgcolor="#70a3d7" border="1" port="mtc2_2ms">nullptr</td>
-    </tr>
-
-    </table>
-    </td>
-    </tr>
-    'Fin de la zone mémoire maillon catalogue mtc2'
-
-    </table>>
-    ]
-
-    pile:cpm:e -> tas:m1:w [penwidth=2 color="#c2be6f" fillcolor="#faf391"]
-    pile:cdm:e -> tas:m3:w [penwidth=2 color="#b89f80" fillcolor="#f9dab2"]
-
-    tas:tc2pm:e -> tas:mtc2_1:e [penwidth=2 color="#c2be6f" fillcolor="#faf391"]
-    tas:tc2dm:e -> tas:mtc2_2:e [penwidth=2 color="#b89f80" fillcolor="#f9dab2"]
-
-    tas:m1ms:e -> tas:m2:e [penwidth=2 color="#5d87b3" fillcolor="#70a3d7"]
-    tas:m2ms:e -> tas:m3:e [penwidth=2 color="#5d87b3" fillcolor="#70a3d7"]
-    tas:mtc2_1ms:e -> tas:mtc2_2:e [penwidth=2 color="#5d87b3" fillcolor="#70a3d7"]
-
-    tas:m1t:e -> tas:ts1:e [penwidth=2 color="#86709e" fillcolor="#d3b2f9"]
-    tas:m2t:e -> tas:tc2:e [penwidth=2 color="#86709e" fillcolor="#d3b2f9"]
-    tas:m3t:e -> tas:ts3:e [penwidth=2 color="#86709e" fillcolor="#d3b2f9"]
-
-    tas:mtc2_1t:e -> tas:ts2_1:e [penwidth=2 color="#86709e" fillcolor="#d3b2f9"]
-    tas:mtc2_2t:e -> tas:ts2_2:e [penwidth=2 color="#86709e" fillcolor="#d3b2f9"]
+  color=none;
+
+  pile
+  [
+  shape = none
+  label = <<table border="1" cellspacing="2">
+
+  <tr><td colspan="2" border="1" bgcolor="gray">Pile</td></tr>
+  <tr><td border="1" bgcolor="lightgray">Nom</td><td border="1" bgcolor="lightgray">Valeur</td></tr>
+
+  'Zone memoire du catalogue'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td colspan="2" border="0">Catalogue</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Liste chainee)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">premierMaillon</td>
+  <td bgcolor="#faf391" border="1" port="cpm">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">dernierMaillon</td>
+  <td bgcolor="#f9dab2" border="1" port="cdm">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">taille</td>
+  <td bgcolor="lightgray" border="1" port="cdm">3</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire du catalogue'
+
+  </table>>
+  ]
+
+  tas
+  [
+  shape = none
+  label = <<table border="1" cellspacing="2">
+
+  <tr><td colspan="2" border="1" bgcolor="gray">Tas</td></tr>
+  <tr><td border="1" bgcolor="lightgray">Nom</td><td border="1" bgcolor="lightgray">Valeur</td></tr>
+
+  'Zone memoire maillon catalogue m1'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="m1" colspan="2" border="0">MaillonListeChaineeTrajets</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Entree catalogue TS1)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">trajet</td>
+  <td bgcolor="#d3b2f9" border="1" port="m1t">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
+  <td bgcolor="#70a3d7" border="1" port="m1ms">0x...</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire maillon catalogue m1'
+
+  'Zone memoire maillon catalogue m2'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="m2" colspan="2" border="0">MaillonListeChaineeTrajets</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Entree catalogue TC2)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">trajet</td>
+  <td bgcolor="#d3b2f9" border="1" port="m2t">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
+  <td bgcolor="#70a3d7" border="1" port="m2ms">0x...</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire maillon catalogue m2'
+
+  'Zone memoire maillon catalogue m3'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="m3" colspan="2" border="0">MaillonListeChaineeTrajets</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Entree catalogue TS3)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">trajet</td>
+  <td bgcolor="#d3b2f9" border="1" port="m3t">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
+  <td bgcolor="#70a3d7" border="1" port="m3ms">nullptr</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire maillon catalogue m3'
+
+  'Zone memoire trajet simple TS1'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="ts1" colspan="2" border="0">TrajetSimple</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(TS1)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeDepart</td>
+  <td bgcolor="#b2f9ca" port="ts1villedep" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
+  <td bgcolor="#b2f9ca" port="ts1villearr" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">typeTransport</td>
+  <td bgcolor="#b2f9ca" port="ts1typetransp" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">indice</td>
+  <td bgcolor="#d7d7d7" border="1">0</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire TS1'
+
+  'Zone memoire trajet simple TS2-1'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="ts2_1" colspan="2" border="0">TrajetSimple</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(TS2-1)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeDepart</td>
+  <td bgcolor="#b2f9ca" port="ts2_1villedep" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
+  <td bgcolor="#b2f9ca" port="ts2_1villearr" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">typeTransport</td>
+  <td bgcolor="#b2f9ca" port="ts2_1typetransp" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">indice</td>
+  <td bgcolor="#d7d7d7" border="1">0</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire TS2-1'
+
+  'Zone memoire trajet simple TS2-2'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="ts2_2" colspan="2" border="0">TrajetSimple</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(TS2-2)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeDepart</td>
+  <td bgcolor="#b2f9ca" port="ts2_2villedep" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
+  <td bgcolor="#b2f9ca" port="ts2_2villearr" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">typeTransport</td>
+  <td bgcolor="#b2f9ca" port="ts2_2typetransp" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">indice</td>
+  <td bgcolor="#d7d7d7" border="1">0</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire TS2-2'
+
+  'Zone memoire trajet simple TS3'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="ts3" colspan="2" border="0">TrajetSimple</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(TS3)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeDepart</td>
+  <td bgcolor="#b2f9ca" port="ts3villedep" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">villeArrivee</td>
+  <td bgcolor="#b2f9ca" port="ts3villearr" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">typeTransport</td>
+  <td bgcolor="#b2f9ca" port="ts3typetransp" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">indice</td>
+  <td bgcolor="#d7d7d7" border="1">0</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire TS3'
+
+  'Zone memoire trajet simple TC2'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="tc2" colspan="2" border="0">TrajetCompose</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(TC2 - Liste chainee)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">premierMaillon</td>
+  <td bgcolor="#faf391" port="tc2pm" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">dernierMaillon</td>
+  <td bgcolor="#f9dab2" port="tc2dm" border="1">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">taille</td>
+  <td bgcolor="lightgray" border="1" port="cdm">2</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">indice</td>
+  <td bgcolor="#d7d7d7" border="1">1</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire TC2'
+
+  'Zone memoire maillon trajet compose mtc1'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="mtc2_1" colspan="2" border="0">MaillonListeChaineeTrajets</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Entree TS2-1 TrajetCompose TC2)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">trajet</td>
+  <td bgcolor="#d3b2f9" border="1" port="mtc2_1t">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
+  <td bgcolor="#70a3d7" border="1" port="mtc2_1ms">0x...</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire maillon catalogue mtc1'
+
+  'Zone memoire maillon trajet compose mtc2'
+  <tr>
+  <td colspan="2">
+  <table>
+  <tr>
+  <td port="mtc2_2" colspan="2" border="0">MaillonListeChaineeTrajets</td>
+  </tr>
+  <tr>
+  <td colspan="2" border="0">(Entree TS2-2 TrajetCompose TC2)</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">trajet</td>
+  <td bgcolor="#d3b2f9" border="1" port="mtc2_2t">0x...</td>
+  </tr>
+
+  <tr>
+  <td bgcolor="#d7d7d7" border="0">maillonSuivant</td>
+  <td bgcolor="#70a3d7" border="1" port="mtc2_2ms">nullptr</td>
+  </tr>
+
+  </table>
+  </td>
+  </tr>
+  'Fin de la zone memoire maillon catalogue mtc2'
+
+  </table>>
+  ]
+
+  tas2
+  [
+  shape = none
+  label = <<table border="1" cellspacing="2">
+
+  <tr><td colspan="2" border="1" bgcolor="gray">Tas</td></tr>
+
+  'Zone memoire chaine de caracteres 1'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str1">
+  <tr><td bgcolor="#d7d7d7" border="0">'L'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'y'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'n'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 1'
+
+  'Zone memoire chaine de caracteres 2'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str2">
+  <tr><td bgcolor="#d7d7d7" border="0">'B'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'d'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'u'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'x'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 2'
+
+  'Zone memoire chaine de caracteres 3'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str3">
+  <tr><td bgcolor="#d7d7d7" border="0">'T'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'n'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 3'
+
+  'Zone memoire chaine de caracteres 4'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str4">
+  <tr><td bgcolor="#d7d7d7" border="0">'L'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'y'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'n'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 4'
+
+  'Zone memoire chaine de caracteres 5'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str5">
+  <tr><td bgcolor="#d7d7d7" border="0">'P'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'s'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 5'
+
+  'Zone memoire chaine de caracteres 6'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str6">
+  <tr><td bgcolor="#d7d7d7" border="0">'A'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'u'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'t'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 6'
+
+  'Zone memoire chaine de caracteres 7'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str7">
+  <tr><td bgcolor="#d7d7d7" border="0">'L'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'y'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'n'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 7'
+
+  'Zone memoire chaine de caracteres 8'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str8">
+  <tr><td bgcolor="#d7d7d7" border="0">'M'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'s'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'l'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'l'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 8'
+
+  'Zone memoire chaine de caracteres 9'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str9">
+  <tr><td bgcolor="#d7d7d7" border="0">'B'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'t'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'u'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 9'
+
+  'Zone memoire chaine de caracteres 10'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str10">
+  <tr><td bgcolor="#d7d7d7" border="0">'M'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'s'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'l'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'l'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'e'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 10'
+
+  'Zone memoire chaine de caracteres 11'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str11">
+  <tr><td bgcolor="#d7d7d7" border="0">'P'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'a'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'r'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'s'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 11'
+
+  'Zone memoire chaine de caracteres 12'
+  <tr><td colspan="2">
+  <table bgcolor="#96fcb6" port="str12">
+  <tr><td bgcolor="#d7d7d7" border="0">'A'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'v'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'i'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'o'</td></tr>
+  <tr><td bgcolor="#d7d7d7" border="0">'n'</td></tr>
+  </table>
+  </td></tr>
+  'Fin de la zone memoire chaine de caracteres 12'
+
+  </table>>
+  ]
+
+  {rank=same; pile; tas; tas2}
+
+
+  pile:cpm:e -> tas:m1:w [penwidth=2 style=invis color="#c2be6f" fillcolor="#faf391"]
+  pile:cdm:e -> tas:m3:w [penwidth=2 style=invis color="#b89f80" fillcolor="#f9dab2"]
+
+  tas:tc2pm:e -> tas:mtc2_1:e [penwidth=2 style=invis color="#c2be6f" fillcolor="#faf391"]
+  tas:tc2dm:e -> tas:mtc2_2:e [penwidth=2 style=invis color="#b89f80" fillcolor="#f9dab2"]
+
+  tas:m1ms:e -> tas:m2:e [penwidth=2 style=invis color="#5d87b3" fillcolor="#70a3d7"]
+  tas:m1ms:e -> tas:m2:e [penwidth=2 style=invis color="#5d87b3" fillcolor="#70a3d7"]
+  tas:m2ms:e -> tas:m3:e [penwidth=2 style=invis color="#5d87b3" fillcolor="#70a3d7"]
+  tas:mtc2_1ms:e -> tas:mtc2_2:e [penwidth=2 style=invis color="#5d87b3" fillcolor="#70a3d7"]
+
+  tas:m1t:e -> tas:ts1:e [penwidth=2 style=invis color="#86709e" fillcolor="#d3b2f9"]
+  tas:m2t:e -> tas:tc2:e [penwidth=2 style=invis color="#86709e" fillcolor="#d3b2f9"]
+  tas:m3t:e -> tas:ts3:e [penwidth=2 style=invis color="#86709e" fillcolor="#d3b2f9"]
+
+  tas:mtc2_1t:e -> tas:ts2_1:e [penwidth=2 style=invis color="#86709e" fillcolor="#d3b2f9"]
+  tas:mtc2_2t:e -> tas:ts2_2:e [penwidth=2 style=invis color="#86709e" fillcolor="#d3b2f9"]
+
+  tas:ts1villedep:e -> tas2:str1
+  tas:ts1villearr:e -> tas2:str2
+  tas:ts1typetransp:e -> tas2:str3
+
+  tas:ts2_1villedep:e -> tas2:str4
+  tas:ts2_1villearr:e -> tas2:str5
+  tas:ts2_1typetransp:e -> tas2:str6
+
+  tas:ts2_2villedep:e -> tas2:str7
+  tas:ts2_2villearr:e -> tas2:str8
+  tas:ts2_2typetransp:e -> tas2:str9
+
+  tas:ts3villedep:e -> tas2:str10
+  tas:ts3villearr:e -> tas2:str11
+  tas:ts3typetransp:e -> tas2:str12
   }
 
 }

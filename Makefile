@@ -59,6 +59,9 @@ graph3-diagram: $(DOC_DIR)/graph3.pu
 	java -jar $(PLANTUML_PATH) -tsvg $@
 	java -jar $(PLANTUML_PATH) -tpng $@
 
+$(DOC_DIR)/compte_rendu.tex:
+	./doc/build_latex.sh
+
 catalogue: $(CATALOGUE_OBJ) $(HEADERS)
 	@mkdir -p bin
 	$(COMP) -o $(BIN_DIR)/$@ $(CATALOGUE_OBJ)

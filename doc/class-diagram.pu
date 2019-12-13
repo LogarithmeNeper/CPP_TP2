@@ -73,13 +73,13 @@ class TrajetSimple {
   +getVilleArrivee() const override : const char*
 }
 
-ListeChaineeTrajets <|-- Catalogue : "hérite de"
+ListeChaineeTrajets <|-- Catalogue : "herite de"
 
-Trajet <|-- TrajetSimple : "hérite de"
+Trajet <|-- TrajetSimple : "herite de"
 
-Trajet <|-- TrajetCompose : "hérite de"
+Trajet <|-- TrajetCompose : "herite de"
 
-ListeChaineeTrajets <|-- TrajetCompose : "hérite de"
+ListeChaineeTrajets <|-- TrajetCompose : "herite de"
 
 ListeChaineeTrajets --> MaillonListeChaineeTrajets : "contient"
 

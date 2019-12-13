@@ -1,0 +1,44 @@
+\BOOKMARK [1][-]{section.1}{Classes : application catalogue de trajets}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Diagramme de classes}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Explication}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{ListeChaineeTrajets}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{MaillonListeChaineeTrajets}{subsection.1.2}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Trajet}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.4}{TrajetSimple}{subsection.1.2}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.5}{TrajetCompose}{subsection.1.2}% 8
+\BOOKMARK [3][-]{subsubsection.1.2.6}{Catalogue}{subsection.1.2}% 9
+\BOOKMARK [3][-]{subsubsection.1.2.7}{StringHelper}{subsection.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.3}{\311tat de la m\351moire sur un jeu de donn\351es}{section.1}% 11
+\BOOKMARK [1][-]{section.2}{Algorithme de recherche de trajets}{}% 12
+\BOOKMARK [1][-]{section.3}{Conclusion}{}% 13
+\BOOKMARK [2][-]{subsection.3.1}{Complexit\351 temporelle de l'algorithme de recherche complexe}{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Meilleur des cas}{subsection.3.1}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Pire des cas}{subsection.3.1}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Cas moyen}{subsection.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Normalisation}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Passage \340 l'\351chelle}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.4}{Tests unitaires}{section.3}% 20
+\BOOKMARK [1][-]{appendix.A}{Code source des diagrammes UML}{}% 21
+\BOOKMARK [2][-]{subsection.A.1}{Diagramme Figure 1}{appendix.A}% 22
+\BOOKMARK [2][-]{subsection.A.2}{Diagramme Figure 2}{appendix.A}% 23
+\BOOKMARK [2][-]{subsection.A.3}{Diagramme Figure 3}{appendix.A}% 24
+\BOOKMARK [2][-]{subsection.A.4}{Diagramme de classe}{appendix.A}% 25
+\BOOKMARK [2][-]{subsection.A.5}{Diagramme de la m\351moire}{appendix.A}% 26
+\BOOKMARK [1][-]{appendix.B}{Calcul empirique de \(cn\)nN}{}% 27
+\BOOKMARK [2][-]{subsection.B.1}{Comptage : utilisation de nbchemins.py}{appendix.B}% 28
+\BOOKMARK [2][-]{subsection.B.2}{Comptage : utilisation de printchemins.py}{appendix.B}% 29
+\BOOKMARK [1][-]{appendix.C}{Code source du programme}{}% 30
+\BOOKMARK [2][-]{subsection.C.1}{ListeChaineeTrajets.h}{appendix.C}% 31
+\BOOKMARK [2][-]{subsection.C.2}{ListeChaineeTrajets.cpp}{appendix.C}% 32
+\BOOKMARK [2][-]{subsection.C.3}{MaillonListeChaineeTrajets.h}{appendix.C}% 33
+\BOOKMARK [2][-]{subsection.C.4}{MaillonListeChaineeTrajets.cpp}{appendix.C}% 34
+\BOOKMARK [2][-]{subsection.C.5}{Trajet.h}{appendix.C}% 35
+\BOOKMARK [2][-]{subsection.C.6}{Trajet.cpp}{appendix.C}% 36
+\BOOKMARK [2][-]{subsection.C.7}{TrajetSimple.h}{appendix.C}% 37
+\BOOKMARK [2][-]{subsection.C.8}{TrajetSimple.cpp}{appendix.C}% 38
+\BOOKMARK [2][-]{subsection.C.9}{TrajetCompose.cpp}{appendix.C}% 39
+\BOOKMARK [2][-]{subsection.C.10}{TrajetCompose.h}{appendix.C}% 40
+\BOOKMARK [2][-]{subsection.C.11}{Catalogue.h}{appendix.C}% 41
+\BOOKMARK [2][-]{subsection.C.12}{Catalogue.cpp}{appendix.C}% 42
+\BOOKMARK [2][-]{subsection.C.13}{StringHelper.h}{appendix.C}% 43
+\BOOKMARK [2][-]{subsection.C.14}{main.cpp}{appendix.C}% 44

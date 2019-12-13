@@ -1,0 +1,45 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Classes : application catalogue de trajets}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Diagramme de classes}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Explication}{5}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}ListeChaineeTrajets}{5}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}MaillonListeChaineeTrajets}{6}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Trajet}{6}{subsubsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.4}TrajetSimple}{6}{subsubsection.1.2.4}
+\contentsline {subsubsection}{\numberline {1.2.5}TrajetCompose}{7}{subsubsection.1.2.5}
+\contentsline {subsubsection}{\numberline {1.2.6}Catalogue}{7}{subsubsection.1.2.6}
+\contentsline {subsubsection}{\numberline {1.2.7}StringHelper}{8}{subsubsection.1.2.7}
+\contentsline {subsection}{\numberline {1.3}\IeC {\'E}tat de la m\IeC {\'e}moire sur un jeu de donn\IeC {\'e}es}{9}{subsection.1.3}
+\contentsline {section}{\numberline {2}Algorithme de recherche de trajets}{10}{section.2}
+\contentsline {section}{\numberline {3}Conclusion}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Complexit\IeC {\'e} temporelle de l'algorithme de recherche complexe}{13}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Meilleur des cas}{13}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Pire des cas}{13}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Cas moyen}{16}{subsubsection.3.1.3}
+\contentsline {subsection}{\numberline {3.2}Normalisation}{17}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Passage \IeC {\`a} l'\IeC {\'e}chelle}{17}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Tests unitaires}{17}{subsection.3.4}
+\contentsline {section}{\numberline {A}Code source des diagrammes UML}{18}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}Diagramme Figure 1}{18}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}Diagramme Figure 2}{18}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Diagramme Figure 3}{18}{subsection.A.3}
+\contentsline {subsection}{\numberline {A.4}Diagramme de classe}{20}{subsection.A.4}
+\contentsline {subsection}{\numberline {A.5}Diagramme de la m\IeC {\'e}moire}{22}{subsection.A.5}
+\contentsline {section}{\numberline {B}Calcul empirique de $(c_n)_{n\in \mathbb {N}}$}{34}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}Comptage : utilisation de nbchemins.py}{34}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Comptage : utilisation de printchemins.py}{35}{subsection.B.2}
+\contentsline {section}{\numberline {C}Code source du programme}{36}{appendix.C}
+\contentsline {subsection}{\numberline {C.1}ListeChaineeTrajets.h}{36}{subsection.C.1}
+\contentsline {subsection}{\numberline {C.2}ListeChaineeTrajets.cpp}{39}{subsection.C.2}
+\contentsline {subsection}{\numberline {C.3}MaillonListeChaineeTrajets.h}{44}{subsection.C.3}
+\contentsline {subsection}{\numberline {C.4}MaillonListeChaineeTrajets.cpp}{46}{subsection.C.4}
+\contentsline {subsection}{\numberline {C.5}Trajet.h}{48}{subsection.C.5}
+\contentsline {subsection}{\numberline {C.6}Trajet.cpp}{50}{subsection.C.6}
+\contentsline {subsection}{\numberline {C.7}TrajetSimple.h}{51}{subsection.C.7}
+\contentsline {subsection}{\numberline {C.8}TrajetSimple.cpp}{53}{subsection.C.8}
+\contentsline {subsection}{\numberline {C.9}TrajetCompose.cpp}{56}{subsection.C.9}
+\contentsline {subsection}{\numberline {C.10}TrajetCompose.h}{60}{subsection.C.10}
+\contentsline {subsection}{\numberline {C.11}Catalogue.h}{63}{subsection.C.11}
+\contentsline {subsection}{\numberline {C.12}Catalogue.cpp}{66}{subsection.C.12}
+\contentsline {subsection}{\numberline {C.13}StringHelper.h}{72}{subsection.C.13}
+\contentsline {subsection}{\numberline {C.14}main.cpp}{73}{subsection.C.14}

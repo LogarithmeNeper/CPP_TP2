@@ -1,0 +1,352 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/*************************************************************************}
+\PYG{c+cm}{Main  \PYGZhy{}  Classe principale servant d\PYGZsq{}interface entre l\PYGZsq{}utilisateur et le}
+\PYG{c+cm}{système de gestion du catalogue}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{début                : 20/11/2019}
+\PYG{c+cm}{copyright            : (C) 2019 par Charles Javerliat}
+\PYG{c+cm}{e\PYGZhy{}mail               : charles.javerliat@insa\PYGZhy{}lyon.fr, pierre.sibut\PYGZhy{}bourde@insa\PYGZhy{}lyon.fr}
+\PYG{c+cm}{*************************************************************************/}
+
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} INCLUDE}
+
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Include système}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}string.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Include personnel}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}Catalogue.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}TrajetSimple.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}TrajetCompose.h\PYGZdq{}}
+
+\PYG{c+c1}{// Contrat : Affiche le catalogue dans le terminal}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{afficherCatalogue}\PYG{p}{(}\PYG{k}{const} \PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ======  CATALOGUE ====== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{afficher}\PYG{p}{(}\PYG{n}{cout}\PYG{p}{);}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} === FIN DU CATALOGUE === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Contrat : Ajoute un trajet simple au Catalogue en demandant à l\PYGZsq{}utilisateur}
+\PYG{c+c1}{// de renseigner les informations du trajet.}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{ajouterTrajetSimple}\PYG{p}{(}\PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ===  AJOUT D\PYGZsq{}UN TRAJET SIMPLE === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{n}{TrajetSimple}\PYG{o}{*} \PYG{n}{trajetSimple} \PYG{o}{=} \PYG{k}{nullptr}\PYG{p}{;}
+
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{char} \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+    \PYG{k+kt}{char} \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+    \PYG{k+kt}{char} \PYG{n}{typeTransport}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+
+    \PYG{c+c1}{//Prompt de la ville de départ}
+    \PYG{k}{do} \PYG{p}{\PYGZob{}}
+      \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville de départ: \PYGZdq{}}\PYG{p}{;}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{));}
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+    \PYG{c+c1}{//Prompt de la ville d\PYGZsq{}arrivée}
+    \PYG{k}{do} \PYG{p}{\PYGZob{}}
+      \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville d\PYGZsq{}arrivée: \PYGZdq{}}\PYG{p}{;}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{));}
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+    \PYG{c+c1}{//Prompt du type de transport}
+    \PYG{k}{do} \PYG{p}{\PYGZob{}}
+      \PYG{n}{typeTransport}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Type de transport: \PYGZdq{}}\PYG{p}{;}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{typeTransport}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{typeTransport}\PYG{p}{));}
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+    \PYG{n}{trajetSimple} \PYG{o}{=} \PYG{k}{new} \PYG{n}{TrajetSimple}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{n}{villeArrivee}\PYG{p}{,} \PYG{n}{typeTransport}\PYG{p}{);}
+
+    \PYG{c+c1}{//On essaie d\PYGZsq{}ajouter le trajet, si il n\PYGZsq{}est pas valide on recommence}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{o}{!}\PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{ajouter}\PYG{p}{(}\PYG{n}{trajetSimple}\PYG{p}{));}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ======== FIN DE L\PYGZsq{}AJOUT ======== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Contrat : Ajoute un trajet composé au Catalogue en demandant à l\PYGZsq{}utilisateur}
+\PYG{c+c1}{// de renseigner les informations du trajet, aka les différents trajets simples}
+\PYG{c+c1}{// qui le constitue.}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{ajouterTrajetCompose}\PYG{p}{(}\PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ===  AJOUT D\PYGZsq{}UN TRAJET COMPOSE === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{n}{TrajetCompose}\PYG{o}{*} \PYG{n}{trajetCompose} \PYG{o}{=} \PYG{k}{nullptr}\PYG{p}{;}
+
+  \PYG{c+c1}{//Variable contenant la valeur de retour (o/n) à la question de si}
+  \PYG{c+c1}{//on souhaite rajouter un autre trajet simple}
+  \PYG{k+kt}{char} \PYG{n}{ajouterTrajetSimple}\PYG{p}{;}
+
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{k}{delete} \PYG{n}{trajetCompose}\PYG{p}{;}
+    \PYG{n}{trajetCompose} \PYG{o}{=} \PYG{k}{new} \PYG{n}{TrajetCompose}\PYG{p}{();}
+
+    \PYG{k}{do}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{TrajetSimple}\PYG{o}{*} \PYG{n}{trajetSimple} \PYG{o}{=} \PYG{k}{nullptr}\PYG{p}{;}
+
+      \PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} Ajout d\PYGZsq{}un sous\PYGZhy{}trajet simple \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+      \PYG{k}{do}
+      \PYG{p}{\PYGZob{}}
+        \PYG{k+kt}{char} \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+        \PYG{k+kt}{char} \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+        \PYG{k+kt}{char} \PYG{n}{typeTransport}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}\PYGZgt{}\PYGZgt{}\PYGZgt{} Ajout d\PYGZsq{}un trajet simple \PYGZlt{}\PYGZlt{}\PYGZlt{}\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+        \PYG{c+c1}{//Prompt de la ville de départ}
+        \PYG{k}{do} \PYG{p}{\PYGZob{}}
+          \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+          \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville de départ: \PYGZdq{}}\PYG{p}{;}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{));}
+        \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+        \PYG{c+c1}{//Prompt de la ville d\PYGZsq{}arrivée}
+        \PYG{k}{do} \PYG{p}{\PYGZob{}}
+          \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+          \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville d\PYGZsq{}arrivée: \PYGZdq{}}\PYG{p}{;}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{));}
+        \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+        \PYG{c+c1}{//Prompt du type de transport}
+        \PYG{k}{do} \PYG{p}{\PYGZob{}}
+          \PYG{n}{typeTransport}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+          \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Type de transport: \PYGZdq{}}\PYG{p}{;}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+          \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{typeTransport}\PYG{p}{,} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{typeTransport}\PYG{p}{));}
+        \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+        \PYG{n}{trajetSimple} \PYG{o}{=} \PYG{k}{new} \PYG{n}{TrajetSimple}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{n}{villeArrivee}\PYG{p}{,} \PYG{n}{typeTransport}\PYG{p}{);}
+
+        \PYG{c+c1}{//On essaie d\PYGZsq{}ajouter le trajet, si il n\PYGZsq{}est pas valide on recommence}
+      \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{o}{!}\PYG{n}{trajetCompose}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ajouter}\PYG{p}{(}\PYG{n}{trajetSimple}\PYG{p}{));}
+      \PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+      \PYG{k}{do}
+      \PYG{p}{\PYGZob{}}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ajouter un autre trajet simple (o/n) ? \PYGZdq{}}\PYG{p}{;}
+        \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+        \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{ajouterTrajetSimple}\PYG{p}{;}
+        \PYG{n}{cin}\PYG{p}{.}\PYG{n}{ignore}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{()} \PYG{o}{||} \PYG{p}{(}\PYG{n}{ajouterTrajetSimple} \PYG{o}{!=} \PYG{l+s+sc}{\PYGZsq{}o\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{ajouterTrajetSimple} \PYG{o}{!=} \PYG{l+s+sc}{\PYGZsq{}n\PYGZsq{}}\PYG{p}{))}
+        \PYG{p}{\PYGZob{}}
+          \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Veuillez écrire o ou n.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{c+c1}{//Tant que l\PYGZsq{}utilisateur ne répond pas \PYGZsq{}o\PYGZsq{} ou \PYGZsq{}n\PYGZsq{}, on recommence}
+      \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{()} \PYG{o}{||} \PYG{p}{(}\PYG{n}{ajouterTrajetSimple} \PYG{o}{!=} \PYG{l+s+sc}{\PYGZsq{}o\PYGZsq{}} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{ajouterTrajetSimple} \PYG{o}{!=} \PYG{l+s+sc}{\PYGZsq{}n\PYGZsq{}}\PYG{p}{));}
+
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{ajouterTrajetSimple} \PYG{o}{==} \PYG{l+s+sc}{\PYGZsq{}o\PYGZsq{}}\PYG{p}{);}
+
+    \PYG{c+c1}{//On essaie d\PYGZsq{}ajouter le trajet, si il n\PYGZsq{}est pas valide on recommence}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{o}{!}\PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{ajouter}\PYG{p}{(}\PYG{n}{trajetCompose}\PYG{p}{));}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ======== FIN DE L\PYGZsq{}AJOUT ======== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Contrat : Supprime un trajet du Catalogue en demandant à l\PYGZsq{}utilisateur}
+\PYG{c+c1}{// de renseigner le numéro du trajet à supprimer.}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{supprimerTrajet}\PYG{p}{(}\PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ===  SUPPRESSION D\PYGZsq{}UN TRAJET === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+  \PYG{k}{if}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{estVide}\PYG{p}{())}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Aucun trajet à supprimer.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{k}{else}
+  \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{unsigned} \PYG{k+kt}{int} \PYG{n}{numeroTrajet}\PYG{p}{;}
+
+    \PYG{k}{do}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrez le numéro de trajet à supprimer (entre 1 et \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{getTaille}\PYG{p}{()} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}): \PYGZdq{}}\PYG{p}{;}
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{numeroTrajet}\PYG{p}{;}
+
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{()} \PYG{o}{||} \PYG{n}{numeroTrajet} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{numeroTrajet} \PYG{o}{\PYGZgt{}} \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{getTaille}\PYG{p}{())}
+      \PYG{p}{\PYGZob{}}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Numéro de trajet invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+        \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{numeroTrajet} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{numeroTrajet} \PYG{o}{\PYGZgt{}} \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{getTaille}\PYG{p}{());}
+
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{ignore}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+
+    \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{supprimer}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{get}\PYG{p}{(}\PYG{n}{numeroTrajet} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getTrajet}\PYG{p}{());}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ====== FIN DE LA SUPPRESSION ====== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Contrat : Liste tous les trajets allant d\PYGZsq{}une ville à l\PYGZsq{}autre sans tester}
+\PYG{c+c1}{// de combinaisons possibles de trajets. Demande à l\PYGZsq{}utilisateur d\PYGZsq{}entrée la}
+\PYG{c+c1}{// ville de départ et d\PYGZsq{}arrivée.}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{rechercheTrajetSimple}\PYG{p}{(}\PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} =====  RECHERCHE DE TRAJET SIMPLE ===== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{k+kt}{char} \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+  \PYG{k+kt}{char} \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+
+  \PYG{c+c1}{//Prompt de la ville de départ}
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville de départ: \PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{);}
+
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{())}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrée invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+  \PYG{c+c1}{//Prompt de la ville d\PYGZsq{}arrivée}
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville d\PYGZsq{}arrivée: \PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{);}
+
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{())}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrée invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+  \PYG{k+kt}{bool} \PYG{n}{found} \PYG{o}{=} \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{rechercheTrajetSimple}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{n}{villeArrivee}\PYG{p}{);}
+
+  \PYG{k}{if}\PYG{p}{(}\PYG{o}{!}\PYG{n}{found}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Aucun trajet trouvé entre \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{villeDepart} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} et \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{villeArrivee}\PYG{p}{;}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ==  FIN DE RECHERCHE DE TRAJET SIMPLE == \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Contrat : Liste tous les trajets allant d\PYGZsq{}une ville à l\PYGZsq{}autre en testant}
+\PYG{c+c1}{// les combinaisons possibles de trajets. Demande à l\PYGZsq{}utilisateur d\PYGZsq{}entrée la}
+\PYG{c+c1}{// ville de départ et d\PYGZsq{}arrivée.}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{rechercheTrajetAvancee}\PYG{p}{(}\PYG{n}{Catalogue} \PYG{o}{\PYGZam{}} \PYG{n}{catalogue}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} =====  RECHERCHE DE TRAJET AVANCEE ===== \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+  \PYG{k+kt}{char} \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+  \PYG{k+kt}{char} \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{];}
+
+  \PYG{c+c1}{//Prompt de la ville de départ}
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{villeDepart}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville de départ: \PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{);}
+
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{())}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrée invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+  \PYG{c+c1}{//Prompt de la ville d\PYGZsq{}arrivée}
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{villeArrivee}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}0\PYGZsq{}}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Ville d\PYGZsq{}arrivée: \PYGZdq{}}\PYG{p}{;}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+    \PYG{n}{cin}\PYG{p}{.}\PYG{n}{getline}\PYG{p}{(}\PYG{n}{villeArrivee}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{);}
+
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{())}
+    \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrée invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{());}
+
+  \PYG{k+kt}{bool} \PYG{n}{found} \PYG{o}{=} \PYG{n}{catalogue}\PYG{p}{.}\PYG{n}{rechercheTrajetAvancee}\PYG{p}{(}\PYG{n}{villeDepart}\PYG{p}{,} \PYG{n}{villeArrivee}\PYG{p}{);}
+
+  \PYG{k}{if}\PYG{p}{(}\PYG{o}{!}\PYG{n}{found}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Aucun trajet trouvé entre \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{villeDepart} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} et \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{villeArrivee}\PYG{p}{;}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} ==  FIN DE RECHERCHE DE TRAJET AVANCEE == \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{c+c1}{//Instance unique du Catalogue sur la pile}
+  \PYG{n}{Catalogue} \PYG{n}{catalogue}\PYG{p}{;}
+
+  \PYG{k+kt}{unsigned} \PYG{k+kt}{short} \PYG{n}{choix} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} === PROGRAMME DE GESTION DE CATALOGUE === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+  \PYG{k}{do}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Que désirez\PYGZhy{}vous faire ?\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{1 \PYGZhy{} Afficher le catalogue\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{2 \PYGZhy{} Ajouter un trajet simple\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{3 \PYGZhy{} Ajouter un trajet composé\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{4 \PYGZhy{} Supprimer un trajet\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{5 \PYGZhy{} Recherche de trajet simple\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{6 \PYGZhy{} Recherche de trajet avancée\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+    \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}t}\PYG{l+s}{7 \PYGZhy{} Quitter\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+    \PYG{c+c1}{//Prompt de l\PYGZsq{}action à effectuer sur la Catalogue}
+    \PYG{k}{do} \PYG{p}{\PYGZob{}}
+      \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Entrez votre choix: \PYGZdq{}}\PYG{p}{;}
+      \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{choix}\PYG{p}{;}
+
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{cin}\PYG{p}{.}\PYG{n}{fail}\PYG{p}{()} \PYG{o}{||} \PYG{n}{choix} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{choix} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{7}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}Choix invalide.\PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+        \PYG{n}{cin}\PYG{p}{.}\PYG{n}{clear}\PYG{p}{();}
+      \PYG{p}{\PYGZcb{}}
+
+      \PYG{n}{cin}\PYG{p}{.}\PYG{n}{ignore}\PYG{p}{(}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}\PYGZbs{}n\PYGZsq{}}\PYG{p}{);}
+
+    \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{choix} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{choix} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{7}\PYG{p}{);}
+
+    \PYG{k}{switch}\PYG{p}{(}\PYG{n}{choix}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+
+      \PYG{k}{case} \PYG{l+m+mi}{1}\PYG{o}{:}
+      \PYG{n}{afficherCatalogue}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{case} \PYG{l+m+mi}{2}\PYG{o}{:}
+      \PYG{n}{ajouterTrajetSimple}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{case} \PYG{l+m+mi}{3}\PYG{o}{:}
+      \PYG{n}{ajouterTrajetCompose}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{case} \PYG{l+m+mi}{4}\PYG{o}{:}
+      \PYG{n}{supprimerTrajet}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{case} \PYG{l+m+mi}{5}\PYG{o}{:}
+      \PYG{n}{rechercheTrajetSimple}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{case} \PYG{l+m+mi}{6}\PYG{o}{:}
+      \PYG{n}{rechercheTrajetAvancee}\PYG{p}{(}\PYG{n}{catalogue}\PYG{p}{);}
+      \PYG{k}{break}\PYG{p}{;}
+      \PYG{k}{default}\PYG{o}{:}
+      \PYG{k}{break}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+  \PYG{p}{\PYGZcb{}} \PYG{k}{while}\PYG{p}{(}\PYG{n}{choix} \PYG{o}{!=} \PYG{l+m+mi}{7}\PYG{p}{);}
+
+  \PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} === FERMETURE DU PROGRAMME === \PYGZdq{}} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{endl}\PYG{p}{;}
+
+  \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
