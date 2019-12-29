@@ -212,14 +212,7 @@ Catalogue::~Catalogue ( )
   cout << "Appel au destructeur de Catalogue" << endl;
   #endif
 
-  //Suppression des trajets sur le tas
-  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
-
-  while(maillonAct != nullptr)
-  {
-    delete maillonAct->getTrajet();
-    maillonAct = maillonAct->getMaillonSuivant();
-  }
+  effacerEnProfondeur();
 
 } //----- Fin de ~Catalogue
 

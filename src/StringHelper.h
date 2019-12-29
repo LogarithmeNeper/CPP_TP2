@@ -2,13 +2,14 @@
 #define STRING_HELPER_H
 
 #include <string.h>
+#include <stdlib.h>
 
-static bool strempty(const char* str)
+bool strempty(const char* str)
 // Mode d'emploi :
 //    Retourne vrai si la chaîne de caractères est vide
 //
 // Contrat :
-//    Retourne vrai si la chaîne de caractère ne contient aucun caractères, que des espaces ou si elle est nulle
+//    Retourne vrai si la chaîne de caractère ne contient aucun caractères, que des espaces, tabulations, ou si elle est nulle
 //
 // Algorithme :
 //    Parcourt tous les caractères de la chaîne de caractère
@@ -20,13 +21,38 @@ static bool strempty(const char* str)
     return true;
   }
 
-  for(unsigned int i = 0; i < strlen(str); i++)
+  for(unsigned int i = 0; i < strlen(str); ++i)
   {
-    if(str[i] != ' ')
+    if(str[i] != ' ' && str[i] != '\t')
     {
       return false;
     }
   }
+  return true;
+}
+
+bool estEntierNaturel(const char* str)
+// Mode d'emploi :
+//    Retourne vrai si la chaîne de caractères est un nombre entier naturel
+//
+// Contrat :
+//    Retourne vrai si la chaîne de caractère ne contient que des caractères entre 0 et 9
+//
+// Algorithme :
+//    Parcourt tous les caractères de la chaîne de caractère
+//    Dès qu'un caractère différent d'un digit est rencontré, retourne faux
+//    Si la chaîne de caractères ne contient aucun caractère ou que des espaces, retourne faux
+{
+  if(strempty(str)) {
+    return false;
+  }
+
+  for(unsigned int i = 0; i < strlen(str); ++i) {
+    if(!std::isdigit(str[i])) {
+      return false;
+    }
+  }
+
   return true;
 }
 

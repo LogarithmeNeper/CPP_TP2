@@ -20,6 +20,8 @@ class ListeChaineeTrajets {
   +~ListeChaineeTrajets() virtual
   +ajouter(Trajet* unTrajet) virtual : bool
   +supprimer(Trajet* unTrajet) virtual : bool
+  +effacerEnSurface() : void
+  +effacerEnProfondeur() : void
   +get(unsigned int index) const : MaillonListeChaineeTrajets*
   +getTaille() const : unsigned int
   +estVide() const : bool
@@ -37,7 +39,8 @@ class MaillonListeChaineeTrajets {
 }
 
 class StringHelper {
-  +strempty(const char* str) static : bool
+  +strempty(const char* str) : bool
+  +estEntierNaturel(const char* str) : bool
 }
 
 class Trajet {
@@ -71,6 +74,23 @@ class TrajetSimple {
   +afficher(ostream & out) const override : void
   +getVilleDepart() const override : const char*
   +getVilleArrivee() const override : const char*
+  +getTypeTransport() const : const char*
+}
+
+class FiltreTrajets {
+  +filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const : ListeChaineeTrajets
+  +filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const : ListeChaineeTrajets
+  +filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const : ListeChaineeTrajets
+  +filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const : ListeChaineeTrajets
+  +filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const : ListeChaineeTrajets
+}
+
+class GestionnaireSauvegardeTrajets {
+  +ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const : void
+  +lireSauvegarde(const std::string unNomFichier) const : ListeChaineeTrajets*
+  #ecrireTrajet(std::ofstream& s, const Trajet* t) const : void
+  #lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const : TrajetSimple*
+  #lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const : TrajetCompose*
 }
 
 ListeChaineeTrajets <|-- Catalogue : "herite de"
