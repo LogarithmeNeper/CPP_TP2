@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-bool strempty(const char* str)
+static bool strempty(const char* str)
 // Mode d'emploi :
 //    Retourne vrai si la chaîne de caractères est vide
 //
@@ -31,7 +31,7 @@ bool strempty(const char* str)
   return true;
 }
 
-bool estEntierNaturel(const char* str)
+static bool estEntierNaturel(const char* str)
 // Mode d'emploi :
 //    Retourne vrai si la chaîne de caractères est un nombre entier naturel
 //
