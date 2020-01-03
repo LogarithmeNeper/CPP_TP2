@@ -11,14 +11,17 @@ e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-
 
 //-------------------------------------------------------- Include système
 
-#include <string.h>
 #include <iostream>
+#include <string>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "TrajetSimple.h"
 #include "TrajetCompose.h"
+#include "StringHelper.h"
+#include "GestionnaireSauvegardeTrajets.h"
+#include "FiltreTrajets.h"
 
 // Contrat : Affiche le catalogue dans le terminal
 static void afficherCatalogue(const Catalogue & catalogue)
@@ -284,6 +287,239 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   cout << endl << endl << " ==  FIN DE RECHERCHE DE TRAJET AVANCEE == " << endl << endl;
 }
 
+static void sauvegarde(Catalogue & catalogue)
+{
+    string path;
+    unsigned int choix;
+    cout << "Emplacement pour la sauvegarde du fichier : ";
+    cin.clear();
+    getline(cin,path);
+    path = path + ".txt";
+    GestionnaireSauvegardeTrajets gestionnaire;
+    string vDep,vArr;
+    unsigned int indiceDep,indiceFin;
+    cout << "Type de sauvegarde" << endl;
+    cout << "\t1 - Aucun filtre" << endl;
+    cout << "\t2 - Filtre sur le type de trajet" << endl;
+    cout << "\t3 - Filtre sur la ville de départ" << endl;
+    cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
+    cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
+    cout << "\t6 - Filtre sur un intervalle (indice de départ et indice de fin)" << endl;
+    cout << "\t7 - Quitter" << endl;
+
+    //Prompt de l'action à effectuer pour la sauvegarde
+    do {
+    cout << "Entrez votre choix: ";
+    cin >> choix;
+
+    if(cin.fail() || choix < 1 || choix > 7) {
+      cout << "Choix invalide." << endl;
+      cin.clear();
+    }
+
+    cin.ignore(10000, '\n');
+
+    } while(choix < 1 || choix > 7);
+
+    switch(choix) {
+
+    case 1:
+      gestionnaire.ecrireSauvegarde(catalogue,path);
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    case 2:
+      do {
+        cout << "Type de trajet (1) Simple ou (2) Compose : ";
+        cin >> choix;
+
+        if(cin.fail() || choix < 1 || choix > 2) {
+          cout << "Choix invalide." << endl;
+          cin.clear();
+        }
+
+        cin.ignore(10000, '\n');
+
+      } while(choix < 1 || choix > 2);
+      if(choix == 1)
+      {
+          gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParType(catalogue,TypeTrajet::SIMPLE),path);
+      } else
+        {
+            gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParType(catalogue,TypeTrajet::COMPOSE),path);
+        }
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    case 3:
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin,vDep);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleDepart(catalogue, vDep),path);
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    case 4:
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin,vArr);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleArrivee(catalogue,vArr),path);
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    case 5:
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin,vDep);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin,vArr);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleDepartEtArrivee(catalogue,vDep,vArr),path);
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    case 6:
+      cout << "Indice de début : ";
+      cin >> indiceDep;
+      cout << "Indice de fin : ";
+      cin >> indiceFin;
+      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParIntervalle(catalogue,indiceDep,indiceFin),path);
+      cout << "Sauvegarde effectuée !" << endl;
+    break;
+    default:
+    break;
+    }
+}
+
+static void lecture (Catalogue & catalogue)
+{
+    string path;
+    unsigned int choix;
+    cout << "Nom du fichier : ";
+    cin.clear();
+    getline(cin,path);
+    path = path + ".txt";
+    GestionnaireSauvegardeTrajets gestionnaire;
+    string vDep,vArr;
+    unsigned int indiceDep,indiceFin;
+    cout << "Type de lecture" << endl;
+    cout << "\t1 - Aucun filtre" << endl;
+    cout << "\t2 - Filtre sur le type de trajet" << endl;
+    cout << "\t3 - Filtre sur la ville de départ" << endl;
+    cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
+    cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
+    cout << "\t6 - Filtre sur un intervalle (indice de départ et indice de fin)" << endl;
+    cout << "\t7 - Quitter" << endl;
+
+    //Prompt de l'action à effectuer pour la sauvegarde
+    do {
+    cout << "Entrez votre choix: ";
+    cin >> choix;
+
+    if(cin.fail() || choix < 1 || choix > 7) {
+      cout << "Choix invalide." << endl;
+      cin.clear();
+    }
+
+    cin.ignore(10000, '\n');
+
+    } while(choix < 1 || choix > 7);
+    ListeChaineeTrajets listeComplete;
+    listeComplete = gestionnaire.lireSauvegarde(listeComplete,path);
+    switch(choix) {
+
+    case 1:
+      catalogue.ajouterListeTrajets(listeComplete);
+    break;
+    case 2:
+      do {
+        cout << "Type de trajet (1) Simple ou (2) Compose : ";
+        cin >> choix;
+
+        if(cin.fail() || choix < 1 || choix > 2) {
+          cout << "Choix invalide." << endl;
+          cin.clear();
+        }
+
+        cin.ignore(10000, '\n');
+
+      } while(choix < 1 || choix > 2);
+      if(choix == 1)
+      {
+          catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParTypeAvecSuppression(listeComplete,TypeTrajet::SIMPLE));
+      } else
+        {
+            catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParTypeAvecSuppression(listeComplete,TypeTrajet::COMPOSE));
+        }
+    break;
+    case 3:
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin,vDep);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleDepartAvecSuppression(listeComplete, vDep));
+    break;
+    case 4:
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin,vArr);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleArriveeAvecSuppression(listeComplete,vArr));
+    break;
+    case 5:
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin,vDep);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin,vArr);
+      if(cin.fail())
+      {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleDepartEtArriveeAvecSuppression(listeComplete,vDep,vArr));
+    break;
+    case 6:
+      cout << "Indice de début : ";
+      cin >> indiceDep;
+      cout << "Indice de fin : ";
+      cin >> indiceFin;
+      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParIntervalleAvecSuppression(listeComplete,indiceDep,indiceFin));
+    break;
+    default:
+    break;
+    }
+}
+
 int main(void)
 {
   //Instance unique du Catalogue sur la pile
@@ -302,21 +538,23 @@ int main(void)
     cout << "\t4 - Supprimer un trajet" << endl;
     cout << "\t5 - Recherche de trajet simple" << endl;
     cout << "\t6 - Recherche de trajet avancée" << endl;
-    cout << "\t7 - Quitter" << endl;
+    cout << "\t7 - Sauvegarde dans un fichier" << endl;
+    cout << "\t8 - Lecture et ajout de trajets depuis un fichier" << endl;
+    cout << "\t9 - Quitter" << endl;
 
     //Prompt de l'action à effectuer sur la Catalogue
     do {
       cout << "Entrez votre choix: ";
       cin >> choix;
 
-      if(cin.fail() || choix < 1 || choix > 7) {
+      if(cin.fail() || choix < 1 || choix > 9) {
         cout << "Choix invalide." << endl;
         cin.clear();
       }
 
       cin.ignore(10000, '\n');
 
-    } while(choix < 1 || choix > 7);
+    } while(choix < 1 || choix > 9);
 
     switch(choix) {
 
@@ -338,11 +576,17 @@ int main(void)
       case 6:
       rechercheTrajetAvancee(catalogue);
       break;
+      case 7:
+      sauvegarde(catalogue);
+      break;
+      case 8:
+      lecture(catalogue);
+      break;
       default:
       break;
     }
 
-  } while(choix != 7);
+  } while(choix != 9);
 
   cout << endl << " === FERMETURE DU PROGRAMME === " << endl;
 

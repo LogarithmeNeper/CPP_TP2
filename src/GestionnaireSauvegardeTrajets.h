@@ -44,7 +44,7 @@ public:
 
   void ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const;
 
-  ListeChaineeTrajets* lireSauvegarde(const std::string unNomFichier) const;
+  ListeChaineeTrajets & lireSauvegarde(ListeChaineeTrajets & liste,const std::string unNomFichier) const;
 
   GestionnaireSauvegardeTrajets ( );
 

@@ -144,9 +144,8 @@ TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s
   return tc;
 }
 
-ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::string unNomFichier) const {
-
-  ListeChaineeTrajets* liste = new ListeChaineeTrajets;
+ListeChaineeTrajets & GestionnaireSauvegardeTrajets::lireSauvegarde(ListeChaineeTrajets & liste,const std::string unNomFichier) const
+{
 
   std::ifstream s(unNomFichier);
   std::string token;
@@ -164,11 +163,11 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
 
         //On lit un TrajetSimple
         if(token == Token::TS) {
-          liste->ajouter(lireTrajetSimple(s, ligneAct));
+          liste.ajouter(lireTrajetSimple(s, ligneAct));
         }
         //On lit un TrajetCompose
         else if(token == Token::TC) {
-          liste->ajouter(lireTrajetCompose(s, ligneAct));
+          liste.ajouter(lireTrajetCompose(s, ligneAct));
         }
         //Token inconnu (autre que TS ou TC)
         else {
@@ -183,15 +182,8 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
       s.close();
 
       //On vide la liste
-      MaillonListeChaineeTrajets* maillonAct = liste->getPremierMaillon();
-
-      while(maillonAct != nullptr) {
-        delete maillonAct->getTrajet();
-        maillonAct = maillonAct->getMaillonSuivant();
-      }
-
-      delete liste;
-      return nullptr;
+      liste.effacerEnProfondeur();
+      return liste;
     }
 
   } else {

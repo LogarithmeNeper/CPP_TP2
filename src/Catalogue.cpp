@@ -52,6 +52,32 @@ bool Catalogue::ajouter(Trajet* unTrajet)
   return true;
 }
 
+// Algorithme : Ajoute chaque trajet de liste dans le catalogue si le catalogue ne le contient pas déjà
+// Si le catalogue contient un trajet de la liste, celui-ci est spprimé de la liste
+bool Catalogue::ajouterListeTrajets(ListeChaineeTrajets & liste)
+{
+    bool verif(true);
+    bool test;
+    MaillonListeChaineeTrajets * m = liste.getPremierMaillon();
+    while(m!=nullptr)
+    {
+        Trajet * t = m->getTrajet();
+        if(contient(t) == false)
+        {
+            test = ajouter(t);
+            if(test == false)
+            {
+                verif = false;
+            }
+        } else
+        {
+            liste.supprimer(t);
+        }
+        m = m->getMaillonSuivant();
+    }
+    return verif;
+}
+
 // Algorithme : Essaie de supprimer un trajet du Catalogue.
 // Décrèmente l'indice de tous les trajets suivants si il est effectivement supprimé.
 // Si une erreur survient (trajet non valide), on procède à un retour en arrière.

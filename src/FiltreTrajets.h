@@ -40,7 +40,7 @@ class FiltreTrajets
 public:
   //----------------------------------------------------- Méthodes publiques
 
-  ListeChaineeTrajets filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const;
+  static ListeChaineeTrajets filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets de type: typeTrajet.
   //
@@ -49,7 +49,14 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const;
+  static ListeChaineeTrajets & filtrerParTypeAvecSuppression(ListeChaineeTrajets & trajets, TypeTrajet typeTrajet);
+  // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Conserve uniquement les trajets de type "typeTrajet" dans la liste trajets.
+  //
+  // Contrat :
+  //  - Renvoie une référence de trajets contenant uniquement des trajets de type: typeTrajet, les autres ont été supprimé.
+
+
+  static ListeChaineeTrajets filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville de départ: villeDepart.
   //
@@ -58,7 +65,13 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const;
+  static ListeChaineeTrajets & filtrerParVilleDepartAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeDepart);
+  // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Conserve uniquement les trajets dont la ville de départ correspond à "villeDepart".
+  //
+  // Contrat :
+  //  - Renvoie une référence de trajets contenant uniquement des trajets dont la ville de départ correspond à "villeDepart", les autres ont été supprimé.
+
+  static ListeChaineeTrajets filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville d'arrivée: villeArrivee.
   //
@@ -67,7 +80,14 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const;
+  static ListeChaineeTrajets & filtrerParVilleArriveeAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeArrivee);
+  // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Conserve uniquement les trajets dont la ville d'arrivée correspond à "villeArrivee".
+  //
+  // Contrat :
+  //  - Renvoie une référence de trajets contenant uniquement des trajets dont la ville d'arrivée correspond à "villeArrivee", les autres ont été supprimé.
+  //
+
+  static ListeChaineeTrajets filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville de départ: villeDepart; et pour ville d'arrivée: villeArrivee.
   //
@@ -76,7 +96,13 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const;
+  static ListeChaineeTrajets & filtrerParVilleDepartEtArriveeAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee);
+  // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Conserve uniquement les trajets dont la ville de départ correspond à "villeDepart" et la ville d'arrivée correspond à "villeArrivee".
+  //
+  // Contrat :
+  //  - Renvoie une référence de trajets contenant uniquement des trajets dont la ville de départ correspond à "villeDepart" et la ville d'arrivée correspond à "villeArrivee", les autres ont été supprimé.
+
+  static ListeChaineeTrajets filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets d'indice allant de n à m inclus.
   //
@@ -84,6 +110,12 @@ public:
   //  - Renvoie une ListeChaineeTrajets contenant au maximum (m-n+1) trajets.
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
+
+  static ListeChaineeTrajets & filtrerParIntervalleAvecSuppression(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m);
+  // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Conserve uniquement les trajets d'indice allant de n à m inclus.
+  //
+  // Contrat :
+  //  - Renvoie une référence de trajets contenant uniquement des trajets d'indice allant de n à m inclus., les autres ont été supprimé.
 
   FiltreTrajets ( );
 

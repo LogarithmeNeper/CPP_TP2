@@ -9,6 +9,7 @@ class Catalogue {
   +rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const : void
   +rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const : void
   +afficher(ostream & out) const : void
+  +ajouterListeTrajets(ListeChaineeTrajets & liste) : bool
   #sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const : void
 }
 
@@ -78,16 +79,21 @@ class TrajetSimple {
 }
 
 class FiltreTrajets {
-  +filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const : ListeChaineeTrajets
-  +filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const : ListeChaineeTrajets
-  +filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const : ListeChaineeTrajets
-  +filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const : ListeChaineeTrajets
-  +filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const : ListeChaineeTrajets
+  + static filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const : ListeChaineeTrajets
+  + static filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const : ListeChaineeTrajets
+  + static filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const : ListeChaineeTrajets
+  + static filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const : ListeChaineeTrajets
+  + static filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const : ListeChaineeTrajets
+  + static filtrerParTypeAvecSuppression(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const : ListeChaineeTrajets &
+  + static filtrerParVilleDepartAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeDepart) const : ListeChaineeTrajets &
+  + static filtrerParVilleArriveeAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const : ListeChaineeTrajets &
+  + static filtrerParVilleDepartEtArriveeAvecSuppression(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const : ListeChaineeTrajets &
+  + static filtrerParIntervalleAvecSuppression(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const : ListeChaineeTrajets &
 }
 
 class GestionnaireSauvegardeTrajets {
   +ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const : void
-  +lireSauvegarde(const std::string unNomFichier) const : ListeChaineeTrajets*
+  +lireSauvegarde(ListeChaineeTrajets & liste, const std::string unNomFichier) const : ListeChaineeTrajets &
   #ecrireTrajet(std::ofstream& s, const Trajet* t) const : void
   #lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const : TrajetSimple*
   #lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const : TrajetCompose*

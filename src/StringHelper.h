@@ -1,8 +1,11 @@
 #if ! defined(STRING_HELPER_H)
 #define STRING_HELPER_H
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <regex>
+#include <locale>
+#include <fstream>
 
 static bool strempty(const char* str)
 // Mode d'emploi :
@@ -48,12 +51,21 @@ static bool estEntierNaturel(const char* str)
   }
 
   for(unsigned int i = 0; i < strlen(str); ++i) {
-    if(!std::isdigit(str[i])) {
+    if(!isdigit(str[i])) {
       return false;
     }
   }
 
   return true;
 }
+
+/*static bool isCorrectPath(const char * path)
+{
+    std::string exp = "^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\$";
+    std::regex regexp(exp);
+    if(!std::regex_match(path,regexp))
+        return false;
+    return true;
+}*/
 
 #endif
