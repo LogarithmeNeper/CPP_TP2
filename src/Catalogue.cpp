@@ -42,14 +42,22 @@ bool Catalogue::ajouter(Trajet* unTrajet)
   if(!estValide())
   {
     ListeChaineeTrajets::supprimer(unTrajet);
-
-    //Supprime le trajet du tas
-    delete unTrajet;
-
     return false;
   }
 
   return true;
+}
+
+// Algorithme : Ajoute chaque trajet de liste dans le catalogue si le catalogue ne le contient pas déjà
+void Catalogue::ajouterListeTrajets(ListeChaineeTrajets & liste)
+{
+  MaillonListeChaineeTrajets * maillonAct = liste.getPremierMaillon();
+
+  while(maillonAct != nullptr)
+  {
+    ajouter(maillonAct->getTrajet());
+    maillonAct = maillonAct -> getMaillonSuivant();
+  }
 }
 
 // Algorithme : Essaie de supprimer un trajet du Catalogue.

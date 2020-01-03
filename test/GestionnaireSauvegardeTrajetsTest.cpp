@@ -20,7 +20,7 @@ void GestionnaireSauvegardeTrajetsTest::testEcrireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU1 : " << RESET << endl;
     ListeChaineeTrajets liste;
-    gestionnaire.ecrireSauvegarde(liste, tmpSaveFile);
+    GestionnaireSauvegardeTrajets::ecrireSauvegarde(liste, tmpSaveFile);
 
     //Récupère la taille du fichier et le supprime
     std::ifstream in(tmpSaveFile, ios::ate | ios::binary);
@@ -46,7 +46,7 @@ void GestionnaireSauvegardeTrajetsTest::testEcrireSauvegarde() const {
 
     std::string resultatAttendu = Token::TS + "\na\nb\nc\n";
 
-    gestionnaire.ecrireSauvegarde(liste, tmpSaveFile);
+    GestionnaireSauvegardeTrajets::ecrireSauvegarde(liste, tmpSaveFile);
 
     //Vérification du contenu du fichier
     if(resultatAttendu == lireContenuFichier(tmpSaveFile)) {
@@ -71,7 +71,7 @@ void GestionnaireSauvegardeTrajetsTest::testEcrireSauvegarde() const {
 
     std::string resultatAttendu = Token::TC + "\n1\n" + Token::TS + "\na\nb\nc\n";
 
-    gestionnaire.ecrireSauvegarde(liste, tmpSaveFile);
+    GestionnaireSauvegardeTrajets::ecrireSauvegarde(liste, tmpSaveFile);
 
     //Vérification du contenu du fichier
     if(resultatAttendu == lireContenuFichier(tmpSaveFile)) {
@@ -98,7 +98,7 @@ void GestionnaireSauvegardeTrajetsTest::testEcrireSauvegarde() const {
 
     std::string resultatAttendu = Token::TC + "\n1\n" + Token::TS + "\na\nb\nc\n" + Token::TS + "\nd\ne\nf\n";
 
-    gestionnaire.ecrireSauvegarde(liste, tmpSaveFile);
+    GestionnaireSauvegardeTrajets::ecrireSauvegarde(liste, tmpSaveFile);
 
     //Vérification du contenu du fichier
     if(resultatAttendu == lireContenuFichier(tmpSaveFile)) {
@@ -122,7 +122,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU1 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, "");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     if(liste->estVide()) {
       std::cout << GREEN << "OK" << RESET << std::endl;
@@ -140,7 +140,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU2 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TS + "\na\nb\nc\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
     TrajetSimple* ts;
 
     if(liste->getTaille() == 1
@@ -155,6 +155,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -162,7 +163,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU3 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TC + "\n1\n" + Token::TS + "\na\nb\nc\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
     TrajetCompose* tc;
     TrajetSimple * ts1;
 
@@ -180,6 +181,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -187,7 +189,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU4 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TC + "\n2\n" + Token::TS + "\na\nb\nc\n" + Token::TS + "\nb\nc\nd\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
     TrajetCompose* tc;
     TrajetSimple * ts1;
     TrajetSimple * ts2;
@@ -210,6 +212,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -217,7 +220,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU5 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TC + "\n2\n" + Token::TS + "\na\nb\nc\n" + Token::TS + "\nb\nc\nd\n"+ Token::TC + "\n2\n" + Token::TS + "\na\nb\nc\n" + Token::TS + "\nb\nc\nd\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     TrajetCompose* tc1;
     TrajetSimple * tc1_ts1;
@@ -259,6 +262,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -266,7 +270,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU6 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TC + "\n1\n" + Token::TS + "\na\nb\nc\n" + Token::TS + "\nd\ne\nf\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     TrajetCompose* tc;
     TrajetSimple * ts1;
@@ -292,6 +296,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -299,7 +304,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU7 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TS + "\na\nb\nc\n" + Token::TC + "\n1\n" + Token::TS + "\nd\ne\nf\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     TrajetSimple * ts1;
 
@@ -324,6 +329,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
 
     std::cout << std::endl;
     liste->effacerEnProfondeur();
+    remove(tmpSaveFile);
     delete liste;
   }
 
@@ -332,7 +338,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
   {
     std::cout << ITALIC << CYAN << "TU8 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TC + "\n1\n" + Token::TC + "\n1\n" + Token::TS + "\na\nb\nc\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     if(liste == nullptr) {
       std::cout << GREEN << "OK" << RESET << std::endl;
@@ -341,13 +347,14 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
     }
 
     std::cout << std::endl;
+    remove(tmpSaveFile);
   }
 
   //Cas d'un attribut manquant pour un TrajetSimple (1)
   {
     std::cout << ITALIC << CYAN << "TU9 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TS + "\na\nb\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     if(liste == nullptr) {
       std::cout << GREEN << "OK" << RESET << std::endl;
@@ -356,13 +363,14 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
     }
 
     std::cout << std::endl;
+    remove(tmpSaveFile);
   }
 
   //Cas d'un attribut manquant pour un TrajetSimple (2)
   {
     std::cout << ITALIC << CYAN << "TU10 : " << RESET << endl;
     ecrireContenuFichier(tmpSaveFile, Token::TS + "\na\nb\n" + Token::TC + "\n1\n" + Token::TS + "\nd\ne\nf\n");
-    ListeChaineeTrajets* liste = gestionnaire.lireSauvegarde(tmpSaveFile);
+    ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(tmpSaveFile);
 
     if(liste == nullptr) {
       std::cout << GREEN << "OK" << RESET << std::endl;
@@ -371,6 +379,7 @@ void GestionnaireSauvegardeTrajetsTest::testLireSauvegarde() const {
     }
 
     std::cout << std::endl;
+    remove(tmpSaveFile);
   }
 
 }
@@ -386,6 +395,8 @@ std::string GestionnaireSauvegardeTrajetsTest::lireContenuFichier(const std::str
       text += line + '\n';
     }
   }
+
+  in.close();
 
   return text;
 }

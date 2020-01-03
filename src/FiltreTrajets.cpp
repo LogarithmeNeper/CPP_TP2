@@ -27,9 +27,9 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-ListeChaineeTrajets FiltreTrajets::filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const
+ListeChaineeTrajets* FiltreTrajets::filtrerParType(const ListeChaineeTrajets& trajets, TypeTrajet typeTrajet)
 {
-  ListeChaineeTrajets listeFiltree;
+  ListeChaineeTrajets* listeFiltree = new ListeChaineeTrajets;
 
   MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
 
@@ -43,7 +43,7 @@ ListeChaineeTrajets FiltreTrajets::filtrerParType(ListeChaineeTrajets& trajets, 
     if((typeTrajet == TypeTrajet::SIMPLE && dynamic_cast<TrajetSimple*>(t) != nullptr)
     || (typeTrajet == TypeTrajet::COMPOSE && dynamic_cast<TrajetCompose*>(t) != nullptr))
     {
-      listeFiltree.ajouter(t);
+      listeFiltree->ajouter(t);
     }
 
     maillonAct = maillonAct->getMaillonSuivant();
@@ -52,10 +52,9 @@ ListeChaineeTrajets FiltreTrajets::filtrerParType(ListeChaineeTrajets& trajets, 
   return listeFiltree;
 } //----- Fin de filtrerParType
 
-
-ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const
+ListeChaineeTrajets* FiltreTrajets::filtrerParVilleDepart(const ListeChaineeTrajets& trajets, const std::string& villeDepart)
 {
-  ListeChaineeTrajets listeFiltree;
+  ListeChaineeTrajets* listeFiltree = new ListeChaineeTrajets;
 
   MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
 
@@ -68,7 +67,7 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepart(ListeChaineeTrajets& tr
     //au paramètre villeDepart du filtre, on l'ajoute à la nouvelle liste
     if(t->getVilleDepart() == villeDepart)
     {
-      listeFiltree.ajouter(t);
+      listeFiltree->ajouter(t);
     }
     maillonAct = maillonAct->getMaillonSuivant();
   }
@@ -76,10 +75,9 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepart(ListeChaineeTrajets& tr
   return listeFiltree;
 } //----- Fin de filtrerParVilleDepart
 
-
-ListeChaineeTrajets FiltreTrajets::filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const
+ListeChaineeTrajets* FiltreTrajets::filtrerParVilleArrivee(const ListeChaineeTrajets& trajets, const std::string& villeArrivee)
 {
-  ListeChaineeTrajets listeFiltree;
+  ListeChaineeTrajets* listeFiltree = new ListeChaineeTrajets;
 
   MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
 
@@ -92,7 +90,7 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleArrivee(ListeChaineeTrajets& t
     //au paramètre villeArrivee du filtre, on l'ajoute à la nouvelle liste
     if(t->getVilleArrivee() == villeArrivee)
     {
-      listeFiltree.ajouter(t);
+      listeFiltree->ajouter(t);
     }
 
     maillonAct = maillonAct->getMaillonSuivant();
@@ -100,10 +98,9 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleArrivee(ListeChaineeTrajets& t
   return listeFiltree;
 } //----- Fin de filtrerParVilleArrivee
 
-
-ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const
+ListeChaineeTrajets* FiltreTrajets::filtrerParVilleDepartEtArrivee(const ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee)
 {
-  ListeChaineeTrajets listeFiltree;
+  ListeChaineeTrajets* listeFiltree = new ListeChaineeTrajets;
 
   MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
 
@@ -116,7 +113,7 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepartEtArrivee(ListeChaineeTr
     //aux paramètres villeDepart et villeArrivee du filtre, on l'ajoute à la nouvelle liste
     if(t->getVilleArrivee() == villeArrivee && t->getVilleDepart() == villeDepart)
     {
-      listeFiltree.ajouter(t);
+      listeFiltree->ajouter(t);
     }
     maillonAct = maillonAct->getMaillonSuivant();
   }
@@ -124,10 +121,9 @@ ListeChaineeTrajets FiltreTrajets::filtrerParVilleDepartEtArrivee(ListeChaineeTr
   return listeFiltree;
 } //----- Fin de filtrerParVilleDepartEtArrivee
 
-
-ListeChaineeTrajets FiltreTrajets::filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const
+ListeChaineeTrajets* FiltreTrajets::filtrerParIntervalle(const ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m)
 {
-  ListeChaineeTrajets listeFiltree;
+  ListeChaineeTrajets* listeFiltree = new ListeChaineeTrajets;
 
   MaillonListeChaineeTrajets* maillonAct = trajets.getPremierMaillon();
 
@@ -138,9 +134,9 @@ ListeChaineeTrajets FiltreTrajets::filtrerParIntervalle(ListeChaineeTrajets& tra
     //Trajet actuel
     Trajet* t = maillonAct->getTrajet();
 
-    //Si le l'indice du trajet se trouve dans l'intervalle, on l'ajoute à la nouvelle liste
-    if(cpt >= n || cpt <= m) {
-      listeFiltree.ajouter(t);
+    //Si l'indice du trajet se trouve dans l'intervalle, on l'ajoute à la nouvelle liste
+    if(cpt >= n && cpt <= m) {
+      listeFiltree->ajouter(t);
     }
 
     maillonAct = maillonAct->getMaillonSuivant();
@@ -149,26 +145,3 @@ ListeChaineeTrajets FiltreTrajets::filtrerParIntervalle(ListeChaineeTrajets& tra
 
   return listeFiltree;
 } //----- Fin de filtrerParIntervalle
-
-//-------------------------------------------- Constructeurs - destructeur
-
-
-FiltreTrajets::FiltreTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au constructeur de FiltreTrajets" << endl;
-  #endif
-} //----- Fin de FiltreTrajets
-
-
-FiltreTrajets::~FiltreTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au destructeur de FiltreTrajets" << endl;
-  #endif
-} //----- Fin de ~FiltreTrajets
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées

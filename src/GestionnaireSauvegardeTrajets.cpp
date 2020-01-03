@@ -33,8 +33,8 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const {
-
+bool GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier)
+{
   std::ofstream s;
   s.open(unNomFichier, ios::out);
 
@@ -48,104 +48,16 @@ void GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& 
     }
 
     s.close();
+    return true;
   } else {
     std::cerr << "Impossible d'ouvrir le fichier " << unNomFichier << std::endl;
+    return false;
   }
 
 }
 
-TrajetSimple* GestionnaireSauvegardeTrajets::lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const {
-
-  std::string villeDepart;
-  std::string villeArrivee;
-  std::string typeTransport;
-
-  //Lecture de la ville de départ
-  ++ligneAct;
-
-  if(!getline(s, villeDepart)) {
-    throw std::string("Attribut villeDepart manquant pour le trajet simple.");
-  }
-
-  //Lecture de la ville d'arrivée
-  ++ligneAct;
-
-  if(!getline(s, villeArrivee)) {
-    throw std::string("Attribut villeArrivee manquant pour le trajet simple.");
-  }
-
-  //Lecture du type de transport
-  ++ligneAct;
-
-  if(!getline(s, typeTransport)) {
-    throw std::string("Attribut typeTransport manquant pour le trajet simple.");
-  }
-
-  TrajetSimple* ts = new TrajetSimple(villeDepart.c_str(), villeArrivee.c_str(), typeTransport.c_str());
-
-  //Vérification de la validité des attributs
-  if(!ts->estValide()) {
-    delete ts;
-    throw std::string("Attributs du TrajetSimple invalides.");
-  }
-
-  return ts;
-}
-
-TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const {
-
-  TrajetCompose* tc = new TrajetCompose;
-  std::string nSousTrajetsStr;
-  unsigned int nSousTrajets;
-  std::string token;
-
-  //Lecture brute du nombre de sous-trajets
-  ++ligneAct;
-
-  if(!getline(s, nSousTrajetsStr)) {
-    delete tc;
-    throw std::string("Attribut nSousTrajets manquant pour le trajet simple.");
-  }
-
-  //Vérification de la nature de l'attribut (entier naturel) et conversion en entier
-  if(!estEntierNaturel(nSousTrajetsStr.c_str()) || (nSousTrajets = std::stoi(nSousTrajetsStr)) <= 0) {
-    delete tc;
-    throw std::string("Le nombre de trajets composants le trajet composé doit être un entier strictement supérieur à 0.");
-  }
-
-  //Lecture des nSousTrajets TrajetSimple
-  for(unsigned int i = 0; i < nSousTrajets; i++) {
-
-    //Lecture du token
-    ++ligneAct;
-
-    if(!getline(s, token)) {
-      delete tc;
-      throw std::string("Sous-trajet attendu mais manquant pour le trajet composé.");
-    }
-
-    //On vérifie qu'il s'agit d'un trajet simple, on a pas le droit de rajouter des trajets
-    //composés dans des trajets composés d'après le cahier des charges
-    if(token != Token::TS) {
-      delete tc;
-      throw std::string("Token invalide " + token + ", le trajet composé ne peut contenir que des trajets simples.");
-    }
-
-    TrajetSimple* ts = lireTrajetSimple(s, ligneAct);
-    tc->ajouter(ts);
-  }
-
-  //Vérification de la validité du TrajetCompose
-  if(!tc->estValide()) {
-    delete tc;
-    throw std::string("Sous-trajets du TrajetCompose invalides.");
-  }
-
-  return tc;
-}
-
-ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::string unNomFichier) const {
-
+ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::string unNomFichier)
+{
   ListeChaineeTrajets* liste = new ListeChaineeTrajets;
 
   std::ifstream s(unNomFichier);
@@ -183,19 +95,16 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
       s.close();
 
       //On vide la liste
-      MaillonListeChaineeTrajets* maillonAct = liste->getPremierMaillon();
-
-      while(maillonAct != nullptr) {
-        delete maillonAct->getTrajet();
-        maillonAct = maillonAct->getMaillonSuivant();
-      }
-
+      liste->effacerEnProfondeur();
       delete liste;
       return nullptr;
     }
 
   } else {
     std::cerr << "Impossible d'ouvrir le fichier " << unNomFichier << std::endl;
+    s.close();
+    delete liste;
+    return nullptr;
   }
 
   s.close();
@@ -203,29 +112,11 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
 
 }
 
-//-------------------------------------------- Constructeurs - destructeur
-
-GestionnaireSauvegardeTrajets::GestionnaireSauvegardeTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au constructeur de GestionnaireSauvegardeTrajets" << endl;
-  #endif
-} //----- Fin de GestionnaireSauvegardeTrajets
-
-
-GestionnaireSauvegardeTrajets::~GestionnaireSauvegardeTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au destructeur de GestionnaireSauvegardeTrajets" << endl;
-  #endif
-} //----- Fin de ~GestionnaireSauvegardeTrajets
-
-
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
 
-void GestionnaireSauvegardeTrajets::ecrireTrajet(std::ofstream& s, const Trajet* t) const {
+void GestionnaireSauvegardeTrajets::ecrireTrajet(std::ofstream& s, const Trajet* t) {
 
   const TrajetSimple* ts = dynamic_cast<const TrajetSimple*>(t);
   const TrajetCompose* tc = dynamic_cast<const TrajetCompose*>(t);
@@ -247,5 +138,99 @@ void GestionnaireSauvegardeTrajets::ecrireTrajet(std::ofstream& s, const Trajet*
       maillonAct = maillonAct->getMaillonSuivant();
     }
   }
+}
 
+
+TrajetSimple* GestionnaireSauvegardeTrajets::lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) {
+
+  std::string villeDepart;
+  std::string villeArrivee;
+  std::string typeTransport;
+
+  //Lecture de la ville de départ
+  ++ligneAct;
+
+  if(!getline(s, villeDepart)) {
+    throw std::string("Attribut villeDepart manquant pour le trajet simple.");
+  }
+
+  //Lecture de la ville d'arrivée
+  ++ligneAct;
+
+  if(!getline(s, villeArrivee)) {
+    throw std::string("Attribut villeArrivee manquant pour le trajet simple.");
+  }
+
+  //Lecture du type de transport
+  ++ligneAct;
+
+  if(!getline(s, typeTransport)) {
+    throw std::string("Attribut typeTransport manquant pour le trajet simple.");
+  }
+
+  TrajetSimple* ts = new TrajetSimple(villeDepart.c_str(), villeArrivee.c_str(), typeTransport.c_str());
+
+  //Vérification de la validité des attributs
+  if(!ts->estValide()) {
+    delete ts;
+    throw std::string("Attributs du TrajetSimple invalides.");
+  }
+
+  return ts;
+}
+
+TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) {
+
+  TrajetCompose* tc = new TrajetCompose;
+  std::string nSousTrajetsStr;
+  unsigned int nSousTrajets;
+  std::string token;
+
+  //Lecture brute du nombre de sous-trajets
+  ++ligneAct;
+
+  if(!getline(s, nSousTrajetsStr)) {
+    delete tc;
+    throw std::string("Attribut nSousTrajets manquant pour le trajet simple.");
+  }
+
+  //Vérification de la nature de l'attribut (entier naturel) et conversion en entier
+  if(!estEntierNaturel(nSousTrajetsStr.c_str()) || (nSousTrajets = std::stoi(nSousTrajetsStr)) <= 0) {
+    delete tc;
+    throw std::string("Le nombre de trajets composants le trajet composé doit être un entier strictement supérieur à 0.");
+  }
+
+  //Lecture des nSousTrajets TrajetSimple
+  for(unsigned int i = 0; i < nSousTrajets; i++) {
+
+    //Lecture du token
+    ++ligneAct;
+
+    if(!getline(s, token)) {
+      delete tc;
+      throw std::string("Sous-trajet attendu mais manquant pour le trajet composé.");
+    }
+
+    //On vérifie qu'il s'agit d'un trajet simple, on a pas le droit de rajouter des trajets
+    //composés dans des trajets composés d'après le cahier des charges
+    if(token != Token::TS) {
+      delete tc;
+      if(token == Token::TC) {
+        throw std::string("Token invalide " + token + ", le trajet composé ne peut contenir que des trajets simples.");
+      } else {
+        throw std::string("Token invalide " + token + ".");
+      }
+    }
+
+    TrajetSimple* ts = lireTrajetSimple(s, ligneAct);
+    tc->ajouter(ts);
+  }
+
+  //Vérification de la validité du TrajetCompose
+  if(!tc->estValide()) {
+    delete tc;
+    throw std::string("Sous-trajets du TrajetCompose invalides.");
+  }
+
+  return tc;
 }

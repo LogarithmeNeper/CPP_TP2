@@ -19,8 +19,6 @@ protected:
 
   void ecrireContenuFichier(const std::string unNomFichier, const std::string contenu) const;
 
-  GestionnaireSauvegardeTrajets gestionnaire;
-
 };
 
 #endif //GESTIONNAIRE_SAUVEGARDE_TRAJETS_TEST_H

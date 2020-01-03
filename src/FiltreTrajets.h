@@ -35,12 +35,8 @@ typedef enum TypeTrajet_ {
 
 class FiltreTrajets
 {
-  //----------------------------------------------------------------- PUBLIC
-
 public:
-  //----------------------------------------------------- Méthodes publiques
-
-  ListeChaineeTrajets filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const;
+  static ListeChaineeTrajets* filtrerParType(const ListeChaineeTrajets& trajets, TypeTrajet typeTrajet);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets de type: typeTrajet.
   //
@@ -49,7 +45,7 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const;
+  static ListeChaineeTrajets* filtrerParVilleDepart(const ListeChaineeTrajets& trajets, const std::string& villeDepart);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville de départ: villeDepart.
   //
@@ -58,7 +54,7 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const;
+  static ListeChaineeTrajets* filtrerParVilleArrivee(const ListeChaineeTrajets& trajets, const std::string& villeArrivee);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville d'arrivée: villeArrivee.
   //
@@ -67,7 +63,7 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const;
+  static ListeChaineeTrajets* filtrerParVilleDepartEtArrivee(const ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets ayant pour ville de départ: villeDepart; et pour ville d'arrivée: villeArrivee.
   //
@@ -76,7 +72,7 @@ public:
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
 
-  ListeChaineeTrajets filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const;
+  static ListeChaineeTrajets* filtrerParIntervalle(const ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m);
   // Mode d'emploi : Filtre la liste de trajets donnée en paramètre. Renvoie une nouvelle instance
   // de ListeChaineeTrajets contenant uniquement les trajets d'indice allant de n à m inclus.
   //
@@ -84,17 +80,6 @@ public:
   //  - Renvoie une ListeChaineeTrajets contenant au maximum (m-n+1) trajets.
   //  - Renvoie une liste vide si aucun trajet n'a passé le filtre.
   //
-
-  FiltreTrajets ( );
-
-  virtual ~FiltreTrajets ( );
-
-  //------------------------------------------------------------------ PRIVE
-
-protected:
-  //----------------------------------------------------- Méthodes protégées
-
-  //----------------------------------------------------- Attributs protégés
 };
 
 //-------------------------------- Autres définitions dépendantes de <FiltreTrajets>

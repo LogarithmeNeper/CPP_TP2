@@ -9,6 +9,7 @@ class Catalogue {
   +rechercheTrajetSimple(const char* villeDepart, const char* villeArrivee) const : void
   +rechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee) const : void
   +afficher(ostream & out) const : void
+  +ajouterListeTrajets(ListeChaineeTrajets & liste) : void
   #sousRechercheTrajetAvancee(const char* villeDepart, const char* villeArrivee, bool* trajetsParcourus, ListeChaineeTrajets* chemin) const : void
 }
 
@@ -78,19 +79,19 @@ class TrajetSimple {
 }
 
 class FiltreTrajets {
-  +filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) const : ListeChaineeTrajets
-  +filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) const : ListeChaineeTrajets
-  +filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) const : ListeChaineeTrajets
-  +filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) const : ListeChaineeTrajets
-  +filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) const : ListeChaineeTrajets
+  +filtrerParType(ListeChaineeTrajets& trajets, TypeTrajet typeTrajet) static : ListeChaineeTrajets*
+  +filtrerParVilleDepart(ListeChaineeTrajets& trajets, const std::string& villeDepart) static : ListeChaineeTrajets*
+  +filtrerParVilleArrivee(ListeChaineeTrajets& trajets, const std::string& villeArrivee) static : ListeChaineeTrajets*
+  +filtrerParVilleDepartEtArrivee(ListeChaineeTrajets& trajets, const std::string& villeDepart, const std::string& villeArrivee) static : ListeChaineeTrajets*
+  +filtrerParIntervalle(ListeChaineeTrajets& trajets, const unsigned int n, const unsigned int m) static : ListeChaineeTrajets*
 }
 
 class GestionnaireSauvegardeTrajets {
-  +ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const : void
-  +lireSauvegarde(const std::string unNomFichier) const : ListeChaineeTrajets*
-  #ecrireTrajet(std::ofstream& s, const Trajet* t) const : void
-  #lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const : TrajetSimple*
-  #lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const : TrajetCompose*
+  +ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) static : bool
+  +lireSauvegarde(const std::string unNomFichier) static : ListeChaineeTrajets*
+  #ecrireTrajet(std::ofstream& s, const Trajet* t) static : void
+  #lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) static : TrajetSimple*
+  #lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) static : TrajetCompose*
 }
 
 ListeChaineeTrajets <|-- Catalogue : "herite de"
