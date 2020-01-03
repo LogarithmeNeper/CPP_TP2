@@ -40,6 +40,7 @@ static void ajouterTrajetSimple(Catalogue & catalogue)
 
   do
   {
+    delete trajetSimple;
     char villeDepart[100];
     char villeArrivee[100];
     char typeTransport[100];
@@ -287,28 +288,30 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   cout << endl << endl << " ==  FIN DE RECHERCHE DE TRAJET AVANCEE == " << endl << endl;
 }
 
-static void sauvegarde(Catalogue & catalogue)
-{
-    string path;
-    unsigned int choix;
-    cout << "Emplacement pour la sauvegarde du fichier : ";
-    cin.clear();
-    getline(cin,path);
-    path = path + ".txt";
-    GestionnaireSauvegardeTrajets gestionnaire;
-    string vDep,vArr;
-    unsigned int indiceDep,indiceFin;
-    cout << "Type de sauvegarde" << endl;
-    cout << "\t1 - Aucun filtre" << endl;
-    cout << "\t2 - Filtre sur le type de trajet" << endl;
-    cout << "\t3 - Filtre sur la ville de départ" << endl;
-    cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
-    cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
-    cout << "\t6 - Filtre sur un intervalle (indice de départ et indice de fin)" << endl;
-    cout << "\t7 - Quitter" << endl;
+static ListeChaineeTrajets* appliquerFiltre(const ListeChaineeTrajets & liste) {
 
-    //Prompt de l'action à effectuer pour la sauvegarde
-    do {
+  ListeChaineeTrajets* listeFiltree = nullptr;
+  unsigned int choix;
+
+  unsigned int typeTrajet;
+
+  string villeDepart;
+  string villeArrivee;
+
+  unsigned int indiceDebut;
+  unsigned int indiceFin;
+
+  cout << endl << "Type de filtre à appliquer" << endl;
+  cout << "\t1 - Aucun filtre" << endl;
+  cout << "\t2 - Filtre sur le type de trajet" << endl;
+  cout << "\t3 - Filtre sur la ville de départ" << endl;
+  cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
+  cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
+  cout << "\t6 - Filtre sur un intervalle (trajet numéro n à trajet numéro m inclus)" << endl;
+  cout << "\t7 - Quitter" << endl;
+
+  //Prompt de l'action à effectuer pour la sauvegarde
+  do {
     cout << "Entrez votre choix: ";
     cin >> choix;
 
@@ -319,205 +322,187 @@ static void sauvegarde(Catalogue & catalogue)
 
     cin.ignore(10000, '\n');
 
-    } while(choix < 1 || choix > 7);
+  } while(choix < 1 || choix > 7);
 
-    switch(choix) {
+  switch(choix) {
 
-    case 1:
-      gestionnaire.ecrireSauvegarde(catalogue,path);
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
-    case 2:
+    case 1: {
+      //Simple copie de la liste
+      listeFiltree = new ListeChaineeTrajets;
+
+      MaillonListeChaineeTrajets* maillonAct = liste.getPremierMaillon();
+      while(maillonAct != nullptr) {
+        listeFiltree->ajouter(maillonAct->getTrajet());
+        maillonAct = maillonAct->getMaillonSuivant();
+      }
+      break;
+    }
+
+    case 2: {
+      //Prompt du type de trajet à conserver
       do {
         cout << "Type de trajet (1) Simple ou (2) Compose : ";
-        cin >> choix;
+        cin >> typeTrajet;
 
-        if(cin.fail() || choix < 1 || choix > 2) {
+        if(cin.fail() || typeTrajet < 1 || typeTrajet > 2) {
           cout << "Choix invalide." << endl;
           cin.clear();
         }
 
         cin.ignore(10000, '\n');
+      } while(typeTrajet < 1 || typeTrajet > 2);
 
-      } while(choix < 1 || choix > 2);
-      if(choix == 1)
-      {
-          gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParType(catalogue,TypeTrajet::SIMPLE),path);
-      } else
-        {
-            gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParType(catalogue,TypeTrajet::COMPOSE),path);
-        }
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
-    case 3:
+      listeFiltree = FiltreTrajets::filtrerParType(liste, typeTrajet == 1 ? TypeTrajet::SIMPLE : TypeTrajet::COMPOSE);
+      break;
+    }
+
+    case 3: {
       cout << "Ville de départ : ";
       cin.clear();
-      getline(cin,vDep);
-      if(cin.fail())
-      {
+      getline(cin, villeDepart);
+
+      if(cin.fail()) {
         cout << "Entrée invalide." << endl;
         break;
       }
-      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleDepart(catalogue, vDep),path);
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
-    case 4:
+
+      listeFiltree = FiltreTrajets::filtrerParVilleDepart(liste, villeDepart);
+      break;
+    }
+
+    case 4: {
       cout << "Ville d'arrivée : ";
       cin.clear();
-      getline(cin,vArr);
-      if(cin.fail())
-      {
+      getline(cin, villeArrivee);
+
+      if(cin.fail()) {
         cout << "Entrée invalide." << endl;
         break;
       }
-      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleArrivee(catalogue,vArr),path);
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
-    case 5:
+
+      listeFiltree = FiltreTrajets::filtrerParVilleArrivee(liste, villeArrivee);
+      break;
+    }
+
+    case 5: {
       cout << "Ville de départ : ";
       cin.clear();
-      getline(cin,vDep);
-      if(cin.fail())
-      {
+      getline(cin, villeDepart);
+      if(cin.fail()) {
         cout << "Entrée invalide." << endl;
         break;
       }
       cout << "Ville d'arrivée : ";
       cin.clear();
-      getline(cin,vArr);
-      if(cin.fail())
-      {
+      getline(cin, villeArrivee);
+      if(cin.fail()) {
         cout << "Entrée invalide." << endl;
         break;
       }
-      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParVilleDepartEtArrivee(catalogue,vDep,vArr),path);
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
-    case 6:
-      cout << "Indice de début : ";
-      cin >> indiceDep;
-      cout << "Indice de fin : ";
-      cin >> indiceFin;
-      gestionnaire.ecrireSauvegarde(FiltreTrajets::filtrerParIntervalle(catalogue,indiceDep,indiceFin),path);
-      cout << "Sauvegarde effectuée !" << endl;
-    break;
+      listeFiltree = FiltreTrajets::filtrerParVilleDepartEtArrivee(liste, villeDepart, villeArrivee);
+      break;
+    }
+
+    case 6: {
+      if(!liste.estVide()) {
+
+        do {
+          cout << "Début de l'intervalle (entre 1 et " << liste.getTaille() << ") : ";
+          cin >> indiceDebut;
+
+          if(cin.fail() || indiceDebut < 1 || indiceDebut > liste.getTaille()) {
+            cout << "Choix invalide." << endl;
+            cin.clear();
+          }
+
+          cin.ignore(10000, '\n');
+
+        } while(indiceDebut < 1 || indiceDebut > liste.getTaille());
+
+        indiceDebut--;
+
+        do {
+          cout << "Fin de l'intervalle (entre " << (indiceDebut+1) << " et " << liste.getTaille() << "): ";
+          cin >> indiceFin;
+
+          if(cin.fail() || indiceFin < indiceDebut + 1 || indiceFin > liste.getTaille()) {
+            cout << "Choix invalide." << endl;
+            cin.clear();
+          }
+
+          cin.ignore(10000, '\n');
+
+        } while(indiceFin < indiceDebut + 1 || indiceFin > liste.getTaille());
+
+        indiceFin--;
+
+        listeFiltree = FiltreTrajets::filtrerParIntervalle(liste, indiceDebut, indiceFin);
+      } else {
+        cout << "Liste de trajets vide. Le filtre donne une liste vide.";
+        listeFiltree = new ListeChaineeTrajets;
+      }
+      break;
+    }
+
     default:
     break;
-    }
+  }
+
+  return listeFiltree;
 }
 
-static void lecture (Catalogue & catalogue)
+static void sauvegarde(const Catalogue & catalogue)
 {
-    string path;
-    unsigned int choix;
-    cout << "Nom du fichier : ";
-    cin.clear();
-    getline(cin,path);
-    path = path + ".txt";
-    GestionnaireSauvegardeTrajets gestionnaire;
-    string vDep,vArr;
-    unsigned int indiceDep,indiceFin;
-    cout << "Type de lecture" << endl;
-    cout << "\t1 - Aucun filtre" << endl;
-    cout << "\t2 - Filtre sur le type de trajet" << endl;
-    cout << "\t3 - Filtre sur la ville de départ" << endl;
-    cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
-    cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
-    cout << "\t6 - Filtre sur un intervalle (indice de départ et indice de fin)" << endl;
-    cout << "\t7 - Quitter" << endl;
+  string nomFichier;
 
-    //Prompt de l'action à effectuer pour la sauvegarde
-    do {
-    cout << "Entrez votre choix: ";
-    cin >> choix;
+  //Lecture du chemin de sauvegarde
+  cout << endl << "Nom du fichier de sauvegarde : ";
+  cin.clear();
+  getline(cin, nomFichier);
 
-    if(cin.fail() || choix < 1 || choix > 7) {
-      cout << "Choix invalide." << endl;
-      cin.clear();
+  ListeChaineeTrajets* listeFiltree = appliquerFiltre(catalogue);
+
+  if(GestionnaireSauvegardeTrajets::ecrireSauvegarde(*listeFiltree, nomFichier)) {
+    cout << endl << "Sauvegarde réussie !" << endl << endl;
+  } else {
+    cout << endl << "Erreur de sauvegarde." << endl << endl;
+  }
+
+  delete listeFiltree;
+}
+
+static void lecture(Catalogue & catalogue)
+{
+  string nomFichier;
+
+  cout << endl << "Nom du fichier à lire : ";
+  cin.clear();
+  getline(cin, nomFichier);
+
+  ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(nomFichier);
+
+  if(liste != nullptr) {
+
+    ListeChaineeTrajets* listeFiltree = appliquerFiltre(*liste);
+
+    catalogue.ajouterListeTrajets(*listeFiltree);
+    cout << endl << "Chargement réussi !" << endl << endl;
+
+    //Supprime tous les trajets chargés mais qui ne sont finalement pas utilisés
+    MaillonListeChaineeTrajets* maillonAct = liste->getPremierMaillon();
+    while(maillonAct != nullptr) {
+      if(!listeFiltree->contient(maillonAct->getTrajet())) {
+        delete maillonAct->getTrajet();
+      }
+      maillonAct = maillonAct->getMaillonSuivant();
     }
 
-    cin.ignore(10000, '\n');
+    delete listeFiltree;
+    delete liste;
 
-    } while(choix < 1 || choix > 7);
-    ListeChaineeTrajets listeComplete;
-    listeComplete = gestionnaire.lireSauvegarde(listeComplete,path);
-    switch(choix) {
-
-    case 1:
-      catalogue.ajouterListeTrajets(listeComplete);
-    break;
-    case 2:
-      do {
-        cout << "Type de trajet (1) Simple ou (2) Compose : ";
-        cin >> choix;
-
-        if(cin.fail() || choix < 1 || choix > 2) {
-          cout << "Choix invalide." << endl;
-          cin.clear();
-        }
-
-        cin.ignore(10000, '\n');
-
-      } while(choix < 1 || choix > 2);
-      if(choix == 1)
-      {
-          catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParTypeAvecSuppression(listeComplete,TypeTrajet::SIMPLE));
-      } else
-        {
-            catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParTypeAvecSuppression(listeComplete,TypeTrajet::COMPOSE));
-        }
-    break;
-    case 3:
-      cout << "Ville de départ : ";
-      cin.clear();
-      getline(cin,vDep);
-      if(cin.fail())
-      {
-        cout << "Entrée invalide." << endl;
-        break;
-      }
-      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleDepartAvecSuppression(listeComplete, vDep));
-    break;
-    case 4:
-      cout << "Ville d'arrivée : ";
-      cin.clear();
-      getline(cin,vArr);
-      if(cin.fail())
-      {
-        cout << "Entrée invalide." << endl;
-        break;
-      }
-      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleArriveeAvecSuppression(listeComplete,vArr));
-    break;
-    case 5:
-      cout << "Ville de départ : ";
-      cin.clear();
-      getline(cin,vDep);
-      if(cin.fail())
-      {
-        cout << "Entrée invalide." << endl;
-        break;
-      }
-      cout << "Ville d'arrivée : ";
-      cin.clear();
-      getline(cin,vArr);
-      if(cin.fail())
-      {
-        cout << "Entrée invalide." << endl;
-        break;
-      }
-      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParVilleDepartEtArriveeAvecSuppression(listeComplete,vDep,vArr));
-    break;
-    case 6:
-      cout << "Indice de début : ";
-      cin >> indiceDep;
-      cout << "Indice de fin : ";
-      cin >> indiceFin;
-      catalogue.ajouterListeTrajets(FiltreTrajets::filtrerParIntervalleAvecSuppression(listeComplete,indiceDep,indiceFin));
-    break;
-    default:
-    break;
-    }
+  } else {
+    cout << endl << "Erreur de chargement." << endl << endl;
+  }
 }
 
 int main(void)

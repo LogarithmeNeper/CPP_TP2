@@ -49,12 +49,11 @@ public:
   // - Retourne vrai si le trajet a bien été rajouté.
   // - Affiche un message d'erreur sur la sortie standard d'erreur si une des conditions n'est pas respectée.
 
-  bool ajouterListeTrajets(ListeChaineeTrajets & liste);
+  void ajouterListeTrajets(ListeChaineeTrajets & liste);
   // Mode d'emploi : Ajoute une liste de trajets au catalogue, retourne vrai si l'action a été
   // effectuée avec succès.
   //
   // Contrat :
-  // - Retourne vrai si tous les éléments de la liste ont bien été ajouté, faux sinon.
   // - Ajoute seulement les trajets que le catalogue ne contient pas déjà
 
   bool supprimer(Trajet* unTrajet) override;

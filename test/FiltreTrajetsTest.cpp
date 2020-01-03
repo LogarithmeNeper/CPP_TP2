@@ -17,14 +17,17 @@ void FiltreTrajetsTest::testFiltrerParType() const {
   {
     std::cout << ITALIC << CYAN << "TU1 : " << RESET << endl;
     ListeChaineeTrajets liste;
-    ListeChaineeTrajets listeFiltree1 = filtre.filtrerParType(liste, TypeTrajet::SIMPLE);
-    ListeChaineeTrajets listeFiltree2 = filtre.filtrerParType(liste, TypeTrajet::COMPOSE);
+    ListeChaineeTrajets* listeFiltree1 = filtre.filtrerParType(liste, TypeTrajet::SIMPLE);
+    ListeChaineeTrajets* listeFiltree2 = filtre.filtrerParType(liste, TypeTrajet::COMPOSE);
 
-    if(listeFiltree1.estVide() && listeFiltree2.estVide()) {
+    if(listeFiltree1->estVide() && listeFiltree2->estVide()) {
       std::cout << GREEN << "OK" << RESET << std::endl;
     } else {
       std::cout << RED << "FAILED" << RESET << std::endl;
     }
+
+    delete listeFiltree1;
+    delete listeFiltree2;
 
     std::cout << std::endl;
   }
@@ -51,16 +54,18 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     listeTS.ajouter(&ts1);
     listeTS.ajouter(&ts2);
 
-    ListeChaineeTrajets listeFiltree1 = filtre.filtrerParType(listeTC, TypeTrajet::SIMPLE);
-    ListeChaineeTrajets listeFiltree2 = filtre.filtrerParType(listeTS, TypeTrajet::COMPOSE);
+    ListeChaineeTrajets* listeFiltree1 = filtre.filtrerParType(listeTC, TypeTrajet::SIMPLE);
+    ListeChaineeTrajets* listeFiltree2 = filtre.filtrerParType(listeTS, TypeTrajet::COMPOSE);
 
-    if(listeFiltree1.estVide() && listeFiltree2.estVide()) {
+    if(listeFiltree1->estVide() && listeFiltree2->estVide()) {
       std::cout << GREEN << "OK" << RESET << std::endl;
     }  else {
       std::cout << RED << "FAILED" << RESET << std::endl;
     }
 
     std::cout << std::endl;
+    delete listeFiltree1;
+    delete listeFiltree2;
   }
 
   //Cas du filtre sur une liste homogène d'un type correspondant à celui du filtre
@@ -85,10 +90,10 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     listeTS.ajouter(&ts1);
     listeTS.ajouter(&ts2);
 
-    ListeChaineeTrajets listeFiltree1 = filtre.filtrerParType(listeTC, TypeTrajet::COMPOSE);
-    ListeChaineeTrajets listeFiltree2 = filtre.filtrerParType(listeTS, TypeTrajet::SIMPLE);
+    ListeChaineeTrajets* listeFiltree1 = filtre.filtrerParType(listeTC, TypeTrajet::COMPOSE);
+    ListeChaineeTrajets* listeFiltree2 = filtre.filtrerParType(listeTS, TypeTrajet::SIMPLE);
 
-    if(listeFiltree1.getTaille() == listeTC.getTaille() && listeFiltree2.getTaille() == listeTS.getTaille())
+    if(listeFiltree1->getTaille() == listeTC.getTaille() && listeFiltree2->getTaille() == listeTS.getTaille())
     {
       std::cout << GREEN << "OK" << RESET << std::endl;
     }
@@ -98,6 +103,8 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     }
 
     std::cout << std::endl;
+    delete listeFiltree1;
+    delete listeFiltree2;
   }
 
   //Cas du filtre sur une liste hétérogène avec des trajets de tous types
@@ -124,14 +131,14 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     TrajetSimple ts2("b","c","TGV");
     listeHeterogene.ajouter(&ts2);
 
-    ListeChaineeTrajets listeFiltree1 = filtre.filtrerParType(listeHeterogene, TypeTrajet::SIMPLE);
-    ListeChaineeTrajets listeFiltree2 = filtre.filtrerParType(listeHeterogene, TypeTrajet::COMPOSE);
+    ListeChaineeTrajets* listeFiltree1 = filtre.filtrerParType(listeHeterogene, TypeTrajet::SIMPLE);
+    ListeChaineeTrajets* listeFiltree2 = filtre.filtrerParType(listeHeterogene, TypeTrajet::COMPOSE);
 
     bool typeValide = true;
     MaillonListeChaineeTrajets* maillonAct = nullptr;
 
     // ------------ Vérifie le contenu de la première liste
-    maillonAct = listeFiltree1.getPremierMaillon();
+    maillonAct = listeFiltree1->getPremierMaillon();
 
     while(maillonAct != nullptr && typeValide) {
 
@@ -144,7 +151,7 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     //------------------------------------------------------
 
     // ------------ Vérifie le contenu de la seconde liste
-    maillonAct = listeFiltree2.getPremierMaillon();
+    maillonAct = listeFiltree2->getPremierMaillon();
 
     while(maillonAct != nullptr && typeValide) {
 
@@ -163,6 +170,8 @@ void FiltreTrajetsTest::testFiltrerParType() const {
     }
 
     std::cout << std::endl;
+    delete listeFiltree1;
+    delete listeFiltree2;
   }
 
 }

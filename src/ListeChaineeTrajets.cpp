@@ -117,7 +117,7 @@ void ListeChaineeTrajets::effacerEnSurface() {
 
   premierMaillon = nullptr;
   dernierMaillon = nullptr;
-
+  taille = 0;
 }
 
 void ListeChaineeTrajets::effacerEnProfondeur() {
@@ -131,10 +131,10 @@ void ListeChaineeTrajets::effacerEnProfondeur() {
     maillonActuel = maillonActuel->getMaillonSuivant();
     delete tmp;
   }
-  
+
   premierMaillon = nullptr;
   dernierMaillon = nullptr;
-
+  taille = 0;
 }
 
 MaillonListeChaineeTrajets* ListeChaineeTrajets::get(unsigned int index) const

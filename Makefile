@@ -1,5 +1,5 @@
 COMP=g++
-FLAGS=-g -ansi -pedantic -Wno-unused-function -Wall -std=c++11 -DMAP
+FLAGS=-g -ansi -pedantic -Wno-unused-function -Wall -std=c++11 #-DMAP
 EXEC=catalogue catalogue-test
 
 #Répertoire des sources (.cpp et .h)

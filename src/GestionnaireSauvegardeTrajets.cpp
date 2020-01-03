@@ -33,8 +33,8 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const {
-
+bool GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier)
+{
   std::ofstream s;
   s.open(unNomFichier, ios::out);
 
@@ -48,13 +48,100 @@ void GestionnaireSauvegardeTrajets::ecrireSauvegarde(const ListeChaineeTrajets& 
     }
 
     s.close();
+    return true;
   } else {
     std::cerr << "Impossible d'ouvrir le fichier " << unNomFichier << std::endl;
+    return false;
   }
 
 }
 
-TrajetSimple* GestionnaireSauvegardeTrajets::lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const {
+ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::string unNomFichier)
+{
+  ListeChaineeTrajets* liste = new ListeChaineeTrajets;
+
+  std::ifstream s(unNomFichier);
+  std::string token;
+
+  //Ligne actuellement lue, permet d'indiquer où se trouve le problème dans les
+  //erreurs de formattage.
+  unsigned int ligneAct(1);
+
+  if(s.is_open()) {
+
+    try {
+
+      //Lecture du token
+      while(getline(s, token)) {
+
+        //On lit un TrajetSimple
+        if(token == Token::TS) {
+          liste->ajouter(lireTrajetSimple(s, ligneAct));
+        }
+        //On lit un TrajetCompose
+        else if(token == Token::TC) {
+          liste->ajouter(lireTrajetCompose(s, ligneAct));
+        }
+        //Token inconnu (autre que TS ou TC)
+        else {
+          throw std::string("Token inconnu " + token);
+        }
+
+        ++ligneAct;
+      }
+
+    } catch(const std::string & errMsg) {
+      std::cerr << "Erreur de formattage à la ligne " << ligneAct << ": " << errMsg << std::endl;
+      s.close();
+
+      //On vide la liste
+      liste->effacerEnProfondeur();
+      delete liste;
+      return nullptr;
+    }
+
+  } else {
+    std::cerr << "Impossible d'ouvrir le fichier " << unNomFichier << std::endl;
+    s.close();
+    delete liste;
+    return nullptr;
+  }
+
+  s.close();
+  return liste;
+
+}
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
+
+void GestionnaireSauvegardeTrajets::ecrireTrajet(std::ofstream& s, const Trajet* t) {
+
+  const TrajetSimple* ts = dynamic_cast<const TrajetSimple*>(t);
+  const TrajetCompose* tc = dynamic_cast<const TrajetCompose*>(t);
+
+  if(ts != nullptr)
+  {
+    s << Token::TS << std::endl;
+    s << ts->getVilleDepart() << std::endl;
+    s << ts->getVilleArrivee() << std::endl;
+    s << ts->getTypeTransport() << std::endl;
+  } else if(tc != nullptr) {
+    s << Token::TC << std::endl;
+    s << tc->getTaille() << std::endl;
+
+    MaillonListeChaineeTrajets* maillonAct = tc->getPremierMaillon();
+
+    while(maillonAct != nullptr) {
+      ecrireTrajet(s, maillonAct->getTrajet());
+      maillonAct = maillonAct->getMaillonSuivant();
+    }
+  }
+}
+
+
+TrajetSimple* GestionnaireSauvegardeTrajets::lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) {
 
   std::string villeDepart;
   std::string villeArrivee;
@@ -92,7 +179,7 @@ TrajetSimple* GestionnaireSauvegardeTrajets::lireTrajetSimple(std::ifstream& s, 
   return ts;
 }
 
-TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const {
+TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) {
 
   TrajetCompose* tc = new TrajetCompose;
   std::string nSousTrajetsStr;
@@ -128,7 +215,11 @@ TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s
     //composés dans des trajets composés d'après le cahier des charges
     if(token != Token::TS) {
       delete tc;
-      throw std::string("Token invalide " + token + ", le trajet composé ne peut contenir que des trajets simples.");
+      if(token == Token::TC) {
+        throw std::string("Token invalide " + token + ", le trajet composé ne peut contenir que des trajets simples.");
+      } else {
+        throw std::string("Token invalide " + token + ".");
+      }
     }
 
     TrajetSimple* ts = lireTrajetSimple(s, ligneAct);
@@ -142,102 +233,4 @@ TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s
   }
 
   return tc;
-}
-
-ListeChaineeTrajets & GestionnaireSauvegardeTrajets::lireSauvegarde(ListeChaineeTrajets & liste,const std::string unNomFichier) const
-{
-
-  std::ifstream s(unNomFichier);
-  std::string token;
-
-  //Ligne actuellement lue, permet d'indiquer où se trouve le problème dans les
-  //erreurs de formattage.
-  unsigned int ligneAct(1);
-
-  if(s.is_open()) {
-
-    try {
-
-      //Lecture du token
-      while(getline(s, token)) {
-
-        //On lit un TrajetSimple
-        if(token == Token::TS) {
-          liste.ajouter(lireTrajetSimple(s, ligneAct));
-        }
-        //On lit un TrajetCompose
-        else if(token == Token::TC) {
-          liste.ajouter(lireTrajetCompose(s, ligneAct));
-        }
-        //Token inconnu (autre que TS ou TC)
-        else {
-          throw std::string("Token inconnu " + token);
-        }
-
-        ++ligneAct;
-      }
-
-    } catch(const std::string & errMsg) {
-      std::cerr << "Erreur de formattage à la ligne " << ligneAct << ": " << errMsg << std::endl;
-      s.close();
-
-      //On vide la liste
-      liste.effacerEnProfondeur();
-      return liste;
-    }
-
-  } else {
-    std::cerr << "Impossible d'ouvrir le fichier " << unNomFichier << std::endl;
-  }
-
-  s.close();
-  return liste;
-
-}
-
-//-------------------------------------------- Constructeurs - destructeur
-
-GestionnaireSauvegardeTrajets::GestionnaireSauvegardeTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au constructeur de GestionnaireSauvegardeTrajets" << endl;
-  #endif
-} //----- Fin de GestionnaireSauvegardeTrajets
-
-
-GestionnaireSauvegardeTrajets::~GestionnaireSauvegardeTrajets ( )
-{
-  #ifdef MAP
-  cout << "Appel au destructeur de GestionnaireSauvegardeTrajets" << endl;
-  #endif
-} //----- Fin de ~GestionnaireSauvegardeTrajets
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-void GestionnaireSauvegardeTrajets::ecrireTrajet(std::ofstream& s, const Trajet* t) const {
-
-  const TrajetSimple* ts = dynamic_cast<const TrajetSimple*>(t);
-  const TrajetCompose* tc = dynamic_cast<const TrajetCompose*>(t);
-
-  if(ts != nullptr)
-  {
-    s << Token::TS << std::endl;
-    s << ts->getVilleDepart() << std::endl;
-    s << ts->getVilleArrivee() << std::endl;
-    s << ts->getTypeTransport() << std::endl;
-  } else if(tc != nullptr) {
-    s << Token::TC << std::endl;
-    s << tc->getTaille() << std::endl;
-
-    MaillonListeChaineeTrajets* maillonAct = tc->getPremierMaillon();
-
-    while(maillonAct != nullptr) {
-      ecrireTrajet(s, maillonAct->getTrajet());
-      maillonAct = maillonAct->getMaillonSuivant();
-    }
-  }
-
 }

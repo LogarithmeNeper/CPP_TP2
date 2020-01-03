@@ -42,24 +42,20 @@ public:
   //----------------------------------------------------- Méthodes publiques
 
 
-  void ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier) const;
+  static bool ecrireSauvegarde(const ListeChaineeTrajets& uneListe, const std::string unNomFichier);
 
-  ListeChaineeTrajets & lireSauvegarde(ListeChaineeTrajets & liste,const std::string unNomFichier) const;
-
-  GestionnaireSauvegardeTrajets ( );
-
-  virtual ~GestionnaireSauvegardeTrajets ( );
+  static ListeChaineeTrajets* lireSauvegarde(const std::string unNomFichier);
 
   //------------------------------------------------------------------ PRIVE
 
 protected:
   //----------------------------------------------------- Méthodes protégées
 
-  void ecrireTrajet(std::ofstream& s, const Trajet* t) const;
+  static void ecrireTrajet(std::ofstream& s, const Trajet* t);
 
-  TrajetSimple* lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct) const;
+  static TrajetSimple* lireTrajetSimple(std::ifstream& s, unsigned int & ligneAct);
 
-  TrajetCompose* lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct) const;
+  static TrajetCompose* lireTrajetCompose(std::ifstream& s, unsigned int & ligneAct);
 
   //----------------------------------------------------- Attributs protégés
 
