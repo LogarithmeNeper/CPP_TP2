@@ -64,7 +64,7 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
   std::string token;
 
   //Ligne actuellement lue, permet d'indiquer où se trouve le problème dans les
-  //erreurs de formattage.
+  //erreurs de formatage.
   unsigned int ligneAct(1);
 
   if(s.is_open()) {
@@ -91,7 +91,7 @@ ListeChaineeTrajets* GestionnaireSauvegardeTrajets::lireSauvegarde(const std::st
       }
 
     } catch(const std::string & errMsg) {
-      std::cerr << "Erreur de formattage à la ligne " << ligneAct << ": " << errMsg << std::endl;
+      std::cerr << "Erreur de formatage à la ligne " << ligneAct << ": " << errMsg << std::endl;
       s.close();
 
       //On vide la liste
@@ -223,13 +223,11 @@ TrajetCompose* GestionnaireSauvegardeTrajets::lireTrajetCompose(std::ifstream& s
     }
 
     TrajetSimple* ts = lireTrajetSimple(s, ligneAct);
-    tc->ajouter(ts);
-  }
-
-  //Vérification de la validité du TrajetCompose
-  if(!tc->estValide()) {
-    delete tc;
-    throw std::string("Sous-trajets du TrajetCompose invalides.");
+    
+    if(!tc->ajouter(ts)) {
+      delete tc;
+      throw std::string("Sous-trajets du TrajetCompose invalides.");
+    }
   }
 
   return tc;
