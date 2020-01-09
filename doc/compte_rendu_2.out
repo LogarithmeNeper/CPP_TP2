@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{Nouvelles fonctionnalit\351s}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Gestionnaire de fichiers}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{\311criture et lecture de sauvegardes de trajets}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Gestion du nom des fichiers}{subsection.1.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.1.3}{Convention de formatage des sauvegardes}{subsection.1.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.1.4}{Tokens}{subsection.1.1}% 6
+\BOOKMARK [3][-]{subsubsection.1.1.5}{Attributs d'un TrajetSimple}{subsection.1.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.1.6}{Attributs d'un TrajetCompose}{subsection.1.1}% 8
+\BOOKMARK [3][-]{subsubsection.1.1.7}{Exemple avec le catalogue demo}{subsection.1.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.1.8}{Erreur de formatage}{subsection.1.1}% 10
+\BOOKMARK [2][-]{subsection.1.2}{Filtrage des trajets}{section.1}% 11
+\BOOKMARK [2][-]{subsection.1.3}{Exemple avec le catalogue demo}{section.1}% 12
+\BOOKMARK [2][-]{subsection.1.4}{Int\351gration des deux nouveaux modules}{section.1}% 13
+\BOOKMARK [1][-]{section.2}{Exemple d'utilisation}{}% 14
+\BOOKMARK [2][-]{subsection.2.1}{Importation du fichier demo dans le Catalogue}{section.2}% 15
+\BOOKMARK [1][-]{section.3}{Conclusion}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{Difficult\351s rencontr\351es}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Axes d'\351volution et d'am\351lioration}{section.3}% 18
+\BOOKMARK [1][-]{appendix.A}{Diagramme de classes}{}% 19

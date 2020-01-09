@@ -10,8 +10,6 @@ TEST_SRC_DIR=test
 OBJ_DIR=build
 #Répertoire des exécutables
 BIN_DIR=bin
-#Répertoire de la documentation (compte rendu + diagramme)
-DOC_DIR=doc
 
 PLANTUML_PATH=$(DOC_DIR)/plantuml.jar
 
@@ -54,32 +52,7 @@ $(OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp
 	@mkdir -p build
 	$(COMP) $(FLAGS) -o $@ -c $<
 
-doc:
-	make -B class-diagram
-	make -B memory-diagram
-	make -B graph1-diagram
-	make -B graph2-diagram
-	make -B graph3-diagram
-
-class-diagram: $(DOC_DIR)/class-diagram.pu
-
-memory-diagram: $(DOC_DIR)/memory-diagram.pu
-
-graph1-diagram: $(DOC_DIR)/graph1.pu
-
-graph2-diagram: $(DOC_DIR)/graph2.pu
-
-graph3-diagram: $(DOC_DIR)/graph3.pu
-
-%.pu:
-	java -jar $(PLANTUML_PATH) -tsvg $@
-	java -jar $(PLANTUML_PATH) -tpng $@
-
-$(DOC_DIR)/compte_rendu.tex:
-	./doc/build_latex.sh
-
 clean:
 	rm -rf $(OBJ_DIR)/* $(BIN_DIR)/*
-	rm -rf $(DOC_DIR)/diagram.latex $(DOC_DIR)/diagram.png
 
-.PHONY: clean doc
+.PHONY: clean
