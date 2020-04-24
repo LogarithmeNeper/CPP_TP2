@@ -11,14 +11,17 @@ e-mail               : charles.javerliat@insa-lyon.fr, pierre.sibut-bourde@insa-
 
 //-------------------------------------------------------- Include système
 
-#include <string.h>
 #include <iostream>
+#include <string>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "TrajetSimple.h"
 #include "TrajetCompose.h"
+#include "StringHelper.h"
+#include "GestionnaireSauvegardeTrajets.h"
+#include "FiltreTrajets.h"
 
 // Contrat : Affiche le catalogue dans le terminal
 static void afficherCatalogue(const Catalogue & catalogue)
@@ -37,6 +40,7 @@ static void ajouterTrajetSimple(Catalogue & catalogue)
 
   do
   {
+    delete trajetSimple;
     char villeDepart[100];
     char villeArrivee[100];
     char typeTransport[100];
@@ -284,6 +288,223 @@ static void rechercheTrajetAvancee(Catalogue & catalogue)
   cout << endl << endl << " ==  FIN DE RECHERCHE DE TRAJET AVANCEE == " << endl << endl;
 }
 
+static ListeChaineeTrajets* appliquerFiltre(const ListeChaineeTrajets & liste) {
+
+  ListeChaineeTrajets* listeFiltree = nullptr;
+  unsigned int choix;
+
+  unsigned int typeTrajet;
+
+  string villeDepart;
+  string villeArrivee;
+
+  unsigned int indiceDebut;
+  unsigned int indiceFin;
+
+  cout << endl << "Type de filtre à appliquer" << endl;
+  cout << "\t1 - Aucun filtre" << endl;
+  cout << "\t2 - Filtre sur le type de trajet" << endl;
+  cout << "\t3 - Filtre sur la ville de départ" << endl;
+  cout << "\t4 - Filtre sur la ville d'arrivée" << endl;
+  cout << "\t5 - Filtre sur la ville de départ et d'arrivée" << endl;
+  cout << "\t6 - Filtre sur un intervalle (trajet numéro n à trajet numéro m inclus)" << endl;
+  cout << "\t7 - Quitter" << endl;
+
+  //Prompt de l'action à effectuer pour la sauvegarde
+  do {
+    cout << "Entrez votre choix: ";
+    cin >> choix;
+
+    if(cin.fail() || choix < 1 || choix > 7) {
+      cout << "Choix invalide." << endl;
+      cin.clear();
+    }
+
+    cin.ignore(10000, '\n');
+
+  } while(choix < 1 || choix > 7);
+
+  switch(choix) {
+
+    case 1: {
+      //Simple copie de la liste
+      listeFiltree = new ListeChaineeTrajets;
+
+      MaillonListeChaineeTrajets* maillonAct = liste.getPremierMaillon();
+      while(maillonAct != nullptr) {
+        listeFiltree->ajouter(maillonAct->getTrajet());
+        maillonAct = maillonAct->getMaillonSuivant();
+      }
+      break;
+    }
+
+    case 2: {
+      //Prompt du type de trajet à conserver
+      do {
+        cout << "Type de trajet (1) Simple ou (2) Compose : ";
+        cin >> typeTrajet;
+
+        if(cin.fail() || typeTrajet < 1 || typeTrajet > 2) {
+          cout << "Choix invalide." << endl;
+          cin.clear();
+        }
+
+        cin.ignore(10000, '\n');
+      } while(typeTrajet < 1 || typeTrajet > 2);
+
+      listeFiltree = FiltreTrajets::filtrerParType(liste, typeTrajet == 1 ? TypeTrajet::SIMPLE : TypeTrajet::COMPOSE);
+      break;
+    }
+
+    case 3: {
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin, villeDepart);
+
+      if(cin.fail()) {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+
+      listeFiltree = FiltreTrajets::filtrerParVilleDepart(liste, villeDepart);
+      break;
+    }
+
+    case 4: {
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin, villeArrivee);
+
+      if(cin.fail()) {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+
+      listeFiltree = FiltreTrajets::filtrerParVilleArrivee(liste, villeArrivee);
+      break;
+    }
+
+    case 5: {
+      cout << "Ville de départ : ";
+      cin.clear();
+      getline(cin, villeDepart);
+      if(cin.fail()) {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      cout << "Ville d'arrivée : ";
+      cin.clear();
+      getline(cin, villeArrivee);
+      if(cin.fail()) {
+        cout << "Entrée invalide." << endl;
+        break;
+      }
+      listeFiltree = FiltreTrajets::filtrerParVilleDepartEtArrivee(liste, villeDepart, villeArrivee);
+      break;
+    }
+
+    case 6: {
+      if(!liste.estVide()) {
+
+        do {
+          cout << "Début de l'intervalle (entre 1 et " << liste.getTaille() << ") : ";
+          cin >> indiceDebut;
+
+          if(cin.fail() || indiceDebut < 1 || indiceDebut > liste.getTaille()) {
+            cout << "Choix invalide." << endl;
+            cin.clear();
+          }
+
+          cin.ignore(10000, '\n');
+
+        } while(indiceDebut < 1 || indiceDebut > liste.getTaille());
+
+        indiceDebut--;
+
+        do {
+          cout << "Fin de l'intervalle (entre " << (indiceDebut+1) << " et " << liste.getTaille() << "): ";
+          cin >> indiceFin;
+
+          if(cin.fail() || indiceFin < indiceDebut + 1 || indiceFin > liste.getTaille()) {
+            cout << "Choix invalide." << endl;
+            cin.clear();
+          }
+
+          cin.ignore(10000, '\n');
+
+        } while(indiceFin < indiceDebut + 1 || indiceFin > liste.getTaille());
+
+        indiceFin--;
+
+        listeFiltree = FiltreTrajets::filtrerParIntervalle(liste, indiceDebut, indiceFin);
+      } else {
+        cout << "Liste de trajets vide. Le filtre donne une liste vide.";
+        listeFiltree = new ListeChaineeTrajets;
+      }
+      break;
+    }
+
+    default:
+    break;
+  }
+
+  return listeFiltree;
+}
+
+static void sauvegarde(const Catalogue & catalogue)
+{
+  string nomFichier;
+
+  //Lecture du chemin de sauvegarde
+  cout << endl << "Nom du fichier de sauvegarde : ";
+  cin.clear();
+  getline(cin, nomFichier);
+
+  ListeChaineeTrajets* listeFiltree = appliquerFiltre(catalogue);
+
+  if(GestionnaireSauvegardeTrajets::ecrireSauvegarde(*listeFiltree, nomFichier)) {
+    cout << endl << "Sauvegarde réussie !" << endl << endl;
+  } else {
+    cout << endl << "Erreur de sauvegarde." << endl << endl;
+  }
+
+  delete listeFiltree;
+}
+
+static void lecture(Catalogue & catalogue)
+{
+  string nomFichier;
+
+  cout << endl << "Nom du fichier à lire : ";
+  cin.clear();
+  getline(cin, nomFichier);
+
+  ListeChaineeTrajets* liste = GestionnaireSauvegardeTrajets::lireSauvegarde(nomFichier);
+
+  if(liste != nullptr) {
+
+    ListeChaineeTrajets* listeFiltree = appliquerFiltre(*liste);
+
+    catalogue.ajouterListeTrajets(*listeFiltree);
+    cout << endl << "Chargement réussi !" << endl << endl;
+
+    //Supprime tous les trajets chargés mais qui ne sont finalement pas utilisés
+    MaillonListeChaineeTrajets* maillonAct = liste->getPremierMaillon();
+    while(maillonAct != nullptr) {
+      if(!listeFiltree->contient(maillonAct->getTrajet())) {
+        delete maillonAct->getTrajet();
+      }
+      maillonAct = maillonAct->getMaillonSuivant();
+    }
+
+    delete listeFiltree;
+    delete liste;
+
+  } else {
+    cout << endl << "Erreur de chargement." << endl << endl;
+  }
+}
+
 int main(void)
 {
   //Instance unique du Catalogue sur la pile
@@ -302,21 +523,23 @@ int main(void)
     cout << "\t4 - Supprimer un trajet" << endl;
     cout << "\t5 - Recherche de trajet simple" << endl;
     cout << "\t6 - Recherche de trajet avancée" << endl;
-    cout << "\t7 - Quitter" << endl;
+    cout << "\t7 - Sauvegarde dans un fichier" << endl;
+    cout << "\t8 - Lecture et ajout de trajets depuis un fichier" << endl;
+    cout << "\t9 - Quitter" << endl;
 
     //Prompt de l'action à effectuer sur la Catalogue
     do {
       cout << "Entrez votre choix: ";
       cin >> choix;
 
-      if(cin.fail() || choix < 1 || choix > 7) {
+      if(cin.fail() || choix < 1 || choix > 9) {
         cout << "Choix invalide." << endl;
         cin.clear();
       }
 
       cin.ignore(10000, '\n');
 
-    } while(choix < 1 || choix > 7);
+    } while(choix < 1 || choix > 9);
 
     switch(choix) {
 
@@ -338,11 +561,17 @@ int main(void)
       case 6:
       rechercheTrajetAvancee(catalogue);
       break;
+      case 7:
+      sauvegarde(catalogue);
+      break;
+      case 8:
+      lecture(catalogue);
+      break;
       default:
       break;
     }
 
-  } while(choix != 7);
+  } while(choix != 9);
 
   cout << endl << " === FERMETURE DU PROGRAMME === " << endl;
 

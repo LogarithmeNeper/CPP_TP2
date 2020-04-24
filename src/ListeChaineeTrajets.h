@@ -53,6 +53,20 @@ public:
   // - Met à jour la taille de la liste
   // - Met à jour les relations entre les maillons
 
+  void effacerEnSurface();
+  // Mode d'emploi : Supprime les maillons de la liste sans supprimer son contenu
+  //
+  // Contrat :
+  // - Supprime la zone mémoire allouée aux maillons de la liste
+  // - Ne supprime pas les trajets contenus dans les maillons
+
+  void effacerEnProfondeur();
+  // Mode d'emploi : Supprime les maillons de la liste ainsi que leur contenu
+  //
+  // Contrat :
+  // - Supprime la zone mémoire allouée aux maillons de la liste
+  // - Supprime la zone mémoire allouée aux trajets contenus dans les maillons
+
   MaillonListeChaineeTrajets* get(unsigned int index) const;
   // Mode d'emploi : Retourne le pointeur vers le i_ème maillon de la liste,
   // ou nullptr si il n'existe pas

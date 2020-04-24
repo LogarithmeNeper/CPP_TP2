@@ -1,0 +1,20 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Nouvelles fonctionnalit\IeC {\'e}s}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Gestionnaire de fichiers}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}\IeC {\'E}criture et lecture de sauvegardes de trajets}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Gestion du nom des fichiers}{4}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Convention de formatage des sauvegardes}{4}{subsubsection.1.1.3}
+\contentsline {subsubsection}{\numberline {1.1.4}Tokens}{4}{subsubsection.1.1.4}
+\contentsline {subsubsection}{\numberline {1.1.5}Attributs d'un TrajetSimple}{4}{subsubsection.1.1.5}
+\contentsline {subsubsection}{\numberline {1.1.6}Attributs d'un TrajetCompose}{4}{subsubsection.1.1.6}
+\contentsline {subsubsection}{\numberline {1.1.7}Exemple avec le catalogue demo}{6}{subsubsection.1.1.7}
+\contentsline {subsubsection}{\numberline {1.1.8}Erreur de formatage}{7}{subsubsection.1.1.8}
+\contentsline {subsection}{\numberline {1.2}Filtrage des trajets}{8}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Exemple avec le catalogue demo}{8}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Int\IeC {\'e}gration des deux nouveaux modules}{13}{subsection.1.4}
+\contentsline {section}{\numberline {2}Exemple d'utilisation}{13}{section.2}
+\contentsline {subsection}{\numberline {2.1}Importation du fichier demo dans le Catalogue}{13}{subsection.2.1}
+\contentsline {section}{\numberline {3}Conclusion}{14}{section.3}
+\contentsline {subsection}{\numberline {3.1}Difficult\IeC {\'e}s rencontr\IeC {\'e}es}{14}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Axes d'\IeC {\'e}volution et d'am\IeC {\'e}lioration}{14}{subsection.3.2}
+\contentsline {section}{\numberline {A}Diagramme de classes}{15}{appendix.A}

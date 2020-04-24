@@ -60,6 +60,8 @@ public:
 
   const char* getVilleArrivee() const override;
 
+  const char* getTypeTransport() const;
+
   //-------------------------------------------- Constructeurs - destructeur
 
   TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport );

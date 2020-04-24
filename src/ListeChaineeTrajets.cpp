@@ -104,6 +104,39 @@ bool ListeChaineeTrajets::supprimer(Trajet* unTrajet)
   }
 }
 
+void ListeChaineeTrajets::effacerEnSurface() {
+
+  MaillonListeChaineeTrajets* maillonActuel = premierMaillon;
+  MaillonListeChaineeTrajets* tmp;
+
+  while(maillonActuel != nullptr) {
+    tmp = maillonActuel;
+    maillonActuel = maillonActuel->getMaillonSuivant();
+    delete tmp;
+  }
+
+  premierMaillon = nullptr;
+  dernierMaillon = nullptr;
+  taille = 0;
+}
+
+void ListeChaineeTrajets::effacerEnProfondeur() {
+
+  MaillonListeChaineeTrajets* maillonActuel = premierMaillon;
+  MaillonListeChaineeTrajets* tmp;
+
+  while(maillonActuel != nullptr) {
+    delete maillonActuel->getTrajet();
+    tmp = maillonActuel;
+    maillonActuel = maillonActuel->getMaillonSuivant();
+    delete tmp;
+  }
+
+  premierMaillon = nullptr;
+  dernierMaillon = nullptr;
+  taille = 0;
+}
+
 MaillonListeChaineeTrajets* ListeChaineeTrajets::get(unsigned int index) const
 {
   if(index >= getTaille())
@@ -190,15 +223,7 @@ ListeChaineeTrajets::~ListeChaineeTrajets ( )
   cout << "Appel au destructeur de ListeChaineeTrajets" << endl;
   #endif
 
-  //Supprime les maillons
-  MaillonListeChaineeTrajets* maillonActuel = premierMaillon;
-  MaillonListeChaineeTrajets* tmp;
-
-  while(maillonActuel != nullptr) {
-    tmp = maillonActuel;
-    maillonActuel = maillonActuel->getMaillonSuivant();
-    delete tmp;
-  }
+  effacerEnSurface();
 
 } //----- Fin de ~ListeChaineeTrajets
 

@@ -87,6 +87,11 @@ const char* TrajetSimple::getVilleArrivee() const
   return villeArrivee;
 }
 
+const char* TrajetSimple::getTypeTransport() const
+{
+  return typeTransport;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 
 TrajetSimple::TrajetSimple ( const char* uneVilleDepart, const char* uneVilleArrivee, const char* unTypeTransport ) : Trajet()

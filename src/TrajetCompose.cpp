@@ -178,14 +178,7 @@ TrajetCompose::~TrajetCompose ( )
   cout << "Appel au destructeur de TrajetCompose" << endl;
   #endif
 
-  //Suppression des trajets sur le tas
-  MaillonListeChaineeTrajets* maillonAct = premierMaillon;
-
-  while(maillonAct != nullptr)
-  {
-    delete maillonAct->getTrajet();
-    maillonAct = maillonAct->getMaillonSuivant();
-  }
+  effacerEnProfondeur();
 } //----- Fin de ~TrajetCompose
 
 
